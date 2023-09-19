@@ -1,0 +1,4 @@
+.img-smaller {
+    max-width: 40px; /* Adjust this value to control the maximum width of the image */
+    max-height: 40px; /* Adjust this value to control the maximum height of the image */
+  }

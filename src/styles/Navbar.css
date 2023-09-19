@@ -1,0 +1,155 @@
+
+.Navbar {
+    width: 100%;
+    height: 100px;
+    background-color: #007BB2;
+    display: flex;
+    flex-direction: row; 
+    justify-content: space-between;
+    font-size: 20px;
+  }
+  .Navbar .leftSide {
+    /* flex: 70%; */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 50px;
+  }
+  
+  .Navbar .leftSide img {
+    width: 80px;
+  }
+   
+  .Navbar .profile-section img {
+    width: 40px;
+  }
+  
+  .Navbar .rightSide {
+    /* flex: 30%; */
+    height: 100%;
+    display: flex;
+    color: #fff;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+  }
+
+  .Navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 20px;
+  }
+  
+  .Navbar .rightSide button {
+    background-color: transparent;
+    border: none;
+    /* color: white; */
+    cursor: pointer;
+  }
+  
+  .Navbar .rightSide svg {
+    font-size: 40px;
+  }
+  
+  .Navbar #open {
+    padding-left: 0px;
+  }
+  .Navbar #open img {
+    display: none;
+  }
+  
+  .Navbar #close img {
+    display: inherit;
+  }
+  
+  .Navbar #open .hiddenLinks {
+    display: inherit;
+    margin-left: 30px;
+  }
+  
+  .Navbar #close .hiddenLinks {
+    display: none;
+  }
+  
+  .Navbar #open a {
+    width: 70px;
+    margin: 5px;
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .profile-name {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .profile-dropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    right: 0;
+    top: 60px;
+    display: none;
+  }
+  
+  .profile-dropdown li {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: black;
+  }
+  
+  .profile-dropdown li:hover {
+    background-color: #f0f0f0;
+  }
+  .profile-section:hover .profile-dropdown ul {
+    display: block;
+  }
+
+  @media only screen and (max-width: 900px) {
+    .Navbar .rightSide a {
+      width: 70px;
+    }
+    .Navbar .leftSide {
+      padding-left: 50px;
+    }
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .Navbar .rightSide a {
+      display: none;
+    }
+  
+    .Navbar .rightSide {
+      justify-content: flex-end;
+      padding-right: 50px;
+    }
+  
+    .Navbar .rightSide button {
+      display: inherit;
+    }
+  }
+  
+  @media only screen and (min-width: 600px) {
+    .Navbar .rightSide button {
+      display: none;
+    }
+  
+    .hiddenLinks {
+      display: none;
+    }
+  }
+  
