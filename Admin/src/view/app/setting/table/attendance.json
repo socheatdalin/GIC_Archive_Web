@@ -1,0 +1,56 @@
+[
+  {
+    "no": "1",
+    "first_name": "Kylian",
+    "last_name": "Mbappe",
+    "id": "e201812",
+    "year": "3",
+    "group": "A",
+    "mark": "present"
+  },
+  {
+    "no": "2",
+    "first_name": "Thiago",
+    "last_name": "Messi",
+    "id": "e201813",
+    "year": "3",
+    "group": "A",
+    "mark": "absent"
+  },
+  {
+    "no": "3",
+    "first_name": "Kim",
+    "last_name": "Jennie",
+    "id": "e201814",
+    "year": "3",
+    "group": "A",
+    "mark": "late"
+  },
+  {
+    "no": "4",
+    "first_name": "Jon",
+    "last_name": "Guerriero",
+    "id": "e201815",
+    "year": "3",
+    "group": "A",
+    "mark": "present"
+  },
+  {
+    "no": "5",
+    "first_name": "Marcellus",
+    "last_name": "Wrightam",
+    "id": "e201819",
+    "year": "3",
+    "group": "A",
+    "mark": "present"
+  },
+  {
+    "no": "6",
+    "first_name": "Raven",
+    "last_name": "King",
+    "id": "e201833",
+    "year": "3",
+    "group": "A",
+    "mark": "present"
+  }
+]

@@ -1,0 +1,16 @@
+.service {
+    background-color: aliceblue;
+    padding-bottom: 100px;
+}
+.card {
+    width: 18rem;
+}
+.card img {
+    max-width: 200px; /* Adjust this value to control the maximum width of the image */
+    max-height: 200px; /* Adjust this value to control the maximum height of the image */
+  }
+.project {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}

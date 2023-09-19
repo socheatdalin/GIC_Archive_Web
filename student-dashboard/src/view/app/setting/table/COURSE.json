@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Cloud Computing",
+    "taught_by": "Dr.Valy Dona",
+    "year": 1,
+    "start": 2018,
+    "end": 2019
+  },
+  {
+    "id": 2,
+    "name": "Web Development",
+    "taught_by": "Dr.Chhun Thavarac",
+    "year": 1,
+    "start": 2018,
+    "end": 2019
+  },
+  {
+    "id":3,
+    "name": "Blockchain",
+    "taught_by": "Dr.Sok Kimheng",
+    "year": 1,
+    "start": 2018,
+    "end": 2019
+  },
+  {
+    "id": 4,
+    "name": "Network",
+    "taught_by": "Dr.Chris Brown",
+    "year": 1,
+    "start": 2018,
+    "end": 2019
+  },
+  {
+    "id": 5,
+    "name": "Automation",
+    "taught_by": "Dr.Colt Steels",
+    "year": 1,
+    "start": 2018,
+    "end": 2019
+  },
+  {
+    "id": 6,
+    "name": "Machine Learning",
+    "taught_by": "Dr.Valy Dona",
+    "year": 1,
+    "start": 2018,
+    "end": 2019
+  }
+]

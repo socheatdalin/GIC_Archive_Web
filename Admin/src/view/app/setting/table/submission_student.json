@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "first_name": "Adam",
+    "last_name": "Kornyakov",
+    "gender": "Male",
+    "year": 1,
+    "group": "3XL",
+    "mark": "submited"
+  },
+  {
+    "id": 2,
+    "first_name": "Anya",
+    "last_name": "Tuffrey",
+    "gender": "Female",
+    "year": 4,
+    "group": "XL",
+    "mark": "submited"
+  },
+  {
+    "id": 3,
+    "first_name": "Jasen",
+    "last_name": "Forsdicke",
+    "gender": "Male",
+    "year": 5,
+    "group": "XL",
+    "mark": "not_submited"
+  },
+  {
+    "id": 4,
+    "first_name": "Hardy",
+    "last_name": "Peyzer",
+    "gender": "Male",
+    "year": 1,
+    "group": "XL",
+    "mark": "not_submited"
+  },
+  {
+    "id": 5,
+    "first_name": "Jon",
+    "last_name": "Guerriero",
+    "gender": "Male",
+    "year": 3,
+    "group": "M",
+    "mark": "not_submited"
+  },
+  {
+    "id": 6,
+    "first_name": "Tobie",
+    "last_name": "Gendrich",
+    "gender": "Male",
+    "year": 2,
+    "group": "M",
+    "mark": "submited"
+  },
+  {
+    "id": 7,
+    "first_name": "Roxine",
+    "last_name": "Nulty",
+    "gender": "Female",
+    "year": 2,
+    "group": "XS",
+    "mark": "not_submited"
+  },
+  {
+    "id": 8,
+    "first_name": "Killie",
+    "last_name": "Zipsell",
+    "gender": "Male",
+    "year": 4,
+    "group": "XL",
+    "mark": "not_submited"
+  },
+  {
+    "id": 9,
+    "first_name": "Tarrance",
+    "last_name": "Riccioppo",
+    "gender": "Male",
+    "year": 3,
+    "group": "L",
+    "mark": "not_submited"
+  },
+  {
+    "id": 10,
+    "first_name": "Marcellus",
+    "last_name": "Wrightam",
+    "gender": "Male",
+    "year": 2,
+    "group": "3XL",
+    "mark": "not_submited"
+  }
+]
