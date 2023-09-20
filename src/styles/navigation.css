@@ -1,0 +1,17 @@
+/* navbar.css */
+.active {
+    background-color: white; /* Change the background color for the active link */
+  }
+.nav-link {
+    color: white;
+}
+.nav-link:hover {
+    font-weight: bolder;
+    color: white;
+}
+.navbar .nav-link.active {
+    /* background-color: #007bff; */
+    color: #007BB2;
+    border-radius: 5px;
+  }
+  

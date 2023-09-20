@@ -1,0 +1,10 @@
+/* CSS for the hover effect on dropdown items */
+.dropdown-item:hover {
+    background-color: #007BB2; /* Change this to your desired hover background color */
+    color: white; /* Change this to your desired text color on hover */
+    cursor: pointer; /* Optional: Change cursor style on hover */
+  }
+.dropdown-item {
+  /* text-align: center; */
+}
+  

@@ -6,33 +6,39 @@ import Data from "../assets/data-science.png";
 import { Link } from 'react-router-dom';
 import "../styles/Thesis.css";
 import Navbar from '../components/Navbar';
-
+import Dropdown from '../components/dropdown';
 function Thesis() {
   return (
     <>
     <Navbar />
     <div className='p-5 container'>
-        <div className='  first-part '>
-            <h1>Thesis</h1>
+        <div className=' first-part'>
+            <div className='d-flex flex-row justify-content-between'>
+                <div>
+                    <h1>Thesis</h1>
+                </div>
+                < Dropdown />
+            </div>
+            
             <p className='fs-4'>Everything you need to find in theis statement</p>
         </div>
-        <div className='d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5 '>
-            <div className='Tags shadow border border-secondary border-1 rounded-2 d-flex align-items-center p-2' style={{ width: '100px' }}>
-            <img src={Web} alt="webpage" className="img-fluid img-smaller"  />
-            <span className="ms-2">Web</span>
+        <div className='d-flex flex-row rounded-pill justify-content-start grid gap-0 column-gap-2 my-4'>
+            <div className='Tags d-flex align-items-center justify-content-center p-2' style={{ width: '160px', height: '50px' }}>
+                <img src={Web} alt="webpage" className="img-fluid img-smaller"  />
+                <span className="ms-2">Web</span>
             </div>
-
-            <div className='Tags shadow border border-secondary border-1 rounded-2 d-flex align-items-center p-2' style={{ width: '115px' }}>
+            {/* Tags shadow border border-secondary border-1 rounded-pill d-flex align-items-center justify-content-center p-2 */}
+            <div className='Tags d-flex align-items-center justify-content-center p-2' style={{ width: '160px' , height: '50px' }}>
             <img src={Mobile} alt="webpage" className="img-fluid img-smaller"  />
             <span className="ms-2">Mobile</span>
             </div>
 
-            <div className='Tags shadow border border-secondary border-1 rounded-2 d-flex align-items-center p-2' style={{ width: '125px' }}>
+            <div className='Tags d-flex align-items-center justify-content-center p-2' style={{ width: '160px' , height: '50px' }}>
             <img src={Network} alt="webpage" className="img-fluid img-smaller"  />
             <span className="ms-2">Network</span>
             </div>
 
-            <div className='Tags shadow border border-secondary border-1 rounded-2 d-flex align-items-center p-2' style={{ width: '160px' }}>
+            <div className='Tags d-flex align-items-center justify-content-center p-2' style={{ width: '160px' , height: '50px' }}>
             <img src={Data} alt="webpage" className="img-fluid img-smaller"  />
             <span className="ms-2">Data Science</span>
             </div>
@@ -46,8 +52,8 @@ function Thesis() {
                 alt="network"></img>
                 <div className='information'>
                     <h4>GIC Archive Management System</h4>
-                    <h5>Git hub Link: </h5>
-                    <p className=''> It is a website use to build for store the source code and document before the theis defense </p>
+                    <h6 className='text-primary text-opacity-75'>Git hub Link: </h6>
+                    <p className='text-secondary'> It is a website use to build for store the source code and document before the theis defense </p>
                    
                     <Link to="/thesis/detail"> <button class="btn btn-outline-primary fw-bolder" type="submit">View</button></Link>
                 </div>

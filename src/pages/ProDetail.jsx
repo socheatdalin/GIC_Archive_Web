@@ -2,7 +2,9 @@ import React from "react";
 import Navbar from "../components/Navbar";
 import pic from "../assets/SNA.jpg";
 import Comment from "../components/comment";
-import StarRating from "../components/StarRating";
+// import StarRating from "../components/StarRating";
+import LikeButton from "../components/LikeButton";
+// import Like from "../components/Like";
 function ProDetail() {
   return (
     <>
@@ -11,9 +13,11 @@ function ProDetail() {
         <nav>
           <ol class="breadcrumb fw-bold fs-4">
             <li class="breadcrumb-item">Home</li>
-            <li class="breadcrumb-item active" aria-current="page"><a href="/project/detail">Detail</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+              <a href="/project/detail">Detail</a>
+            </li>
           </ol>
-      </nav>
+        </nav>
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
           <div className="card-body d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5  ">
             <img
@@ -22,6 +26,7 @@ function ProDetail() {
               style={{ width: "350px" }}
               alt="network"
             ></img>
+
             <div className="information">
               <h4>Network Adminstrator</h4>
               <h5>Project name:</h5>
@@ -44,11 +49,11 @@ function ProDetail() {
                 </button>
               </div>
             </div>
+            <LikeButton />
           </div>
 
-
-          <div className="container">
-            <div class="row">
+          <div className="contain">
+            <div class="row ">
               <div class="col-sm-6">
                 <Comment />
               </div>
@@ -58,8 +63,8 @@ function ProDetail() {
                   <hr></hr>
                 </div>
                 <div
-                  className="Tags border border-secondary border-1 rounded-2 d-flex align-items-center p-2"
-                  style={{ width: "100px" }}
+                  className="Tags d-flex align-items-center justify-content-center p-2"
+                  style={{ width: "120px", height: "50px" }}
                 >
                   <img
                     src={pic}
@@ -68,25 +73,14 @@ function ProDetail() {
                   />
                   <span className="ms-2">SNA</span>
                 </div>
-                
 
-              <div className='pt-5'>
-              <h4>Code</h4>
-              <div className="text-success">
-                <hr></hr>
-              </div>
-              <p>https://github.com/SAM-Khema/e-commerce</p>
-            </div>
-
-            <div className='pt-5'>
-              <h4>Feedback</h4>
-              <div className="text-success">
-                <hr></hr>
-              </div>
-              <StarRating />
-            </div>
-                
-                
+                <div className="pt-5">
+                  <h4>Code</h4>
+                  <div className="text-success">
+                    <hr></hr>
+                  </div>
+                  <p>https://github.com/SAM-Khema/e-commerce</p>
+                </div>
               </div>
             </div>
           </div>
