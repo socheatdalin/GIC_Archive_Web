@@ -1,12 +1,4 @@
-import {
-    Center,
-    Flex,
-    Grid,
-    IconButton,
-    InputGroup,
-    VStack,
-    useDisclosure,
-} from '@chakra-ui/react';
+import { Center, Flex, Grid, IconButton, InputGroup, VStack, useDisclosure, } from '@chakra-ui/react';
 import FileViewer from 'react-file-viewer';
 import makeAnimated from 'react-select/animated';
 import { Link } from 'react-router-dom';
@@ -28,19 +20,7 @@ import ModalEdit from '@mui/joy/Modal'
 import ModalDelete from '@mui/joy/Modal'
 import ModalCreate from '@mui/joy/Modal'
 import ModalView from '@mui/joy/Modal'
-import {
-    Box,
-    Button,
-    FormControl,
-    FormLabel,
-    Input,
-    Modal,
-    ModalClose,
-    Option,
-    Select,
-    Sheet,
-    Typography
-} from '@mui/joy';
+import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
 import { Viewer } from '@react-pdf-viewer/core';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
 import { Worker } from '@react-pdf-viewer/core'; // install this library
@@ -74,6 +54,12 @@ function stableSort(array, comparator) {
 
 const headCells = [
     {
+        id: '',
+        numeric: true,
+        disablePadding: false,
+        label: '',
+    },
+    {
         id: 'id',
         numeric: true,
         disablePadding: false,
@@ -98,28 +84,10 @@ const headCells = [
         label: 'Member',
     },
     {
-        id: 'id',
-        numeric: true,
-        disablePadding: false,
-        label: 'Member ID',
-    },
-    {
-        id: 'Type',
+        id: 'github_url',
         numeric: true,
         disablePadding: false,
         label: 'URL',
-    },
-    {
-        id: 'Desc',
-        numeric: false,
-        disablePadding: false,
-        label: 'Description',
-    },
-    {
-        id: 'year',
-        numeric: true,
-        disablePadding: false,
-        label: 'Year',
     },
     {
         id: 'action',
@@ -129,53 +97,6 @@ const headCells = [
     },
 ];
 
-const groups = [
-    { value: 'A', label: 'A' },
-    { value: 'B', label: 'B' },
-    { value: 'C', label: 'C' },
-    { value: 'D', label: 'D' }
-]
-
-const Years = [
-    { value: '1', label: '1' },
-    { value: '2', label: '2' },
-    { value: '3', label: '3' },
-    { value: '4', label: '4' },
-    { value: '5', label: '5' }
-]
-
-const semesters = [
-    { value: '1', label: '1st semester' },
-    { value: '2', label: '2nd semester' },
-]
-
-const dates = [
-    { value: 'Lundi', label: 'Lundi' },
-    { value: 'Mardi', label: 'Mardi' },
-    { value: 'Mercredi', label: 'Mercredi' },
-    { value: 'Jeudi', label: 'Jeudi' },
-    { value: 'Vendredi', label: 'Vendredi' },
-    { value: 'Semedi', label: 'Semedi' }
-]
-
-const times = [
-    { value: '7:00', label: '7:00am' },
-    { value: '8:00', label: '8:00am' },
-    { value: '9:00', label: '9:00am' },
-    { value: '10:00', label: '10:00am' },
-    { value: '11:00', label: '11:00am' },
-    { value: '12:00', label: '12:00pm' },
-    { value: '13:00', label: '01:00pm' },
-    { value: '14:00', label: '02:00pm' },
-    { value: '15:00', label: '03:00pm' },
-    { value: '16:00', label: '04:00pm' },
-    { value: '17:00', label: '05:00pm' },
-]
-
-const types = [
-    { value: 'lesson', label: 'Lesson' },
-    { value: 'TD', label: 'TD' },
-]
 
 function getComparator(order, orderBy) {
     return order === 'desc'
@@ -206,7 +127,7 @@ function EnhancedTableHead(props) {
                     const active = orderBy === headCell.id;
                     return (
                         <th
-                            style={{ textAlign: 'center', backgroundColor: '#23395d', color: 'white' }}
+                            style={{ textAlign: 'center', backgroundColor: '#23395d', color: 'white', width:"100%"}}
                             key={headCell.id}
                             aria-sort={
                                 active
@@ -275,74 +196,39 @@ export default function List() {
     const [openMaterial, setOpenMaterial] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
-    const [duplicate, setDuplicate] = useState(true)
-    const [thesis, setThesis] = React.useState([]);
+    const [project, setproject] = React.useState([]);
+    const [member, setmember] = React.useState([]);
+    const [inputmember, setinputMember] = React.useState([]);
     const [inputID, setInputID] = React.useState('');
     const [openEdit, setOpenEdit] = React.useState(false);
     const [openDelete, setOpenDelete] = React.useState(false);
     const [openView, setOpenView] = React.useState(false);
     const [openCreate, setOpenCreate] = React.useState(false);
     const [inputName, setInputName] = React.useState('');
-    const [inputFrom, setInputFrom] = React.useState('');
-    const [inputTo, setInputTo] = React.useState('');
-    const [inputYear, setInputYear] = React.useState('');
+    const [inputTitle, setInputTitle] = React.useState('');
+    const [inputCourse, setInputCourse] = React.useState('');
     const [inputDesc, setInputDesc] = React.useState('');
-    const [inputSemester, setInputSemester] = React.useState('');
-    const [inputTeacher_id, setInputTeacher_id] = React.useState('');
+    const [inputGit, setInputGit] = React.useState('');
     const [inputType, setInputType] = React.useState('');
     const [ID, setID] = React.useState('')
     const [Name, setName] = React.useState('');
-    const [From, setFrom] = React.useState('');
-    const [To, setTo] = React.useState('');
-    const [Year, setYear] = React.useState('');
     const [Desc, setDesc] = React.useState('');
-    const [Semester, setSemester] = React.useState('');
     const [Teacher_id, setTeacher_id] = React.useState('');
     const [oldID, set_oldID] = React.useState('');
     const [Type, setType] = React.useState('');
     const [id, setid] = React.useState('');
     const [Photo, setPhoto] = React.useState('');
-    const [Group, setGroup] = useState([]);
-    const [Group1, setGroup1] = useState([]);
-    const [Room, setRoom] = React.useState([]);
-    const [StartTime, setStartTime] = React.useState([]);
-    const [EndTime, setEndTime] = React.useState([]);
-    const [Date, setDate] = React.useState([]);
-    const [Schedule_id, setSchedule_id] = React.useState([]);
-    const [toYear, setToYear] = React.useState([]);
-    const [fromYear, setFromYear] = React.useState([]);
     const [deleteID, setDeleteID] = React.useState('');
-    const [inputFromYear1, setFromYear1] = React.useState('');
-    const [inputToYear1, setToYear1] = React.useState('');
-    const [inputYear1, setInputYear1] = React.useState('');
-    const [inputFile, setInputFile] = React.useState('')
-    const [inputRoom1, setInputRoom1] = React.useState('');
-    const [inputStartTime1, setInputStartTime1] = React.useState('');
-    const [inputEndTime1, setInputEndTime1] = React.useState('');
-    const [inputDate1, setInputDate1] = React.useState('');
+    const [inputFile, setInputFile] = React.useState(null);
     const [inputPhoto, setInputPhoto] = React.useState('');
     const [Teacher, setTeacher] = React.useState('');
-    const [Files, setFile] = useState('');
+    const [Files, setFile] = React.useState(null);
 
-    const [viewPdf, setViewPdf] = useState(null);
-    const defaultLayoutPluginInstance = defaultLayoutPlugin();
-
-    const handleInputPhoto = async (e) => {
-        const base64 = await convertToBase64(e.target.files[0]);
-        setInputPhoto(base64)
-    }
-
-    const handlePhoto = async (e) => {
-        const base64 = await convertToBase64(e.target.files[0]);
-        setPhoto(base64)
-    }
     const [length, setLength] = useState([])
     const [index, setIndex] = useState('');
-    const handleDate = async (value, index) => {
-        Date[index] = value
-        setIndex(index)
-        // handleDuplicate(Room[index],StartTime[index],EndTime[index],Date[index],Group[index])
-    }
+    const handleInputMember = async (e) => {
+        setinputMember(e.target.value);
+      };
     const [search1, setSearch1] = useState('');
     const searchValue = (e) => {
         setSearch1(e.target.value)
@@ -351,56 +237,26 @@ export default function List() {
         // console.log(search)
         axios.post("http://localhost:3001/thesis/field", { search: e.target.value }, { withCredentials: true })
             .then((result) => {
-                setThesis(result.data)
+                setproject(result.data)
             })
             .catch(error => console.log(error));
-    }
-
-    function handleConfirm(data) {
-        return (
-            <div style={{ position: 'absolute', top: '100px', left: '100px' }}>
-                <button>{data}</button>
-                <button>no</button>
-            </div>
-        )
-    }
-
-    function handleMaterial(id) {
-        localStorage.setItem('course_id', id)
-        window.location.replace(`/course/${id}/materials`)
     }
 
     const handleSort = (fromYear, toYear, Year) => {
         axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
             .then((result) => {
-                setThesis(result.data.results)
+                setproject(result.data.results)
             })
             .catch(error => console.log(error));
     }
 
-    const handleSelectYear = (e) => {
-        setInputYear1(e)
-        handleSort(inputFromYear1, inputToYear1, e.value)
-    }
-
-    const handleFromYear = (e) => {
-        setFromYear1(e.value)
-        handleSort(e.value, inputFromYear1, inputYear1)
-    }
-
-    const handleToYear = (e) => {
-        setToYear1(e.value)
-        handleSort(inputFromYear1, e.value, inputYear1)
-    }
-
-    const handleSelectSemester = (e) => {
-        setInputSemester(e)
-    }
 
     const handleSelectType = (e) => {
         setInputType(e.value)
     }
-
+    const handleInputGit = (e) =>{
+        setInputGit(e.target.value)
+    }
     const handleInputName = async (e) => {
         setInputName(e.target.value)
     }
@@ -408,17 +264,14 @@ export default function List() {
     const handleInputID = async (e) => {
         setInputID(e.target.value)
     }
-
-    const handleInputFrom = async (e) => {
-        setInputFrom(e.target.value)
+    const handleInputFile = async (e) => {
+        setInputFile(e.target.files[0])
     }
-
-    const handleInputTo = async (e) => {
-        setInputTo(e.target.value)
+    const handleInputTitle = async (e) => {
+        setInputTitle(e.target.value)
     }
-
-    const handleInputTeacher_id = async (e) => {
-        setInputTeacher_id(e.value)
+    const handleInputCourse = async (e) => {
+        setInputCourse(e.target.value)
     }
 
     const handleInputDesc = async (e) => {
@@ -429,55 +282,40 @@ export default function List() {
         setName(e.target.value)
     }
 
-    // const handleRoom1 = async (e) => {
-    //   setRoom1(e.target.value)
-    // }
-
     const handleID = async (e) => {
         setID(e.target.value)
     }
-
-    const handleFrom = async (e) => {
-        setFrom(e.target.value)
-    }
-
-    const handleTo = async (e) => {
-        setTo(e.target.value)
-    }
-
-    const handleSemester = (e) => {
-        setSemester(e)
-    }
-
-    // const handleTeacher_id = async (e) => {
-    //   setTeacher_id(e.target.value)
-    // }
-
-    // const handleType = (e) => {
-    //   setType(e.value)
-    // }
 
     const handleDesc = async (e) => {
         setDesc(e.target.value)
     }
     useEffect(() => {
-        Thesis();
-        // axios.get("http://localhost:3001/thesis/", { thesis_id:id })
-        //     .then((result) => {
-        //         setFile(result.data[0].file)
-        //     })
+
+        team_project();
+        Member();
+        // axios.get('http://localhost:3001/project/member').then((result) => {
+        //     setproject(result.data)
+        //     // console.log(result.data);
+        // })
         //     .catch(error => console.log(error));
 
     }, [])
+    const rows = project;
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('calories');
+    const [selected, setSelected] = React.useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    // const Thesis = async () => {
-    //   axios.get("http://localhost:3001/thesis/all")
-    //   .then((result)=>{
-    //     setThesis(result.data)
-    //     console.log(result.data)
-    //   })
-    //   .catch(error => console.log(error));
-    // }
+    const [, setFilter] = useState({ searchText: '' });
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelected = rows.map((n) => n.name);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
+    };
 
     const [open, setOpen] = React.useState(false);
 
@@ -496,102 +334,6 @@ export default function List() {
         })
     }
 
-    const handleDisplay = async () => {
-
-        const response = await axios.get("http://localhost:3001/thesis/all/");
-        setName(response.data[0].title)
-        setID(response.data[0].id)
-        setTeacher(response.data[0].supervisor_name)
-        setType(response.data[0].field)
-        setFile(response.data[0].file)
-        setInputFile(response.data[0].file)
-        setDesc(response.data[0].descr)
-    }
-
-    const handleView = async (thesis_id) => {
-        await axios.get("http://localhost:3001/thesis/" + thesis_id)
-            .then((result) => {
-                console.log(result.data);
-                setName(result.data[0].student_name)
-                setID(result.data[0].id)
-                setYear(result.data[0].year)
-                setDesc(result.data[0].descr)
-                setType(result.data[0].field)
-                // setPhoto(result.data[0].file)
-                setViewPdf(result.data[0].file)
-                setTeacher(result.data[0].supervisor_name)
-            })
-            .catch(error => console.log(error));
-        setOpenView(true);
-    }
-
-    const handleSubmitEdit = async () => {
-        const response = axios.post("http://localhost:3000/admin/update/course",
-            {
-                course_desc: Desc, course_name: Name, teacher_id: Teacher_id,
-                FromYear: From, semester: Semester, old_id: oldID, new_id: ID,
-                ToYear: To, year: Year, type: Type, photo: Photo
-            },
-            { withCredentials: true })
-        for (var i = 0; i < length; i++) {
-            const response1 = await axios.post("http://localhost:3000/" +
-                "admin/verify/course/schedule",
-                {
-                    room: Room[i], startTime: StartTime[i], endTime: EndTime[i],
-                    date: Date[i]
-                })
-            if (response1.data.results !== 'no') {
-                axios.post("http://localhost:3000/admin/update/course/schedule",
-                    {
-                        id: Schedule_id[i], room: Room[i], startTime: StartTime[i],
-                        endTime: EndTime[i], date: Date[i]
-                    })
-            }
-        }
-        setOpenEdit(false);
-        window.location.replace('/thesis/list')
-    }
-
-    const onDeleteModalOpen = async (id) => {
-        setDeleteID(id)
-        setOpenDelete(true)
-    }
-    const handleSubmit = async () => {
-        axios.post("http://localhost:3000/admin/create/course",
-            {
-                thesis_id: inputID,
-                student_name: inputName,
-                teacher_id: inputTeacher_id,
-                // title: inputTitle
-                FromYear: inputFromYear1,
-                semester: inputSemester.value,
-                ToYear: inputToYear1,
-                year: inputYear.value,
-                desc: inputDesc,
-                type: inputType,
-                photo: inputPhoto
-            },
-            { withCredentials: true })
-            .then((result) => {
-                window.location.replace('/thesis/list')
-            })
-            .catch(error => console.log(error));
-    }
-
-    const handleCreate = async (course_id) => {
-        setid(course_id)
-        setOpenCreate(true);
-    }
-
-    const Thesis = async () => {
-        axios.get("http://localhost:3001/thesis/all")
-            .then((result) => {
-                setThesis(result.data)
-                console.log(result.data);
-            })
-            .catch(error => console.log(error));
-    };
-    const rows = thesis;
 
 
     const handleRequestSort = (event, property) => {
@@ -600,26 +342,89 @@ export default function List() {
         setOrderBy(property);
     };
 
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const handleDisplay = async () => {
 
-    const [, setFilter] = useState({ searchText: '' });
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
+        const response = await axios.get("http://localhost:3001/team_project/all");
+        setName(response.data[0].project_name)
+        setID(response.data[0].id)
+        setDesc(response.data[0].descr)
+    }
+
+    const handleView = async (project_id) => {
+
+        await axios.get("http://localhost:3001/team_project/" + project_id)
+            .then((result) => {
+                console.log(result.data);
+                setID(result.data[0].project_id);
+                setInputTitle(result.data[0].title);
+                setInputDesc(result.data[0].descr);
+                setInputCourse(result.data[0].course_name);
+                setInputFile(result.data[0].filepath);
+            })
+            .catch(error => console.log(error));
+        setOpenView(true);
+    }
+
+    const handleSubmitEdit = async () => {
+
+        setOpenEdit(false);
+        window.location.replace('/project/list')
+    }
+    const Member = async () => {
+        axios.get("http://localhost:3001/project/member")
+            .then((result) => {
+                setmember(result.data)
+                // console.log(result.data);
+            })
+            .catch(error => console.log(error));
+    };
+
+    const handleSubmit = async () => {
+        const formData = new FormData();
+        formData.append('title', inputTitle);
+        formData.append('course_name', inputCourse);
+        formData.append('descr', inputDesc);
+        formData.append('github_url', inputGit)
+        formData.append('file', inputFile);
+
+        console.log(formData.get('file'));
+
+        axios.post("http://localhost:3001/project/create", formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then((result) => {
+                console.log(result);
+                window.location.replace('/home/project/list')
+            })
+            .catch(error => console.log(error));
+    }
+
+    const onDeleteModalOpen = async (id) => {
+        setDeleteID(id)
+        setOpenDelete(true)
+    }
+    const handleCreate = async (course_id) => {
+        setid(course_id)
+        setOpenCreate(true);
+    }
+
+    const team_project = async () => {
+        axios.get("http://localhost:3001/project/all")
+            .then((result) => {
+                setproject(result.data)
+                // console.log(result.data);
+            })
+            .catch(error => console.log(error));
     };
 
     const handleDelete = async () => {
-        axios.get("http://localhost:3000/admin/delete/course/" + deleteID, { withCredentials: true })
+        axios.post("http://localhost:3001/project/delete/" + deleteID)
             .then((result) => {
-                window.location.replace('/thesis/list')
+                console.log("delete success");
+                window.location.replace('/home/project/list')
             })
             .catch(error => console.log(error));
     }
@@ -683,7 +488,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 700,
-                        height: 500,
+                        height: 350,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -700,96 +505,62 @@ export default function List() {
                         }}
                     />
                     <Flex mb="10px" justifyContent="space-between" alignItems="center">
-                        <Typography level="h4">Create Course</Typography>
+                        <Typography level="h4">Create Project</Typography>
                         <Button onClick={handleSubmit} sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} variant="solid">
                             Create
                         </Button>
                     </Flex>
-                    <Grid templateColumns="repeat(4,1fr)  " gap="2">
+                    <Grid templateColumns="repeat(2,1fr)  " gap="2">
                         <VStack spacing="3">
                             <FormControl sx={{ width: '300px' }}>
-                                <FormLabel required>ID</FormLabel>
+                                <FormLabel required>Title</FormLabel>
                                 <Input
-                                    placeholder="Please enter course id"
+                                    placeholder="Please enter title"
+                                    type='text'
+                                    id='username'
+                                    defaultValue=''
                                     variant="outlined"
                                     color="neutral"
-                                    value={inputID}
-                                    onChange={handleInputID}
+                                    onChange={handleInputTitle}
                                 />
-                                <FormLabel required>Name</FormLabel>
+                                <FormLabel required>Course </FormLabel>
                                 <Input
-                                    placeholder="Please enter course name"
+                                    placeholder="Please enter your course"
                                     variant="outlined"
+                                    defaultValue=''
+                                    type='text'
                                     color="neutral"
-                                    value={inputName}
-                                    onChange={handleInputName}
+                                    onChange={handleInputCourse}
                                 />
-                                <FormLabel required>Teacher ID</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleInputTeacher_id}
-                                    placeholder="Teacher"
-                                    defaultValue={[inputTeacher_id[20], inputTeacher_id[20]]}
-                                    options={inputTeacher_id}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>From</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleFromYear}
-                                    placeholder="From Year"
-                                    defaultValue={[fromYear[20], fromYear[20]]}
-                                    options={fromYear}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>To</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleToYear}
-                                    placeholder="To Year"
-                                    defaultValue={[toYear[20], toYear[20]]}
-                                    options={toYear}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>Type</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleSelectType}
-                                    placeholder="Select type"
-                                    defaultValue={[types[5], types[6]]}
-                                    options={types}
-                                ></SELECT_OPTIONS>
+                                <FormLabel required>Git </FormLabel>
+                                <Input
+                                    placeholder="Please enter your course"
+                                    variant="outlined"
+                                    defaultValue=''
+                                    type='url'
+                                    color="neutral"
+                                    onChange={handleInputGit}
+                                />
                             </FormControl>
                         </VStack>
                         <VStack spacing="3" ml="40px">
                             <FormControl sx={{ width: '300px' }}>
-                                <FormLabel required>Year</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleSelectYear}
-                                    placeholder="Select year"
-                                    defaultValue={[Years[5], Years[6]]}
-                                    options={Years}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>Semester</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleSelectSemester}
-                                    placeholder="Select semester"
-                                    defaultValue={[semesters[5], semesters[6]]}
-                                    options={semesters}
-                                >
-                                </SELECT_OPTIONS>
                                 <FormLabel required>Description</FormLabel>
                                 <TextField
                                     multiline
-                                    rows={5}
+                                    rows={3}
                                     placeholder="Type your message here"
                                     variant="outlined"
-                                    defaultValue=''
+                                    defaultValue=""
+                                    value={inputDesc}
                                     onChange={handleInputDesc}
                                     fullWidth
                                     required
                                 />
-                                <Grid sx={{ mt: 10, }}>
-                                    <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handleInputPhoto} />
-                                </Grid>
                             </FormControl>
+                            <Grid sx={{ mt: 10, }}>
+                                <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
+                            </Grid>
                         </VStack>
                     </Grid>
                 </Sheet>
@@ -871,14 +642,6 @@ export default function List() {
                                     value={ID}
                                     onChange={handleID}
                                 />
-                                <FormLabel required>To</FormLabel>
-                                <Input
-                                    placeholder="Please enter course id"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={To}
-                                    onChange={handleTo}
-                                />
                             </FormControl>
                         </VStack>
                         <VStack>
@@ -891,26 +654,13 @@ export default function List() {
                                     value={Name}
                                     onChange={handleName}
                                 />
-                                <FormLabel required>From</FormLabel>
-                                <Input
-                                    placeholder="Please enter course id"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={From}
-                                    onChange={handleFrom}
-                                />
+    
                             </FormControl>
                         </VStack>
                         <VStack>
                             <FormControl sx={{ width: '150px', marginLeft: '-50px', marginBottom: '30px' }}>
                                 <FormLabel required>Year</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleSelectYear}
-                                    placeholder="Select year"
-                                    defaultValue={[{ label: Year, value: Year }]}
-                                    options={Years}
-                                >
-                                </SELECT_OPTIONS>
+
                                 <FormLabel required>Teacher ID</FormLabel>
                                 <Input
                                     placeholder="Please enter teacher ID"
@@ -924,12 +674,6 @@ export default function List() {
                         <VStack>
                             <FormControl sx={{ width: '150px', marginLeft: '-50px' }}>
                                 <FormLabel required>Semester</FormLabel>
-                                <SELECT_OPTIONS
-                                    onChange={handleSemester}
-                                    placeholder="Select semester"
-                                    defaultValue={[{ label: Semester, value: Semester }]}
-                                    options={semesters}
-                                ></SELECT_OPTIONS>
                                 <FormLabel required>Type</FormLabel>
                                 <Input
                                     placeholder="Please enter Type"
@@ -944,7 +688,7 @@ export default function List() {
                     <Grid templateColumns="repeat(1,1fr) " gap="2" style={{ marginLeft: '30px', marginRight: '50px' }}>
                         <FormControl>
                             <Grid mt={-10}>
-                                <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handlePhoto} />
+                                <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='pdfFiles' />
                             </Grid>
                             <FormLabel style={{ marginTop: '-10px' }} required>Description</FormLabel>
                             <TextField
@@ -990,55 +734,56 @@ export default function List() {
                         }}
                     />
                     <Flex mb="10px" justifyContent="space-between" alignItems="center">
-                        <Typography level="h4">Update Course</Typography>
+                        <Typography level="h4">Add member</Typography>
                         <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} variant="solid">
                             Assign
                         </Button>
                     </Flex>
                     <Grid templateColumns="repeat(1,1fr)  " gap="2" sx={{ marginTop: '10px' }}>
-                        <VStack spacing="3">
-                            <FormControl sx={{ width: '250px' }}>
-                                <FormLabel required>Room</FormLabel>
-                                <Input
-                                    placeholder="Please enter room"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={inputRoom1}
-                                // onChange={handleInputRoom1}
-                                />
-                                <FormLabel required>Date</FormLabel>
-                                <SELECT_OPTIONS
-                                    // onChange={handleSelectDate1}
-                                    placeholder="Select date"
-                                    defaultValue={[dates[20], dates[20]]}
-                                    options={dates}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>Start Time</FormLabel>
-                                <SELECT_OPTIONS
-                                    // onChange={handleSelectStartTime1}
-                                    placeholder="Start time"
-                                    defaultValue={[times[20], times[20]]}
-                                    options={times}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>End Time</FormLabel>
-                                <SELECT_OPTIONS
-                                    // onChange={handleSelectEndTime1}
-                                    placeholder="End time"
-                                    defaultValue={[times[20], times[20]]}
-                                    options={times}
-                                >
-                                </SELECT_OPTIONS>
-                                <FormLabel required>Group</FormLabel>
-                                <SELECT_OPTIONS
-                                    // onChange={handleSelectGroup}
-                                    placeholder="Group"
-                                    defaultValue={[groups[20], groups[20]]}
-                                    options={groups}
-                                />
-                            </FormControl>
-                        </VStack>
+                    <VStack spacing="3">
+              <FormControl sx={{ width: '250px' }}>
+                <FormLabel required>Members</FormLabel>
+                <Input
+                  placeholder="Please enter your number of member"
+                  variant="outlined"
+                  color="neutral"
+                  value={inputmember}
+                  onChange={handleInputMember}
+                />
+                <FormLabel required>Member1</FormLabel>
+                <Input
+                  placeholder="Please enter member's name"
+                  variant="outlined"
+                  color="neutral"
+                  value={inputmember}
+                  onChange={handleInputMember}
+                />
+                <FormLabel required>Member2</FormLabel>
+                <Input
+                  placeholder="Please enter member's name"
+                  variant="outlined"
+                  color="neutral"
+                  value={inputmember}
+                  onChange={handleInputMember}
+                />
+                <FormLabel required>Member3</FormLabel>
+                <Input
+                  placeholder="Please enter member's name"
+                  variant="outlined"
+                  color="neutral"
+                  value={inputmember}
+                  onChange={handleInputMember}
+                />
+                <FormLabel required>Member4</FormLabel>
+                <Input
+                  placeholder="Please enter member's name"
+                  variant="outlined"
+                  color="neutral"
+                  value={inputmember}
+                  onChange={handleInputMember}
+                />
+              </FormControl>
+            </VStack>
                     </Grid>
                 </Sheet>
             </ModalCreate>
@@ -1053,8 +798,8 @@ export default function List() {
                 <Sheet
                     variant="outlined"
                     sx={{
-                        width: 660,
-                        height: 700,
+                        width: 600,
+                        height: 600,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -1073,7 +818,7 @@ export default function List() {
                         }}
                     />
                     <Flex mb="10px" justifyContent="space-between" alignItems="center">
-                        <Typography level="h4">Thesis</Typography>
+                        <Typography level="h4">Class Project</Typography>
                         <Typography level="h4">
                             <IconButton
                                 variant="ghost"
@@ -1089,54 +834,24 @@ export default function List() {
                         </Typography>
                     </Flex>
                     <Grid >
-                        {/* <VStack spacing="3">
-                            <span style={{ marginLeft: '50px', marginTop: '10px', width: 250, height: 250, border: '2px  solid #6f2da8 ', borderRadius: '5px', boxShadow: '2px 2px 2px gray' }}>
-                            <iframe style={{height:'100%', width:'100%'}} overflow= "hidden" scrolling="no" frameBorder="none" src={Files}></iframe>
+                        <VStack spacing="3">
+                            <span style={{ marginLeft: '50px', marginTop: '10px', width: 400, height: 250, border: '2px  solid #6f2da8 ', borderRadius: '5px', boxShadow: '2px 2px 2px gray' }}>
+                                <iframe style={{ height: '100%', width: '100%' }} overflow="hidden" scrolling="no" frameBorder="none" src={`http://localhost:3001/static/${inputFile}`}></iframe>
                             </span>
-                        </VStack> */}
-                        <div className='pdf-container'>
-                            {/* show pdf conditionally (if we have one)  */}
-                            {viewPdf && <><Worker workerUrl="https://unpkg.com/pdfjs-dist@2.6.347/build/pdf.worker.min.js">
-                                <Viewer fileUrl={viewPdf}
-                                />
-                            </Worker></>}
-
-                            {/* if we dont have pdf or viewPdf state is null */}
-                            {!viewPdf && <>No pdf file selected</>}
-                        </div>
+                        </VStack>
 
                         <VStack style={{ marginTop: '10px', textAlign: 'left', fontSize: '16px' }}>
-                            <div>
-                                <b><span style={{ marginLeft: '-80px', color: '#517388', fontSize: '20px', textTransform: 'upperCase' }}>{Name}</span></b>
-                            </div>
-                            <div>
-                                <span style={{ marginLeft: '-80px', color: '#23395d' }}>e{ID}</span>
-                            </div>
                             <div style={{ paddingLeft: '30px', width: 330, height: 325, borderRadius: '3px' }}>
                                 <div style={{ marginTop: '10px' }}>
-                                    <span><b>Year  : </b></span>
-                                    <span style={{ marginLeft: '87px', color: '#517388' }}>{Year}</span>
+                                    <span><b>Title : </b></span>
+                                    <span style={{ marginLeft: '87px', color: '#517388' }}>{inputTitle}</span>
                                 </div>
                                 <div style={{ marginTop: '10px' }}>
                                     <span><b>Description : </b></span>
-                                    <span style={{ marginLeft: '50px', color: '#517388' }}>{Desc}</span>
-                                </div>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Academic  : </b></span>
-                                    <span style={{ marginLeft: '48px', color: '#517388' }}>{From}-{To}</span>
-                                </div>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Field   : </b></span>
-                                    <span style={{ marginLeft: '85px', color: '#517388' }}>{Type}</span>
-                                </div>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Supervisor : </b></span>
-                                    <span style={{ marginLeft: '48px', color: '#517388' }}>{Teacher}</span>
+                                    <span style={{ marginLeft: '50px', color: '#517388' }}>{inputDesc}</span>
                                 </div>
                             </div>
-                            {/* <div style={{ position: 'absolute', top: '330px', left: '68px' }}>
-                                {data}
-                            </div> */}
+                           
                         </VStack>
                     </Grid>
                 </Sheet>
@@ -1173,32 +888,9 @@ export default function List() {
                         templateColumns="15vw max-content"
                         gap="4"
                     >
+                        
                         <FormControl sx={{ width: '200px' }}>
-                            <SELECT_OPTIONS
-                                onChange={handleFromYear}
-                                placeholder="From Year"
-                                defaultValue={[fromYear[20], fromYear[20]]}
-                                options={fromYear}
-                            >
-                            </SELECT_OPTIONS>
-                        </FormControl>
-                        <FormControl sx={{ width: '200px' }}>
-                            <SELECT_OPTIONS
-                                onChange={handleToYear}
-                                placeholder="To Year"
-                                defaultValue={[toYear[20], toYear[20]]}
-                                options={toYear}
-                            >
-                            </SELECT_OPTIONS>
-                        </FormControl>
-                        <FormControl sx={{ width: '200px' }}>
-                            <SELECT_OPTIONS
-                                onChange={handleSelectYear}
-                                placeholder="Select Year"
-                                defaultValue={[Years[20], Years[20]]}
-                                options={Years}
-                            >
-                            </SELECT_OPTIONS>
+                            
                         </FormControl>
                         <span>
                             <Input
@@ -1284,7 +976,7 @@ export default function List() {
                                             <td>
                                                 <IconButton
                                                     onClick={() => {
-                                                        handleCreate(row.course_id)
+                                                        handleCreate(row.project_id)
                                                     }}
                                                     size="sm"
                                                     variant="ghost"
@@ -1295,17 +987,15 @@ export default function List() {
                                                     icon={<HiPlusCircle color='#23395d' size="1.3rem" />}
                                                 />
                                             </td>
-                                            <td   >{row.id}</td>
-                                            <td   >{row.student_name}</td>
-                                            <td  >{row.supervisor_name}</td>
-                                            <td  >{row.field}</td>
-                                            <td  >{row.title}</td>
-                                            <td>{row.GITHub_Url}</td>
-                                            <td >{row.year}</td>
+                                            <td>{row.project_id}</td>
+                                            <td>{row.title}</td>
+                                            <td>{row.course_name}</td>
+                                            <td>{row.username}</td>
+                                            <td>{row.github_url}</td>
                                             <td>
                                                 <Center spacing={2} gap="8">
                                                     <IconButton
-                                                        onClick={() => handleView(row.id)}
+                                                        onClick={() => handleView(row.project_id)}
                                                         variant="ghost"
                                                         color="#78909c"
                                                         cursor="pointer"
@@ -1324,13 +1014,13 @@ export default function List() {
                                                         size="sm"
                                                         icon={<HiOutlinePencilAlt color="#03A89E" size="1.3rem" />}
                                                         onClick={() => {
-                                                            handleDisplay(row.course_id, 'edit')
+                                                            handleDisplay(row.project_id, 'edit')
                                                         }
                                                         }
                                                     />
                                                     <IconButton
                                                         onClick={() => {
-                                                            onDeleteModalOpen(row.course_id);
+                                                            onDeleteModalOpen(row.project_id);
                                                         }}
                                                         size="sm"
                                                         variant="ghost"
@@ -1411,6 +1101,6 @@ export default function List() {
                     </Table>
                 </Sheet>
             </Box>
-        </Flex>
+        </Flex >
     );
 }

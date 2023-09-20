@@ -7,7 +7,7 @@ function ThesisDetail() {
   return (
     <>
     <Navbar />
-      <div className='p-5 container'>
+      <div className='p-5 container '>
       <nav>
           <ol class="breadcrumb fw-bold fs-4">
             <li class="breadcrumb-item">Home</li>
@@ -32,27 +32,7 @@ function ThesisDetail() {
                 </div>
                 
           </div>
-          {/* <div className='row'>
-            <div className='col'>
-              <h4>Code</h4>
-              <div className="text-success">
-                <hr></hr>
-              </div>
-              <p>https://github.com/SAM-Khema/e-commerce</p>
-            </div>
-            <div className='col'>
-              <h4>Tags</h4>
-              <div className="text-success">
-                <hr></hr>
-              </div>
-              <div className='Tags border border-success border-1 rounded-2 d-flex align-items-center p-2' style={{ width: '100px' }}>
-                <img src={Web} alt="webpage" className="img-fluid img-smaller"  />
-                <span className="ms-2">Web</span>
-              </div>
-            </div>
-            
-          </div> */}
-          <div className="container">
+          <div className="contain">
             <div class="row">
               <div class="col-sm-6">
                 <Comment />
@@ -63,8 +43,8 @@ function ThesisDetail() {
                   <hr></hr>
                 </div>
                 <div
-                  className="Tags border border-secondary border-1 rounded-2 d-flex align-items-center p-2"
-                  style={{ width: "100px" }}
+                  className="Tags d-flex align-items-center justify-content-center p-2"
+                  style={{ width: "120px", height: "50px" }}
                 >
                   <img
                     src={Web}

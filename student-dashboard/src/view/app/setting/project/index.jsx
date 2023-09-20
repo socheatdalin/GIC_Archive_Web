@@ -11,9 +11,6 @@ export default function Project() {
     <Box>
       <Switch>
         <Route path={`${url}/list`} component={List} />
-        {/* <Route path={`${url}/materials`} component={Material} /> */}
-        {/* <Route path={`${url}/:course_id/materials`} component={Material}/> */}
-        {/* <Route path={`${url}/:course_id/material/:id`} component={MaterialByID} /> */}
       </Switch>
     </Box>
   );

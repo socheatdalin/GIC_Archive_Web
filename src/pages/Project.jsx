@@ -6,34 +6,50 @@ import SE from "../assets/web.png";
 import pic from "../assets/SNA.jpg";
 import "../styles/project.css";
 import star from "../assets/star.png";
-// import ReactModal from "react-modal";
-import Popup from "reactjs-popup";
+import Drop from '../components/drop';
 import "reactjs-popup/dist/index.css";
+import styled from "styled-components";
+import Search from "../components/Search";
+
+const Title = styled.p`
+  font-size: 2rem;
+  color: #eeeeee;
+  letter-spacing: 0.15em;
+  line-height: 2em;
+  text-align : center;
+`;
 
 function Project() {
   //   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
       <Navbar />
-      <div className="p-5 container">
+      <div className="p-5 container ">
+        {/* <div className="first-section">
+        <Title>Expanding Search Box</Title>
+        <Search />
+        </div> */}
         <div className="  first-part ">
-          <h1>All Projects</h1>
+        <div className='d-flex flex-row justify-content-between'>
+                <div>
+                    <h1>Project</h1>
+                </div>
+                < Drop />
+            </div>
           <p className="fs-4">Class Project - Everything you can find here</p>
         </div>
-        <div className="d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5">
-          <div
-            className="newtag  shadow border border-secondary border-1 rounded-2 d-flex align-items-center p-2"
-            style={{ width: "100px" }}
-          >
-            <img src={SNA} alt="webpage" className="img-fluid img-smaller" />
-            <span className="ms-2">SNA</span>
-          </div>
+        <div className="d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-2 my-4">
+              <div className='newTags d-flex align-items-center justify-content-center p-2' style={{ width: '140px', height: '50px' }}>
+                      <img src={SNA} alt="webpage" className="img-fluid img-smaller"  />
+                      <span className="ms-2">SNA</span>
+              </div>
 
-          <div className="newtag shadow border border-secondary border-1 rounded-2 d-flex align-items-center p-2">
-            <img src={SE} alt="webpage" className="img-fluid img-smaller" />
-            <span className="ms-2">SE</span>
-          </div>
+              <div className='newTags d-flex align-items-center justify-content-center p-2' style={{ width: '140px' , height: '50px' }}>
+                  <img src={SE} alt="webpage" className="img-fluid img-smaller"  />
+                  <span className="ms-2">SE</span>
+              </div>  
         </div>
+
         <div className="trending my-5">
           <h2>Trending Projects</h2>
         </div>
@@ -47,8 +63,8 @@ function Project() {
             ></img>
             <div className="information">
               <h4>Network Adminstrator</h4>
-              <h5>Project Name: </h5>
-              <h5>Git hub Link: </h5>
+              <h6 className="">Project Name: </h6>
+              <h6 className="text-primary text-opacity-75">Git hub Link: </h6>
               <p className="">
                 It is overview project in used to explore on the Active
                 directory
@@ -65,26 +81,10 @@ function Project() {
               </Link>
             </div>
             <div>
-              <Popup
-                trigger={
                   <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
                     <img src={star} className=" img-star" alt="pic"></img>
-                    Stars/hours
+                    5, 075
                   </button>
-                }
-                position="right center"
-              >
-                <div>
-                  <img src={star} className=" img-star" alt="pic"></img>{" "}
-                  <img src={star} className=" img-star" alt="pic"></img>
-                  <img src={star} className=" img-star" alt="pic"></img>
-                  <img src={star} className=" img-star" alt="pic"></img>
-                  <img src={star} className=" img-star" alt="pic"></img>{" "}
-                </div>
-                <button className="rounded text-light border border-light-subtle bg-success mt-2 text-center">
-                  Send
-                </button>
-              </Popup>
             </div>
           </div>
         </div>
@@ -100,8 +100,8 @@ function Project() {
 
             <div className="information">
               <h4 className="">Software Engineering</h4>
-              <h5>Project Name: </h5>
-              <h5>Git hub Link: </h5>
+              <h6>Project Name: </h6>
+              <h6 className="text-primary text-opacity-75"> Git hub Link: </h6>
               <p className="">
                 It is overview project in used to explore on the Active
                 directory
@@ -114,29 +114,11 @@ function Project() {
               </Link>
             </div>
 
-            <div className="">
-              <Popup
-                trigger={
+            <div>
                   <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
                     <img src={star} className=" img-star" alt="pic"></img>
-                    Stars/hours
+                    5, 075
                   </button>
-                }
-                position="right center"
-              >
-                <div>
-                  <img src={star} className=" img-star" alt="pic"></img>{" "}
-                  <img src={star} className=" img-star" alt="pic"></img>
-                  <img src={star} className=" img-star" alt="pic"></img>
-                  <img src={star} className=" img-star" alt="pic"></img>
-                  <img src={star} className=" img-star" alt="pic"></img>
-                </div>
-                <div>
-                  <button className="rounded text-light border border-light-subtle bg-success mt-2 ">
-                    Send
-                  </button>
-                </div>
-              </Popup>
             </div>
           </div>
         </div>

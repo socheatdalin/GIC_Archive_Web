@@ -11,7 +11,7 @@ function service() {
 
       <div className="section-title">
         <h2 className='text-center pt-2'>About us</h2>
-        <p className='px-3'>Here are some overview of our class project and theis</p>
+        <p className='px-3 text-center'>Here are some overview of our class project and theis</p>
       </div>
       <div className='project pl-5'>
          <div className="card shadow">

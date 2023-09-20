@@ -52,4 +52,21 @@
 .modal-content {
   text-align: center;
 }
+.newTags {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  padding: 7px 10px 12px;
+  border-radius: 30px;
+  color: #333;
+  font-weight: none;
+  /* font-family: "Lato"; */
+  font-size: 14px;
+}
+
+.first-section {
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  background-color: aqua;
+}
 
