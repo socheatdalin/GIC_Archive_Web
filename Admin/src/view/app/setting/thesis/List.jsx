@@ -333,7 +333,7 @@ export default function List() {
 
     const handleView = async (project_id) => {
 
-        await axios.get("http://localhost:3001/thesis/" + project_id)
+        await axios.get("http://localhost:3001/thesis/all/" + project_id)
             .then((result) => {
                 console.log(result.data);
                 setID(result.data[0].project_id);

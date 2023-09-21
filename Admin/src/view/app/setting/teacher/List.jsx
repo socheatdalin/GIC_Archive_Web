@@ -247,14 +247,10 @@ export default function List() {
     const [ID, setID] = React.useState('');
     const [Photo, setPhoto] = React.useState(null);
     const [searchOpen, setSearchOpen] = useState(false)
-    const [inputFromYear1, setFromYear1] = React.useState('');
-    const [inputToYear1, setToYear1] = React.useState('');
-    const [inputYear, setInputYear] = React.useState('');
+  
     const [openDelete, setOpenDelete] = React.useState(false);
     const [deleteID, setDeleteID] = React.useState('');
     const rows = teacher;
-    const [toYear, setToYear] = React.useState([]);
-    const [fromYear, setFromYear] = React.useState([]);
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);

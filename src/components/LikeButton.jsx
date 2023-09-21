@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {FcLikePlaceholder , FcLike } from 'react-icons/fc';
-import '../styles/LikeButton.css'; // Import the CSS file
 
 class LikeButton extends Component {
   constructor() {

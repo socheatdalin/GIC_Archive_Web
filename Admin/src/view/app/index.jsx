@@ -35,15 +35,9 @@ const Year = DelayImport(import('./setting/year'));
 const Courses = DelayImport(import('./setting/course'));
 const Dashboard = DelayImport(import('./setting/dashboard'));
 const Project = DelayImport(import('./setting/project'));
-// const Timetable = DelayImport(import('./setting/timetable'));
-// const Academic = DelayImport(import('./setting/academic'));
-// const Room = DelayImport(import('./setting/room'));
+
 const Thesis = DelayImport(import('./setting/thesis'));
 
-//Setting
-// const SystemRole = DelayImport(import('./setting/system-role'));
-// const User = DelayImport(import('./setting/user'));
-//Inside
 
 const routeItem = [
   {
@@ -66,14 +60,7 @@ const routeItem = [
     path: '/home/dashboard',
     element: <Dashboard />,
   },
-  // {
-  //   path: '/timetable',
-  //   element: <Timetable />,
-  // },
-  // {
-  //   path: '/academic',
-  //   element: <Academic />,
-  // },
+ 
   {
     path: '/home/thesis',
     element: <Thesis />,
@@ -82,18 +69,7 @@ const routeItem = [
     path: '/home/project',
     element: <Project />,
   },
-  // {
-  //   path: '/room',
-  //   element: <Room />,
-  // },
-  // {
-  //   path: '/system-role',
-  //   element: <SystemRole />,
-  // },
-  // {
-  //   path: '/user',
-  //   element: <User />,
-  // },
+
 ];
 
 const MotionBox = motion(Box);
