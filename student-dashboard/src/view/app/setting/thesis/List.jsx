@@ -31,7 +31,7 @@ import {
   import ModalEdit from '@mui/joy/Modal';
   import ModalDelete from '@mui/joy/Modal';
   // import ModalCreate from '@mui/joy/Modal';
-  import Upload from "./Uploadthesis";
+  // import Upload from "./Uploadthesis";
   import ModalView from '@mui/joy/Modal';
   import {
     Box,
