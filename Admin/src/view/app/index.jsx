@@ -3,22 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { Suspense } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
-
-// const DelayImport = (path) => {
-//   return React.lazy(() => {
-//     return Promise.all([
-//       path,
-//       new Promise((resolve) => setTimeout(resolve, 300)),
-//     ]).then(([moduleExports]) => moduleExports);
-//   });
-// };
 import SplashScreen from '../../components/loader/SplashScreen';
-
-
-// import Student from './setting/student';
-// import Teacher from './setting/teacher';
-// import Course from './setting/course';
-
 const DelayImport = (path) => {
   return React.lazy(() => {
     return Promise.all([
@@ -31,19 +16,12 @@ const DelayImport = (path) => {
 //List
 const Student = DelayImport(import('./setting/student'));
 const Teacher = DelayImport(import('./setting/teacher'));
-const Year = DelayImport(import('./setting/year'));
 const Courses = DelayImport(import('./setting/course'));
 const Dashboard = DelayImport(import('./setting/dashboard'));
 const Project = DelayImport(import('./setting/project'));
-// const Timetable = DelayImport(import('./setting/timetable'));
-// const Academic = DelayImport(import('./setting/academic'));
-// const Room = DelayImport(import('./setting/room'));
+
 const Thesis = DelayImport(import('./setting/thesis'));
 
-//Setting
-// const SystemRole = DelayImport(import('./setting/system-role'));
-// const User = DelayImport(import('./setting/user'));
-//Inside
 
 const routeItem = [
   {
@@ -55,10 +33,6 @@ const routeItem = [
     element: <Teacher />,
   },
   {
-    path: '/home/year',
-    element: <Year />,
-  },
-  {
     path: '/home/course',
     element: <Courses />,
   },
@@ -66,14 +40,7 @@ const routeItem = [
     path: '/home/dashboard',
     element: <Dashboard />,
   },
-  // {
-  //   path: '/timetable',
-  //   element: <Timetable />,
-  // },
-  // {
-  //   path: '/academic',
-  //   element: <Academic />,
-  // },
+ 
   {
     path: '/home/thesis',
     element: <Thesis />,
@@ -82,18 +49,7 @@ const routeItem = [
     path: '/home/project',
     element: <Project />,
   },
-  // {
-  //   path: '/room',
-  //   element: <Room />,
-  // },
-  // {
-  //   path: '/system-role',
-  //   element: <SystemRole />,
-  // },
-  // {
-  //   path: '/user',
-  //   element: <User />,
-  // },
+
 ];
 
 const MotionBox = motion(Box);

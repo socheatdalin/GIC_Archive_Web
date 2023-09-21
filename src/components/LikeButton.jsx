@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {FcLikePlaceholder , FcLike } from 'react-icons/fc';
-// import '../styles/LikeButton.css'; // Import the CSS file
-
 class LikeButton extends Component {
   constructor() {
     super();
@@ -10,7 +8,6 @@ class LikeButton extends Component {
       liked: false,
     };
   }
-
   handleLikeClick = () => {
     this.setState((prevState) => ({
       likes: prevState.liked ? prevState.likes - 1 : prevState.likes + 1,
