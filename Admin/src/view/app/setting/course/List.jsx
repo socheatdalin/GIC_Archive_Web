@@ -191,7 +191,7 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-  const [openMaterial, setOpenMaterial] = useState(false)
+
   const [searchOpen, setSearchOpen] = useState(false)
   // const { onOpen: onDeleteModalOpen } = useDisclosure();
   const [course, setCourse] = React.useState([]);
@@ -221,23 +221,11 @@ export default function List() {
   const [length, setLength] = useState([])
   const [index, setIndex] = useState('')
 
-  const [search1, setSearch1] = useState('');
-  const searchValue = (e) => {
-    setSearch1(e.target.value)
-  }
   const handleSearch = (e) => {
     // console.log(search)
-    axios.post("http://localhost:3000/admin/search/course", { search: e.target.value }, { withCredentials: true })
+    axios.post("http://localhost:3001/search/course", { course_name: inputName})
       .then((result) => {
-        setCourse(result.data.results)
-      })
-      .catch(error => console.log(error));
-  }
-
-  const handleSort = (fromYear, toYear, Year) => {
-    axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-      .then((result) => {
-        setCourse(result.data.results)
+        setCourse(result.data)
       })
       .catch(error => console.log(error));
   }
@@ -670,10 +658,10 @@ export default function List() {
                   '&:hover': { '& svg': { opacity: 1 } },
                   width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
                 }}
-                placeholder="search ..."
+                placeholder="search by course ..."
                 variant="outlined"
                 color="neutral"
-                onChange={handleSearch}
+                onChange={handleInputName}
               />
             </span>
             <Button
