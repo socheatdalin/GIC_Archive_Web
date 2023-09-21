@@ -474,7 +474,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 700,
-                        height: 500,
+                        height: 460,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -511,7 +511,7 @@ export default function List() {
                                 />
                                 <FormLabel required>Student Name</FormLabel>
                                 <Input
-                                    placeholder="Please enter student name "
+                                    placeholder="Please enter student's name "
                                     type='text'
                                     id='username'
                                     defaultValue=''
@@ -521,7 +521,7 @@ export default function List() {
                                 />
                                 <FormLabel required>Supervisor Name</FormLabel>
                                 <Input
-                                    placeholder="Please enter supervisor name "
+                                    placeholder="Please enter supervisor's name "
                                     type='text'
                                     id='teacher_name'
                                     defaultValue=''
@@ -531,7 +531,7 @@ export default function List() {
                                 />
                                 <FormLabel required>Company </FormLabel>
                                 <Input
-                                    placeholder="Please enter your Company"
+                                    placeholder="Please enter your company"
                                     variant="outlined"
                                     defaultValue=''
                                     type='text'
@@ -542,18 +542,19 @@ export default function List() {
                                 <SELECT_OPTIONS
                                     variant="outlined"
                                     color="neutral"
-                                    placeholder="Select  Field"
+                                    placeholder="Select Field"
                                     onChange={handleSelectType}
                                     defaultValue={[Fields[4], Fields[5]]}
                                     options={Fields}
                                 />
+                                
                             </FormControl>
                         </VStack>
                         <VStack spacing="3" ml="40px">
                             <FormControl sx={{ width: '300px' }}>
                                 <FormLabel required>tags</FormLabel>
                                 <Input
-                                    placeholder="Please enter your Company"
+                                    placeholder="Please enter your intro project"
                                     variant="outlined"
                                     defaultValue=''
                                     type='text'
@@ -562,7 +563,7 @@ export default function List() {
                                 />
                                 <FormLabel required>Git</FormLabel>
                                 <Input
-                                    placeholder="Please enter your course"
+                                    placeholder="Please enter your link URL"
                                     variant="outlined"
                                     defaultValue=''
                                     type='url'
@@ -572,7 +573,7 @@ export default function List() {
                                 <FormLabel required>Description</FormLabel>
                                 <TextField
                                     multiline
-                                    rows={5}
+                                    rows={3}
                                     placeholder="Type your message here"
                                     variant="outlined"
                                     defaultValue=""
