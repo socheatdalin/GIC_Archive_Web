@@ -3,22 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React, { Suspense } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar';
-
-// const DelayImport = (path) => {
-//   return React.lazy(() => {
-//     return Promise.all([
-//       path,
-//       new Promise((resolve) => setTimeout(resolve, 300)),
-//     ]).then(([moduleExports]) => moduleExports);
-//   });
-// };
 import SplashScreen from '../../components/loader/SplashScreen';
-
-
-// import Student from './setting/student';
-// import Teacher from './setting/teacher';
-// import Course from './setting/course';
-
 const DelayImport = (path) => {
   return React.lazy(() => {
     return Promise.all([
@@ -31,7 +16,6 @@ const DelayImport = (path) => {
 //List
 const Student = DelayImport(import('./setting/student'));
 const Teacher = DelayImport(import('./setting/teacher'));
-const Year = DelayImport(import('./setting/year'));
 const Courses = DelayImport(import('./setting/course'));
 const Dashboard = DelayImport(import('./setting/dashboard'));
 const Project = DelayImport(import('./setting/project'));
@@ -47,10 +31,6 @@ const routeItem = [
   {
     path: '/home/teacher',
     element: <Teacher />,
-  },
-  {
-    path: '/home/year',
-    element: <Year />,
   },
   {
     path: '/home/course',

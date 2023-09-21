@@ -301,20 +301,20 @@ export default function List() {
 
     const handleSearch = (e) => {
         // console.log(search)
-        axios.post("http://localhost:3001/thesis/field", { search: e.target.value }, { withCredentials: true })
+        axios.post("http://localhost:3001/project/all/bycourse", { course_name: inputCourse })
             .then((result) => {
                 setproject(result.data)
             })
             .catch(error => console.log(error));
     }
 
-    const handleSort = (fromYear, toYear, Year) => {
-        axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-            .then((result) => {
-                setproject(result.data.results)
-            })
-            .catch(error => console.log(error));
-    }
+    // const handleSort = (fromYear, toYear, Year) => {
+    //     axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
+    //         .then((result) => {
+    //             setproject(result.data.results)
+    //         })
+    //         .catch(error => console.log(error));
+    // }
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -819,10 +819,9 @@ export default function List() {
                                     <span><b>Git: </b></span>
                                     <span style={{ marginLeft: '50px', color: '#517388' }}>{inputGit}</span>
                                 </div>
-                                <div style={{ marginTop: '20px' }} >
-                                    <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{backgroundColor:'skyblue' , padding:'10px', borderRadius:'20px'}}>
-                                        {fileName}
-                                    </button>
+                                <div style={{ marginTop: '20px', display: 'flex' }} >
+                                    <div><b>File:</b></div>
+                                    <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '180px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
                                 </div>
                             </div>
 
@@ -872,10 +871,10 @@ export default function List() {
                                     '&:hover': { '& svg': { opacity: 1 } },
                                     width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
                                 }}
-                                placeholder="search ..."
+                                placeholder="search by course..."
                                 variant="outlined"
                                 color="neutral"
-                                onChange={handleSearch}
+                                onChange={handleInputCourse}
                             />
                         </span>
                         <Button
