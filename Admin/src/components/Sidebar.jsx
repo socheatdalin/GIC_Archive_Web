@@ -19,16 +19,13 @@ import {
   ChakraProvider,
 } from '@chakra-ui/react';
 import image from './asssets';
-// import { Box } from '@mui/material';
 import { Box } from '@chakra-ui/react';
 import React, { createContext, useEffect, useState } from 'react';
 import { MenuConstants } from './constants/menu';
 import { useHistory, useLocation } from 'react-router-dom';
-// import { useHistory, useLocation } from 'react-router-dom';
 import { checkIsActive } from './utils/functions';
 import { getCurrentUrl } from './utils/functions';
 import { NavLink as CustomLink } from 'react-router-dom';
-
 import { HiOutlineMenuAlt1, HiSelector } from 'react-icons/hi';
 import { BiUserCircle } from 'react-icons/bi';
 
@@ -38,7 +35,6 @@ export default function Sidebar() {
   const [toggle, setToggle] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const location = useLocation();
-  // const navigate = useNavigate();
   const history = useHistory();
 
   const getMenuItemActive = (url) => {
@@ -163,6 +159,10 @@ export default function Sidebar() {
 }
 
 const UserProfile = () => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
   const navigateToGoogle = () => {
     window.location.href = 'http://localhost:3000/';
   };
@@ -177,7 +177,10 @@ const UserProfile = () => {
             color={mode('gray.600', 'gray.300')}
             px="2"
           >
+<<<<<<< HEAD
             
+=======
+>>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
             <MenuItem rounded="md" onClick={navigateToGoogle}>Logout</MenuItem>
           </MenuList>
         </Menu>
@@ -187,7 +190,6 @@ const UserProfile = () => {
 };
 
 const AccountSwitcherButton = () => {
-  // const { collapse, user } = useContext(SidebarContext);
   const buttonProps = useMenuButton();
 
   return (
@@ -213,13 +215,13 @@ const AccountSwitcherButton = () => {
       <HStack flex="1" spacing="3">
         <>
           {
-            /* user.username ?  */ <>
+             <>
               <Image
                 h="8"
                 w="8"
                 borderRadius="md"
                 objectFit="cover"
-                /*  src={user.photo} */ fallback={
+                fallback={
                   <BiUserCircle size="1.8rem" />
                 }
                 alt=""
@@ -232,12 +234,7 @@ const AccountSwitcherButton = () => {
                   </Box>
                 </Box>
               }
-            </> /*  : (
-						<>
-							<SkeletonCircle size="7" />
-							{!collapse && <Skeleton w="5rem" h="1rem"></Skeleton>}
-						</>
-					) */
+            </> 
           }
         </>
       </HStack>
