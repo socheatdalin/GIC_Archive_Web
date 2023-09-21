@@ -730,38 +730,6 @@ export default function List() {
                                     value={inputmember}
                                     onChange={handleInputMember}
                                 />
-                                <FormLabel required>Member1</FormLabel>
-                                <Input
-                                    placeholder="Please enter member's name"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={inputmember}
-                                    onChange={handleInputMember}
-                                />
-                                <FormLabel required>Member2</FormLabel>
-                                <Input
-                                    placeholder="Please enter member's name"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={inputmember}
-                                    onChange={handleInputMember}
-                                />
-                                <FormLabel required>Member3</FormLabel>
-                                <Input
-                                    placeholder="Please enter member's name"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={inputmember}
-                                    onChange={handleInputMember}
-                                />
-                                <FormLabel required>Member4</FormLabel>
-                                <Input
-                                    placeholder="Please enter member's name"
-                                    variant="outlined"
-                                    color="neutral"
-                                    value={inputmember}
-                                    onChange={handleInputMember}
-                                />
                             </FormControl>
                         </VStack>
                     </Grid>
