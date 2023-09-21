@@ -202,72 +202,6 @@ EnhancedTableHead.propTypes = {
 var countSearch = 0;
 
 export default function List() {
-<<<<<<< HEAD
-    var [student, setStudent] = useState([]);
-    const [open, setOpen] = React.useState(false);
-    const [openEdit, setOpenEdit] = React.useState(false);
-    const [openView, setOpenView] = React.useState(false);
-    const [inputFirstname, setInputFirstName] = React.useState('');
-    const [inputLastname, setInputLastName] = React.useState('');
-    const [inputName, setInputName] = React.useState('');
-    const [inputGender, setInputGender] = React.useState('');
-    const [inputEmail, setInputEmail] = React.useState('');
-    const [inputPassword, setInputPassword] = React.useState('');
-    const [inputGeneration, setInputGeneration] = React.useState('');
-    const [inputID, setInputID] = React.useState('');
-    const [oldID, set_oldID] = React.useState('');
-    const [First_Name, setFirstName] = React.useState('');
-    const [Last_Name, setLastName] = React.useState('');
-    const [Name, setName] = React.useState('');
-    const [Gender, setGender] = React.useState('');
-    const [RoleId, setRoleId] = React.useState('');
-    const [Email, setEmail] = React.useState('');
-    const [Generation1, setGeneration1] = React.useState('');
-    const [ID, setID] = React.useState('');
-    const [Password, setPassword] = React.useState('old');
-    const [Photo, setPhoto] = React.useState('');
-    const [inputPhoto, setInputPhoto] = React.useState('');
-
-    const [openDelete, setOpenDelete] = React.useState(false);
-    const [deleteID, setDeleteID] = React.useState('');
-    const handleCloseDelete = () => {
-        setOpenDelete(false);
-    };
-    const rows = student;
-
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    const [, setFilter] = useState({ searchText: '' });
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
-    };
-    const onDeleteModalOpen = async (teacher_id) => {
-        setDeleteID(teacher_id);
-        setOpenDelete(true);
-    };
-    const handleDelete = async () => {
-        axios
-            .post('http://localhost:3001/student/delete/' + deleteID)
-            .then((result) => {
-                window.location.replace('/home/student/list');
-            })
-            .catch((error) => console.log(error));
-    };
-
-    useEffect(() => {
-        students();
-    }, []);
-
-=======
   var [student, setStudent] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [openEdit, setOpenEdit] = React.useState(false);
@@ -313,22 +247,11 @@ export default function List() {
       })
       .catch((error) => console.log(error));
   };
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
 
   useEffect(() => {
     students();
   }, []);
 
-<<<<<<< HEAD
-    const handleSelectGeneration = (e) => {
-        setInputGeneration(e);
-        // handleSort(inputGeneration, e.value);
-    };
-
-    const handleInputPhoto = async (e) => {
-        setInputPhoto(e.target.files[0]);
-    };
-=======
   const handleSelectGender = async (event) => {
     setInputGender(event);
   };
@@ -340,7 +263,6 @@ export default function List() {
   const handleInputPhoto = async (e) => {
     setInputPhoto(e.target.files[0]);
   };
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
 
   const handleInputName = async (e) => {
     setInputName(e.target.value);
@@ -442,63 +364,6 @@ export default function List() {
     setOpenView(true);
   };
 
-<<<<<<< HEAD
-    const handleEdit = async (student_id) => {
-        await axios
-            .get('http://localhost:3001/displayOne/student/' + student_id)
-            .then((result) => {
-                setEmail(result.data[0].email);
-                setName(result.data[0].name);
-                setRoleId(result.data[0].role_id);
-                set_oldID(result.data[0].id);
-                setGender(result.data[0].gender);
-                setGeneration1(result.data[0].generation);
-                setPhoto(result.data[0].photo);
-            })
-            .catch((error) => console.log(error));
-        setOpenEdit(true);
-    };
-    const handleSearch = (e) => {
-        axios.post(
-            'http://localhost:3001/student/all/generation', { generation: inputGeneration.value },
-        )
-            .then((result) => {
-                setStudent(result.data);
-            })
-            .catch((error) => console.log(error));
-    };
-    const handleSubmitEdit = async () => {
-        await axios
-            .post('http://localhost:3001/student/update/', {
-                first_name: First_Name,
-                last_name: Last_Name,
-                username: Name,
-                email: Email,
-                student_id: oldID,
-                role_id: RoleId,
-                password: Password,
-                generations: Generation1,
-                photo: Photo,
-            })
-            .then((result) => {
-                console.log(Photo);
-                setOpenEdit(false);
-                window.location.replace('/home/student/list');
-            })
-            .catch((error) => console.log(error));
-    };
-
-    const students = async () => {
-        axios
-            .get('http://localhost:3001/student/all')
-            .then((result) => {
-                setStudent(result.data);
-                // console.log(result.data.results)
-            })
-            .catch((error) => console.log(error));
-    };
-
-=======
   const handleEdit = async (student_id) => {
     await axios
       .get('http://localhost:3001/displayOne/student/' + student_id)
@@ -562,7 +427,6 @@ export default function List() {
     }
     setSelected([]);
   };
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -581,24 +445,6 @@ export default function List() {
       );
     }
 
-<<<<<<< HEAD
-        setSelected(newSelected);
-    };
-    // const handleSort = (Generation, group) => {
-    //     axios
-    //         .post('http://localhost:3000/admin/sort/student', {
-    //             Generation: Generation,
-    //             // grooup: grooup,
-    //         })
-    //         .then((result) => {
-    //             setStudent(result.data.results);
-    //         })
-    //         .catch((error) => console.log(error));
-    // };
-    const handleChangePage = (newPage) => {
-        setPage(newPage);
-    };
-=======
     setSelected(newSelected);
   };
 
@@ -630,7 +476,6 @@ export default function List() {
   const handleChangePage = (newPage) => {
     setPage(newPage);
   };
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
 
   const handleChangeRowsPerPage = (event, newValue) => {
     setRowsPerPage(parseInt(newValue.toString(), 10));
@@ -646,103 +491,6 @@ export default function List() {
       : Math.min(rows.length, (page + 1) * rowsPerPage);
   };
 
-<<<<<<< HEAD
-    const isSelected = (name) => selected.indexOf(name) !== -1;
-    const [searchOpen, setSearchOpen] = useState(false);
-    return (
-        <Flex flexDir="column" bg="white" borderRadius="10px" h="full">
-            {/* Popup */}
-            <Box>
-                <Modal
-                    aria-labelledby="modal-title"
-                    aria-describedby="modal-desc"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Sheet
-                        variant="outlined"
-                        sx={{
-                            width: 750,
-                            height: 440,
-                            borderRadius: 'md',
-                            p: 3,
-                            boxShadow: 'lg',
-                        }}
-                    >
-                        <ModalClose
-                            variant="outlined"
-                            sx={{
-                                top: 'calc(-1/4 * var(--IconButton-size))',
-                                right: 'calc(-1/4 * var(--IconButton-size))',
-                                boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
-                                borderRadius: '50%',
-                                bgcolor: 'background.body',
-                            }}
-                        />
-                        <Flex mb="10px" justifyContent="space-between" alignItems="center">
-                            <Typography level="h4">Create Student</Typography>
-                            <Button
-                                onClick={handleSubmit}
-                                sx={{ mr: '10px', backgroundColor: '#23395d', color: 'white' }}
-                                variant="solid"
-                            >
-                                Create
-                            </Button>
-                        </Flex>
-                        <Grid templateColumns="repeat(3,1fr)  " gap="2">
-                            <VStack spacing="3">
-                                <FormControl sx={{ width: '300px' }}>
-                                    <FormLabel required>First-Name</FormLabel>
-                                    <Input
-                                        placeholder="Please enter firstname"
-                                        variant="outlined"
-                                        color="neutral"
-                                        value={inputFirstname}
-                                        onChange={handleInputFirstName}
-                                    />
-                                    <FormLabel required>Last-Name</FormLabel>
-                                    <Input
-                                        placeholder="Please enter lastname"
-                                        variant="outlined"
-                                        color="neutral"
-                                        value={inputLastname}
-                                        onChange={handleInputLastName}
-                                    />
-                                    <FormLabel required>Username</FormLabel>
-                                    <Input
-                                        placeholder="Please enter name"
-                                        variant="outlined"
-                                        color="neutral"
-                                        value={inputName}
-                                        onChange={handleInputName}
-                                    />
-                                    <FormLabel required>Gender</FormLabel>
-                                    <SELECT_OPTIONS
-                                        variant="outlined"
-                                        color="neutral"
-                                        placeholder="Select gender"
-                                        onChange={handleSelectGender}
-                                        defaultValue={[gender[6], gender[6]]}
-                                        options={gender}
-                                    />
-                                    <FormLabel required>Email</FormLabel>
-                                    <Input
-                                        placeholder="Please enter email"
-                                        variant="outlined"
-                                        color="neutral"
-                                        value={inputEmail}
-                                        onChange={handleInputEmail}
-                                    />
-                                </FormControl>
-                            </VStack>
-                            <VStack spacing="3" ml="40px">
-                                <FormControl sx={{ width: '300px' }}>
-=======
   const isSelected = (name) => selected.indexOf(name) !== -1;
   const [searchOpen, setSearchOpen] = useState(false);
   return (
@@ -850,7 +598,6 @@ export default function List() {
                     }
                     onChange={handleInputPassword}
                   />
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
 
                   <FormLabel required>Genertion</FormLabel>
                   <SELECT_OPTIONS
@@ -1004,222 +751,10 @@ export default function List() {
                     defaultValue={[generations[10], generations[10]]}
                     options={generations}
                   ></SELECT_OPTIONS>
-                  {/* <Grid sx={{ mt: 10 }}>
-                                        <input
-                                            style={{
-                                                marginTop: '20px',
-                                                marginBottom: '20px',
-                                                marginLeft: '3px',
-                                            }}
-                                            type="file"
-
-                                        />
-<<<<<<< HEAD
-                                    </Grid>
-                                </FormControl>
-                            </VStack>
-                        </Grid>
-                    </Sheet>
-                </ModalEdit>
-            </Box>
-
-            <Box>
-                <ModalView
-                    aria-labelledby="modal-title"
-                    aria-describedby="modal-desc"
-                    open={openView}
-                    onClose={() => setOpenView(false)}
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Sheet
-                        variant="outlined"
-                        sx={{
-                            width: 600,
-                            height: 350,
-                            margiTop: -30,
-                            borderRadius: 'md',
-                            p: 3,
-                            boxShadow: 'lg',
-                            bgcolor: 'white',
-                        }}
-                    >
-                        <ModalClose
-                            variant="outlined"
-                            sx={{
-                                top: 'calc(-1/4 * var(--IconButton-size))',
-                                right: 'calc(-1/4 * var(--IconButton-size))',
-                                boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
-                                borderRadius: '50%',
-                                bgcolor: '#23395d',
-                                color: 'white',
-                            }}
-                        />
-                        <Flex mb="10px" justifyContent="space-between" alignItems="center">
-                            <Typography level="h4">View Student</Typography>
-                        </Flex>
-                        <Grid templateColumns="repeat(2,1fr)  " gap="1">
-                            <VStack spacing="1">
-                                <span style={{ marginLeft: '50px', marginTop: '20px', width: 200, height: 200, border: '1px  solid #23395d', borderRadius: '3px', }}>
-                                    <img style={{ width: '100%', height: '100%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
-                                </span>
-                            </VStack>
-                            <VStack>
-                                <div style={{ paddingLeft: '40px', paddingTop: '40px', width: 320, height: 240, borderRadius: '3px' }}>
-                                    <div style={{ marginTop: '10px' }}>
-                                        <span><b>Name : </b></span>
-                                        <span style={{ marginLeft: '33px', color: '#517388' }}>{Name}</span>
-                                    </div>
-                                    <div style={{ marginTop: '10px' }}>
-                                        <span><b>ID  : </b></span>
-                                        <span style={{ marginLeft: '68px', color: '#517388' }}>{ID}</span>
-                                    </div>
-                                    <div style={{ marginTop: '10px' }}>
-                                        <span><b>Gender : </b></span>
-                                        <span style={{ marginLeft: '33px', color: '#517388' }}>{Gender}</span>
-                                    </div>
-                                    <div style={{ marginTop: '10px' }}>
-                                        <span><b>Email  : </b></span>
-                                        <span style={{ marginLeft: '48px', color: '#517388' }}>{Email}</span>
-                                    </div>
-                                </div>
-                            </VStack>
-                        </Grid>
-                    </Sheet>
-                </ModalView>
-            </Box>
-
-            <ModalDelete
-                aria-labelledby="modal-title"
-                aria-describedby="modal-desc"
-                open={openDelete}
-                onClose={() => setOpenDelete(false)}
-                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-            >
-                <Sheet
-                    variant="outlined"
-                    sx={{
-                        width: 350,
-                        height: 170,
-                        borderRadius: 'md',
-                        p: 3,
-                        boxShadow: 'lg',
-                        marginTop: '-100',
-                    }}
-                >
-                    <Flex
-                        style={{
-                            marginTop: '20px',
-                            justifyContent: 'space-between',
-                            textAlign: 'center',
-                            margin: 'auto',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <p> Are you sure you want to delete this student?</p>
-                    </Flex>
-                    <div
-                        style={{
-                            justifyConten: 'space-between',
-                            textAlign: 'center',
-                            alignItems: 'center',
-                        }}
-                    >
-                        <Button
-                            sx={{
-                                mr: '10px',
-                                mt: '20px',
-                                backgroundColor: '#CD3700',
-                                color: 'white',
-                            }}
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </Button>
-                        <Button
-                            sx={{
-                                mr: '10px',
-                                mt: '20px',
-                                backgroundColor: '#23395d',
-                                color: 'white',
-                            }}
-                            onClick={handleCloseDelete}
-                            variant="solid"
-                        >
-                            Cancel
-                        </Button>
-                    </div>
-                </Sheet>
-            </ModalDelete>
-
-            <Grid
-                as="form"
-                templateColumns="auto max-content"
-                p="3"
-                mb="3"
-                boxShadow="sm"
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    const formData = new FormData(e.target);
-                    const formProps = Object.fromEntries(formData);
-                    setFilter((prev) => ({
-                        ...prev,
-                        searchText: formProps.searchText,
-                    }));
-                }}
-            >
-                <Box
-                    borderRadius="8px"
-                    mt="10px"
-                    h="60px"
-                    display="flex"
-                    flexDir="row"
-                    justifyContent="space-between"
-                >
-                    <Flex
-                        width="100%"
-                        ml="10px"
-                        variant="standard"
-                        templateColumns="15vw max-content"
-                        gap="4"
-                    >
-                        <FormControl sx={{ width: '200px', left: '910px', position: "absolute", transition: 'width 3s' }}>
-                            <SELECT_OPTIONS
-                                onChange={handleSelectGeneration}
-                                placeholder="Select Year"
-                                defaultValue={[generations[20], generations[20]]}
-                                options={generations}
-                            ></SELECT_OPTIONS>
-                        </FormControl>
-                        <Button
-                            onClick={() =>
-                                handleSearch()
-                            }
-                            style={{ backgroundColor: '#23395d' }}
-                            sx={{ position: 'absolute', right: '105px' }}
-                            variant="solid"
-                        >
-                            <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
-                        </Button>
-                    </Flex>
-                    <Grid h="42px" mr="10px">
-                        <Button
-                            sx={{ width: '75px', backgroundColor: '#23395d' }}
-                            variant="solid"
-                            onClick={() => setOpen(true)}
-                        >
-                            Add
-                        </Button>
-                    </Grid>
-                </Box>
-=======
-                                    </Grid> */}
+              
                 </FormControl>
               </VStack>
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
+
             </Grid>
           </Sheet>
         </ModalEdit>
@@ -1393,113 +928,7 @@ export default function List() {
         </Sheet>
       </ModalDelete>
 
-<<<<<<< HEAD
-                                                    <IconButton
-                                                        variant="ghost"
-                                                        cursor="pointer"
-                                                        color="#78909c"
-                                                        border="none"
-                                                        bg="none"
-                                                        size="sm"
-                                                        icon={
-                                                            <HiOutlinePencilAlt
-                                                                color="#03A89E"
-                                                                size="1.3rem"
-                                                            />
-                                                        }
-                                                        onClick={() => {
-                                                            handleEdit(row.id);
-                                                        }}
-                                                    />
-                                                    <IconButton
-                                                        onClick={() => {
-                                                            onDeleteModalOpen(row.student_id);
-                                                        }}
-                                                        size="sm"
-                                                        variant="ghost"
-                                                        cursor="pointer"
-                                                        border="none"
-                                                        bg="none"
-                                                        color="#78909c"
-                                                        icon={
-                                                            <HiOutlineTrash color="#CD3700" size="1.3rem" />
-                                                        }
-                                                    />
-                                                </Center>
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colSpan={7}>
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            gap: 2,
-                                            justifyContent: 'flex-end',
-                                        }}
-                                    >
-                                        <FormControl orientation="horizontal" size="sm">
-                                            <FormLabel>Rows per page:</FormLabel>
-                                            <Select
-                                                onChange={handleChangeRowsPerPage}
-                                                value={rowsPerPage}
-                                            >
-                                                <Option value={5}>5</Option>
-                                                <Option value={10}>10</Option>
-                                                <Option value={25}>25</Option>
-                                            </Select>
-                                        </FormControl>
-                                        <Typography
-                                            textAlign="center"
-                                            fontSize="12px"
-                                            sx={{ minWidth: 80 }}
-                                        >
-                                            {labelDisplayedRows({
-                                                from: rows.length === 0 ? 0 : page * rowsPerPage + 1,
-                                                to: getLabelDisplayedRowsTo(),
-                                                count: rows.length === -1 ? -1 : rows.length,
-                                            })}
-                                        </Typography>
-                                        <Box sx={{ display: 'flex', gap: 1 }}>
-                                            <IconButton
-                                                size="sm"
-                                                color="neutral"
-                                                variant="outlined"
-                                                disabled={page === 0}
-                                                onClick={() => handleChangePage(page - 1)}
-                                                sx={{ bgcolor: 'background.surface' }}
-                                            >
-                                                <KeyboardArrowLeftIcon />
-                                            </IconButton>
-                                            <IconButton
-                                                size="sm"
-                                                color="neutral"
-                                                variant="outlined"
-                                                disabled={
-                                                    rows.length !== -1
-                                                        ? page >= Math.ceil(rows.length / rowsPerPage) - 1
-                                                        : false
-                                                }
-                                                onClick={() => handleChangePage(page + 1)}
-                                                sx={{ bgcolor: 'background.surface' }}
-                                            >
-                                                <KeyboardArrowRightIcon />
-                                            </IconButton>
-                                        </Box>
-                                    </Box>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </Table>
-                </Sheet>
-            </Box>
-        </Flex >
-    );
-=======
+
       <Grid
         as="form"
         templateColumns="auto max-content"
@@ -1747,5 +1176,6 @@ export default function List() {
       </Box>
     </Flex>
   );
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
+
 }
+

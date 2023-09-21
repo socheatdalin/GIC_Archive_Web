@@ -159,10 +159,7 @@ export default function Sidebar() {
 }
 
 const UserProfile = () => {
-<<<<<<< HEAD
-=======
 
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
   const navigateToGoogle = () => {
     window.location.href = 'http://localhost:3000/';
   };
@@ -177,10 +174,6 @@ const UserProfile = () => {
             color={mode('gray.600', 'gray.300')}
             px="2"
           >
-<<<<<<< HEAD
-            
-=======
->>>>>>> ecb8ee61730ab3a0634844272ba97c6c849c6fe3
             <MenuItem rounded="md" onClick={navigateToGoogle}>Logout</MenuItem>
           </MenuList>
         </Menu>
