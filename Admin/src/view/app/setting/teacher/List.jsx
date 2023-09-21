@@ -541,7 +541,7 @@ export default function List() {
                         variant="outlined"
                         sx={{
                             width: 700,
-                            height: 400,
+                            height: 380,
                             borderRadius: 'md',
                             p: 3,
                             boxShadow: 'lg',
@@ -786,7 +786,7 @@ export default function List() {
                         </Flex>
                         <Grid templateColumns="repeat(2,1fr)  " gap="1">
                             <VStack spacing="1">
-                                <span style={{ marginLeft: '70px', marginTop: '40px', width: 150, height: 150, border: '1px  solid #23395d', borderRadius: '3px', }}>
+                                <span style={{ marginLeft: '70px', marginTop: '40px', width: 200, height: 200, border: '1px  solid #23395d', borderRadius: '3px', }}>
                                     <img style={{ width: '100%', height: '100%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
                                 </span>
                             </VStack>
@@ -866,7 +866,6 @@ export default function List() {
                             style={{ backgroundColor: '#23395d' }}
                             sx={{ position: 'absolute', right: '105px' }}
                             variant="solid"
-                        // onClick={() => history.push(`${parentUrl}/add`)}
                         >
                             <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
                         </Button>

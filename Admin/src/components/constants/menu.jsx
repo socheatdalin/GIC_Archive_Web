@@ -10,12 +10,6 @@ export const MenuConstants = [
         icon: <BiMedal />,
       },
       {
-        id: 'years',
-        name: 'Year',
-        path: '/home/year',
-        icon: <BiCalendar />,
-      },
-      {
         id: 'course',
         name: 'Courses',
         path: '/home/course/list',
@@ -36,7 +30,7 @@ export const MenuConstants = [
     ],
   },
   {
-    name: 'SETTING',
+    name: 'USER',
     item: [
       {
         id: 'teachers',

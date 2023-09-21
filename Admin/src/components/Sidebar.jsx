@@ -163,8 +163,6 @@ export default function Sidebar() {
 }
 
 const UserProfile = () => {
-  // const history = useHistory();
-  // const { collapse, logout } = useContext(SidebarContext);
   const navigateToGoogle = () => {
     window.location.href = 'http://localhost:3000/';
   };
@@ -179,17 +177,8 @@ const UserProfile = () => {
             color={mode('gray.600', 'gray.300')}
             px="2"
           >
-            {/* <MenuItem
-              rounded="md"
-              onClick={() => {
-                history.push('/change-password');
-              }}
-            >
-              Change Password
-            </MenuItem> */}
-            {/* <CustomLink to='/login'> */}
+            
             <MenuItem rounded="md" onClick={navigateToGoogle}>Logout</MenuItem>
-            {/* </CustomLink> */}
           </MenuList>
         </Menu>
       </HStack>

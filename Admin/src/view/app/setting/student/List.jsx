@@ -223,13 +223,9 @@ export default function List() {
     const [inputLastname, setInputLastName] = React.useState('');
     const [inputName, setInputName] = React.useState('');
     const [inputGender, setInputGender] = React.useState('');
-    // const [inputAddress, setInputAddress] = React.useState('');
     const [inputEmail, setInputEmail] = React.useState('');
-    // const [inputPhone, setInputPhone] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
-
     const [inputGeneration, setInputGeneration] = React.useState('');
-    // const [inputGroup, setInputGroup] = React.useState('');
     const [inputID, setInputID] = React.useState('');
     const [oldID, set_oldID] = React.useState('');
     const [First_Name, setFirstName] = React.useState('');
@@ -249,7 +245,23 @@ export default function List() {
     const handleCloseDelete = () => {
         setOpenDelete(false);
     };
+    const rows = student;
 
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('calories');
+    const [selected, setSelected] = React.useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const [, setFilter] = useState({ searchText: '' });
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelected = rows.map((n) => n.name);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
+    };
     const onDeleteModalOpen = async (teacher_id) => {
         setDeleteID(teacher_id);
         setOpenDelete(true);
@@ -266,10 +278,7 @@ export default function List() {
     useEffect(() => {
         students();
     }, []);
-    const handlePhoto = async (e) => {
-        const base64 = await convertToBase64(e.target.files[0]);
-        setPhoto(base64);
-    };
+
 
     const handleSelectGender = async (event) => {
         setInputGender(event);
@@ -277,11 +286,10 @@ export default function List() {
 
     const handleSelectGeneration = (e) => {
         setInputGeneration(e);
-        handleSort(inputGeneration, e.value);
+        // handleSort(inputGeneration, e.value);
     };
 
     const handleInputPhoto = async (e) => {
-        // const base64 = await convertToBase64(e.target.files[0]);
         setInputPhoto(e.target.files[0]);
     };
 
@@ -400,7 +408,15 @@ export default function List() {
             .catch((error) => console.log(error));
         setOpenEdit(true);
     };
-
+    const handleSearch = (e) => {
+        axios.post(
+            'http://localhost:3001/student/all/generation', { generation: inputGeneration.value },
+        )
+            .then((result) => {
+                setStudent(result.data);
+            })
+            .catch((error) => console.log(error));
+    };
     const handleSubmitEdit = async () => {
         await axios
             .post('http://localhost:3001/student/update/', {
@@ -431,23 +447,7 @@ export default function List() {
             })
             .catch((error) => console.log(error));
     };
-    const rows = student;
 
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('calories');
-    const [selected, setSelected] = React.useState([]);
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-    const [, setFilter] = useState({ searchText: '' });
-    const handleSelectAllClick = (event) => {
-        if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
-            setSelected(newSelected);
-            return;
-        }
-        setSelected([]);
-    };
 
     const handleClick = (event, name) => {
         const selectedIndex = selected.indexOf(name);
@@ -468,32 +468,17 @@ export default function List() {
 
         setSelected(newSelected);
     };
-
-    const handleSearch = (e) => {
-        // console.log(search)
-        axios
-            .post(
-                'http://localhost:3000/admin/search/student',
-                { search: e.target.value },
-                { withCredentials: true }
-            )
-            .then((result) => {
-                setStudent(result.data.results);
-            })
-            .catch((error) => console.log(error));
-    };
-
-    const handleSort = (Generation, group) => {
-        axios
-            .post('http://localhost:3000/admin/sort/student', {
-                Generation: Generation,
-                // grooup: grooup,
-            })
-            .then((result) => {
-                setStudent(result.data.results);
-            })
-            .catch((error) => console.log(error));
-    };
+    // const handleSort = (Generation, group) => {
+    //     axios
+    //         .post('http://localhost:3000/admin/sort/student', {
+    //             Generation: Generation,
+    //             // grooup: grooup,
+    //         })
+    //         .then((result) => {
+    //             setStudent(result.data.results);
+    //         })
+    //         .catch((error) => console.log(error));
+    // };
     const handleChangePage = (newPage) => {
         setPage(newPage);
     };
@@ -533,7 +518,7 @@ export default function List() {
                         variant="outlined"
                         sx={{
                             width: 750,
-                            height: 500,
+                            height: 440,
                             borderRadius: 'md',
                             p: 3,
                             boxShadow: 'lg',
@@ -586,14 +571,6 @@ export default function List() {
                                         value={inputName}
                                         onChange={handleInputName}
                                     />
-                                    {/* <FormLabel required>ID</FormLabel>
-                                    <Input
-                                        placeholder="Please enter id"
-                                        variant="outlined"
-                                        color="neutral"
-                                        value={inputID}
-                                        onChange={handleInputID}
-                                    /> */}
                                     <FormLabel required>Gender</FormLabel>
                                     <SELECT_OPTIONS
                                         variant="outlined"
@@ -789,7 +766,7 @@ export default function List() {
                                                 marginLeft: '3px',
                                             }}
                                             type="file"
-                                            onChange={handlePhoto}
+
                                         />
                                     </Grid>
                                 </FormControl>
@@ -839,12 +816,12 @@ export default function List() {
                         </Flex>
                         <Grid templateColumns="repeat(2,1fr)  " gap="1">
                             <VStack spacing="1">
-                                <span style={{ marginLeft: '50px', marginTop: '20px', width: 200, height: 150, border: '1px  solid #23395d', borderRadius: '3px', }}>
+                                <span style={{ marginLeft: '50px', marginTop: '20px', width: 200, height: 200, border: '1px  solid #23395d', borderRadius: '3px', }}>
                                     <img style={{ width: '100%', height: '100%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
                                 </span>
                             </VStack>
                             <VStack>
-                                <div style={{ paddingLeft: '40px', paddingTop: '20px', width: 320, height: 240, borderRadius: '3px' }}>
+                                <div style={{ paddingLeft: '40px', paddingTop: '40px', width: 320, height: 240, borderRadius: '3px' }}>
                                     <div style={{ marginTop: '10px' }}>
                                         <span><b>Name : </b></span>
                                         <span style={{ marginLeft: '33px', color: '#517388' }}>{Name}</span>
@@ -962,8 +939,7 @@ export default function List() {
                         templateColumns="15vw max-content"
                         gap="4"
                     >
-
-                        <FormControl sx={{ width: '200px' }}>
+                        <FormControl sx={{ width: '200px', left: '910px', position: "absolute", transition: 'width 3s' }}>
                             <SELECT_OPTIONS
                                 onChange={handleSelectGeneration}
                                 placeholder="Select Year"
@@ -971,35 +947,13 @@ export default function List() {
                                 options={generations}
                             ></SELECT_OPTIONS>
                         </FormControl>
-                        {/* <FormControl sx={{ width: '200px' }}>
-                <SELECT_OPTIONS
-                  onChange={handleSelectGroup}
-                  placeholder="Select Group"
-                  defaultValue={[grooup[20], grooup[20]]}
-                  options={grooup}
-                ></SELECT_OPTIONS>
-              </FormControl> */}
-                        <span>
-                            <Input
-                                sx={{
-                                    '&:hover': { '& svg': { opacity: 1 } },
-                                    width: '200px',
-                                    left: '910px',
-                                    position: 'absolute',
-                                    transition: 'width 3s',
-                                }}
-                                placeholder="search ..."
-                                variant="outlined"
-                                color="neutral"
-                                onChange={handleSearch}
-                            />
-                        </span>
                         <Button
-                            onClick={() => handleSearch()}
+                            onClick={() =>
+                                handleSearch()
+                            }
                             style={{ backgroundColor: '#23395d' }}
-                            sx={{ marginLeft: '280px' }}
+                            sx={{ position: 'absolute', right: '105px' }}
                             variant="solid"
-                        // onClick={() => history.push(`${parentUrl}/add`)}
                         >
                             <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
                         </Button>
@@ -1186,6 +1140,6 @@ export default function List() {
                     </Table>
                 </Sheet>
             </Box>
-        </Flex>
+        </Flex >
     );
 }
