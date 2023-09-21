@@ -263,20 +263,6 @@ export default function List() {
             .catch((error) => console.log(error));
     };
 
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            };
-
-            fileReader.onerror = (error) => {
-                reject(error);
-            };
-        });
-    };
     useEffect(() => {
         students();
     }, []);
@@ -298,8 +284,6 @@ export default function List() {
         // const base64 = await convertToBase64(e.target.files[0]);
         setInputPhoto(e.target.files[0]);
     };
-
-
 
     const handleInputName = async (e) => {
         setInputName(e.target.value);
