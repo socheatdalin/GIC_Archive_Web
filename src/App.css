@@ -1,0 +1,14 @@
+/* In your app.css file */
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+
+.App {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Roboto', sans-serif;
+}
+body{
+  padding: 0;
+  margin: 0;
+}
