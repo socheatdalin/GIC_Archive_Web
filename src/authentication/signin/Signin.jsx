@@ -17,12 +17,14 @@ const Signin = () => {
                .post("http://localhost:3001/login", { email, password, role })
                .then((response) => {
                     console.log(response.data);
+                    console.log(response.data.username)
                     console.log("login successfully");
                     // Handle response
 
                });
           if (role === "student") {
                // navigate('');
+               console.log(email);
                window.location.href = 'http://localhost:3003/home';
           }
           else if (role === "teacher") {

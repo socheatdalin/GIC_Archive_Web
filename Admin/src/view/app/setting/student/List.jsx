@@ -239,14 +239,7 @@ export default function List() {
           setDeleteID(teacher_id);
           setOpenDelete(true);
      };
-     const handleDelete = async () => {
-          axios
-               .post('http://localhost:3001/student/delete/' + deleteID)
-               .then((result) => {
-                    window.location.replace('/home/student/list');
-               })
-               .catch((error) => console.log(error));
-     };
+
 
      useEffect(() => {
           students();
@@ -321,7 +314,14 @@ export default function List() {
           setOrder(isAsc ? 'desc' : 'asc');
           setOrderBy(property);
      };
-
+     const handleDelete = async () => {
+          axios
+               .post('http://localhost:3001/admin/student/delete/' + deleteID)
+               .then((result) => {
+                    window.location.replace('/home/student/list');
+               })
+               .catch((error) => console.log(error));
+     };
      const handleSubmit = async () => {
           const formData = new FormData();
           formData.append('username', inputName);
@@ -334,7 +334,7 @@ export default function List() {
           formData.append('image', inputPhoto);
           console.log(formData.get('image'));
           axios
-               .post('http://localhost:3001/signup/student/', formData, {
+               .post('http://localhost:3001/admin/signup/student/', formData, {
                     headers: {
                          'Content-Type': 'multipart/form-data',
                     },
@@ -348,7 +348,7 @@ export default function List() {
 
      const handleView = async (student_id) => {
           await axios
-               .get('http://localhost:3001/student/' + student_id)
+               .get('http://localhost:3001/admin/student/' + student_id)
                .then((result) => {
                     // setAddress(result.data[0].address)
                     setEmail(result.data[0].email);
@@ -382,7 +382,7 @@ export default function List() {
 
      const handleSubmitEdit = async () => {
           await axios
-               .post('http://localhost:3001/student/update/', {
+               .post('http://localhost:3001/admin/student/update/', {
                     first_name: First_Name,
                     last_name: Last_Name,
                     username: Name,
@@ -403,7 +403,7 @@ export default function List() {
 
      const students = async () => {
           axios
-               .get('http://localhost:3001/student/all')
+               .get('http://localhost:3001/admin/student/all')
                .then((result) => {
                     setStudent(result.data);
                     // console.log(result.data.results)
@@ -450,7 +450,7 @@ export default function List() {
 
      const handleSearch = (e) => {
           // console.log(search)
-          axios.post('http://localhost:3001/student/all/generation', { generation: inputGeneration.value })
+          axios.post('http://localhost:3001/admin/student/all/generation', { generation: inputGeneration.value })
                .then((result) => {
                     setStudent(result.data);
                })
