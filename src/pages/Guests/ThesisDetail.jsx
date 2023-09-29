@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Web from "../../assets/ux.png";
 import Comment from "../../components/comment";
 import Header from '../../components/GuestHeader'
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import LikeButton from "../../components/LikeButton";
 
@@ -15,7 +15,7 @@ function ThesisDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/thesis/all/${id}`)
+      .get(`http://localhost:3001/admin/thesis/all/${id}`)
       .then((response) => {
         setThesis(response.data[0]);
         setLoading(false); // Set loading to false when data is available
@@ -26,18 +26,6 @@ function ThesisDetail() {
         setLoading(false); // Set loading to false on error
       });
   }, [id]);
-
-  const handleButtonClick = () => {//make it able to route in new page
-    if (thesis.github_url) {
-      window.open(thesis.github_url, "_blank");
-    }
-  };
-
-  const handleOpenFile = (url) => {
-    if (thesis.fileName) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
   
   return (
     <>
@@ -64,18 +52,18 @@ function ThesisDetail() {
 
                   <p className="text-secondary">Description: {thesis.descr}</p>
                   <div className="d-grid gap-2 d-md-flex justify-content-start">
+                    <Link to = "/login">
                     <button
                       className="btn btn-primary me-md-2"
                       type="button"
-                      onClick={handleButtonClick}
+                      // onClick={handleButtonClick}
                     >
                       Code
-                    </button>
-                    <button className="btn btn-primary" type="button"  onClick={() =>
-                        handleOpenFile(`http://localhost:3001/static/${File}`)
-                      }>
+                    </button></Link>
+                    <Link to = "/login">
+                    <button className="btn btn-primary" type="button">
                       Pdf
-                    </button>
+                    </button></Link>
                   </div>
                 </div>
               )}
@@ -112,7 +100,8 @@ function ThesisDetail() {
                       <h4>Code</h4>
                       <div className="text-success">
                         <hr></hr>
-                        <p>GitHub URL: <a href={thesis.github_url} target="_blank" rel="noopener noreferrer">{thesis.github_url}</a></p>
+                     
+                        <p>GitHub URL: <Link to="/login"><a href={thesis.github_url} target="_blank" rel="noopener noreferrer">Require Login</a> </Link></p>   
                       </div>
                       <p></p>
                     </div>

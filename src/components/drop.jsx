@@ -13,10 +13,10 @@ function dropdown() {
       </Dropdown.Toggle>
 
       <Dropdown.Menu style={{ backgroundColor: "white" }}>
-        <Dropdown.Item>Promotion 22nd</Dropdown.Item>
-        <Dropdown.Item>Promotion 23rd</Dropdown.Item>
-        <Dropdown.Item>Promotion 24th</Dropdown.Item>
-        <Dropdown.Item>Promotion 25th</Dropdown.Item>
+        <Dropdown.Item>Operating System</Dropdown.Item>
+        <Dropdown.Item>Network</Dropdown.Item>
+        <Dropdown.Item>Software Engineering</Dropdown.Item>
+        <Dropdown.Item>Internet Programming</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );
