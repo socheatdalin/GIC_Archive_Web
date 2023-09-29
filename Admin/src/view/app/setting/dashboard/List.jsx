@@ -3,9 +3,9 @@ import { Card, Typography } from '@mui/joy';
 import { BiNotepad, BiReceipt, BiUser } from 'react-icons/bi';
 import { PieChart, Pie, Cell, Legend, Bar, BarChart } from 'recharts';
 import { XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line } from 'recharts';
-import image from '../../../../components/asssets';
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+// import image from '../../../../components/asssets';
+import React, { useState } from 'react';
+// import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -113,47 +113,88 @@ const value = [
 
 export default function List() {
 
-    const [open, setOpen] = useState(false);
-    const [student, setStudent] = useState(0);
-    const [teacher, setTeacher] = useState(null);
+  
+    const [studentCount, setStudent] = useState(0);
+    const [teacherCount, setTeacher] = useState();
     const [course, setCourse] = useState(0);
     const [girl, setGirl] = useState(0);
     const [boy, setBoy] = useState(0);
 
-    const handleDisplayTeacher = async () => {
-        await axios.get("http://localhost:3001/teacher/cnout")
-            .then((result) => {
-                console.log(result.data);
-                setTeacher(result.data)
-            })
-            .catch(error => console.log(error));
-    }
+
     const data = [
         { name: 'Male', value: boy },
         { name: 'Female', value: girl },
     ];
+    const CountTeacher = async () => {
+        try {
+            await axios.get('http://localhost:3001/getTeacherCount')
+                .then((result) => {
+                    setTeacher(result.data[0].teacherCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountStudent = async () => {
+        try {
+            await axios.get('http://localhost:3001/getStudentCount')
+                .then((result) => {
+                    setStudent(result.data[0].studentCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountCourse = async () => {
+        try {
+            await axios.get('http://localhost:3001/getCourseCount')
+                .then((result) => {
+                    setCourse(result.data[0].courseCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountFemale = async () => {
+        try {
+            await axios.get('http://localhost:3001/getFemaleCount')
+                .then((result) => {
+                    setGirl(result.data[0].girl);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching Femalecount:', error);
+        }
+    }
+    const CountMale = async () => {
+        try {
+            await axios.get('http://localhost:3001/getMaleCount')
+                .then((result) => {
+                    setBoy(result.data[0].boy);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching Male count:', error);
+        }
+    }
 
     useEffect(() => {
-        // axios.get("http://localhost:3000/admin/get/data", { withCredentials: true })
-        //   .then((result) => {
-        //     setGirl(result.data.result[0])
-        //     setBoy(result.data.result[1])
-        //     setStudent(result.data.result[2])
-        //     setTeacher(result.data.result[3])
-        //     setCourse(result.data.result[4])
-        //   })
-        axios.get('http://localhost:3001/teacher/count')
-        .then(response => setTeacher(response.data.teacher))
-        .catch(error => console.error('Error fetching teacher count:', error));
+        CountTeacher();
+        CountStudent();
+        CountCourse();
+        CountFemale();
+        CountMale();
     }, [])
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
+    
     return (
         <Flex flexDir="column" borderRadius="10px" bg="white" h="full">
             <span style={{ margin: '20px', fontSize: '20px' }}>Admin Dashboard</span>
@@ -198,9 +239,9 @@ export default function List() {
                                 underline="none"
                                 href="#interactive-card"
                                 sx={{ color: 'white', textTransform: 'uppercase' }}
-                            >GHQUIO;LKLKJNM,./  20
+                            >
                                 <BiUser sx={{ width: '90px' }} />
-                                <Typography ml="15px">{teacher}</Typography>
+                                <Typography ml="15px">{teacherCount}</Typography>
                             </Box>
                         </Typography>
                     </div>
@@ -247,7 +288,8 @@ export default function List() {
                                 sx={{ color: 'white', textTransform: 'uppercase' }}
                             >
                                 <BiUser sx={{ width: '90px' }} />
-                                <Typography ml="15px">{student}</Typography>
+                                {/* <span>{student}</span> */}
+                                <Typography ml="15px">{studentCount}</Typography>
                             </Box>
                         </Typography>
                     </div>
@@ -457,32 +499,6 @@ export default function List() {
                         </LineChart>
                     </div>
                 </Box>
-                {/* <Box ml="80px">
-          <Typography ml="10px" level="h3">
-            Total Students By Generation
-          </Typography>
-          <Box mt="20px">
-            <BarChart
-              width={1000}
-              height={300}
-              data={student}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="male" fill="#8884d8" />
-              <Bar dataKey="female" fill="#82ca9d" />
-            </BarChart>
-          </Box>
-        </Box> */}
             </Box>
         </Flex>
     );

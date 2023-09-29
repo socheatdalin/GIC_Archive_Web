@@ -252,15 +252,6 @@ export default function List() {
     const searchValue = (e) => {
         setSearch1(e.target.value)
     }
-
-
-    // const handleSort = (fromYear, toYear, Year) => {
-    //     axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-    //         .then((result) => {
-    //             // setproject(result.data.results)
-    //         })
-    //         .catch(error => console.log(error));
-    // }
     const handlePhoto = async (e) => {
         setInputPhoto(e.target.files[0]);
     }
@@ -315,7 +306,7 @@ export default function List() {
 
     const handleSearch = (e) => {
         // console.log(search)
-        axios.post("http://localhost:3001/thesis/all/field", { field: inputField }
+        axios.post("http://localhost:3001/admin/thesis/all/field", { field: inputField }
         ).then((result) => {
             setthesis(result.data)
         })
@@ -330,7 +321,7 @@ export default function List() {
 
     const handleDisplay = async () => {
 
-        const response = await axios.get("http://localhost:3001/team_project/all");
+        const response = await axios.get("http://localhost:3001/admin/team_project/all");
         setName(response.data[0].project_name)
         setID(response.data[0].id)
         setDesc(response.data[0].descr)
@@ -338,7 +329,7 @@ export default function List() {
 
     const handleView = async (project_id) => {
 
-        await axios.get("http://localhost:3001/thesis/all/" + project_id)
+        await axios.get("http://localhost:3001/admin/thesis/all/" + project_id)
             .then((result) => {
                 console.log(result.data);
                 setID(result.data[0].project_id);
@@ -361,7 +352,7 @@ export default function List() {
     const handleSubmitEdit = async () => {
 
         setOpenEdit(false);
-        window.location.replace('/thesis/list')
+        window.location.replace('/home/thesis/list')
     }
     const handleSubmit = async () => {
         const formData = new FormData();
@@ -376,7 +367,7 @@ export default function List() {
         formData.append('file', inputFile);
         console.log(formData.get('file'));
 
-        axios.post("http://localhost:3001/thesis/create", formData,
+        axios.post("http://localhost:3001/admin/thesis/create", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -400,7 +391,7 @@ export default function List() {
     }
 
     const Thesis = async () => {
-        axios.get("http://localhost:3001/thesis/all")
+        axios.get("http://localhost:3001/admin/thesis/all")
             .then((result) => {
                 setthesis(result.data)
                 // console.log(result.data);
@@ -409,7 +400,7 @@ export default function List() {
     };
 
     const handleDelete = async () => {
-        axios.post("http://localhost:3001/project/delete/" + deleteID)
+        axios.post("http://localhost:3001/admin/project/delete/" + deleteID)
             .then((result) => {
                 console.log("delete success");
                 window.location.replace('/home/project/list')
@@ -547,7 +538,7 @@ export default function List() {
                                     defaultValue={[Fields[4], Fields[5]]}
                                     options={Fields}
                                 />
-                                
+
                             </FormControl>
                         </VStack>
                         <VStack spacing="3" ml="40px">
@@ -688,8 +679,6 @@ export default function List() {
                                     placeholder="Please enter teacher ID"
                                     variant="outlined"
                                     color="neutral"
-                                // value={Teacher_id}
-                                // onChange={handleTeach}
                                 />
                             </FormControl>
                         </VStack>
@@ -852,7 +841,6 @@ export default function List() {
                             style={{ backgroundColor: '#23395d' }}
                             sx={{ position: 'absolute', right: '105px' }}
                             variant="solid"
-                        // onClick={() => history.push(`${parentUrl}/add`)}
                         >
                             <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
                         </Button>

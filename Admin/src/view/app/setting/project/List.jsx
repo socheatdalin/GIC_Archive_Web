@@ -21,9 +21,7 @@ import ModalDelete from '@mui/joy/Modal'
 import ModalCreate from '@mui/joy/Modal'
 import ModalView from '@mui/joy/Modal'
 import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
-import { Viewer } from '@react-pdf-viewer/core';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
-import { Worker } from '@react-pdf-viewer/core'; // install this library
+
 
 function labelDisplayedRows({ from, to, count }) {
     return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
@@ -205,12 +203,13 @@ export default function List() {
     const [openView, setOpenView] = React.useState(false);
     const [openCreate, setOpenCreate] = React.useState(false);
     const [inputName, setInputName] = React.useState('');
+    const [inputTeacherName, setTeacherName] = React.useState('');
     const [inputTitle, setInputTitle] = React.useState('');
     const [inputCourse, setInputCourse] = React.useState('');
     const [inputDesc, setInputDesc] = React.useState('');
     const [inputGit, setInputGit] = React.useState('');
     const [inputType, setInputType] = React.useState('');
-    const [ID, setID] = React.useState('')
+    const [ID, setID] = React.useState('');
     const [Name, setName] = React.useState('');
     const [Desc, setDesc] = React.useState('');
     const [Teacher_id, setTeacher_id] = React.useState('');
@@ -224,8 +223,12 @@ export default function List() {
     const [Teacher, setTeacher] = React.useState('');
     const [Files, setFile] = React.useState(null);
     const [fileName, setFileName] = React.useState('');
+    const [fileContent, setFileContent] = useState(null);
+
+
     const [length, setLength] = useState([])
     const [index, setIndex] = useState('');
+
     const handleInputMember = async (e) => {
         setinputMember(e.target.value);
     };
@@ -265,6 +268,12 @@ export default function List() {
     const handleInputFile = async (e) => {
         setInputFile(e.target.files[0])
     }
+    const handleInputPhoto = async (e) => {
+        setInputPhoto(e.target.file[0])
+    }
+    const handleInputTeacherName = async (e) => {
+        setTeacherName(e.target.value)
+    }
     const handleInputTitle = async (e) => {
         setInputTitle(e.target.value)
     }
@@ -292,7 +301,7 @@ export default function List() {
     useEffect(() => {
 
         team_project();
-        Member();
+        // Member();
 
     }, [])
 
@@ -301,20 +310,14 @@ export default function List() {
 
     const handleSearch = (e) => {
         // console.log(search)
-        axios.post("http://localhost:3001/project/all/bycourse", { course_name: inputCourse })
+        axios.post("http://localhost:3001/admin/project/all/bycourse", { course_name: inputCourse })
             .then((result) => {
                 setproject(result.data)
             })
             .catch(error => console.log(error));
     }
 
-    // const handleSort = (fromYear, toYear, Year) => {
-    //     axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-    //         .then((result) => {
-    //             setproject(result.data.results)
-    //         })
-    //         .catch(error => console.log(error));
-    // }
+
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
         setOrder(isAsc ? 'desc' : 'asc');
@@ -323,21 +326,23 @@ export default function List() {
 
     const handleDisplay = async () => {
 
-        const response = await axios.get("http://localhost:3001/team_project/all");
+        const response = await axios.get("http://localhost:3001/admin/team_project/all");
         setName(response.data[0].project_name)
         setID(response.data[0].id)
         setDesc(response.data[0].descr)
     }
 
-    const handleView = async (project_id) => {
 
-        await axios.get("http://localhost:3001/team_project/" + project_id)
+    const handleView = async (project_id) => {
+        await axios.get("http://localhost:3001/admin/team_project/" + project_id)
             .then((result) => {
                 console.log(result.data);
-                setID(result.data[0].project_id);
+                // setID(result.data[0].project_id);
                 setInputTitle(result.data[0].title);
                 setInputDesc(result.data[0].descr);
                 setInputCourse(result.data[0].course_name);
+                setInputName(result.data[0].student_name);
+                setTeacherName(result.data[0].teacher_name);
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
                 setInputFile(result.data[0].filepath);
@@ -352,7 +357,7 @@ export default function List() {
         window.location.replace('/project/list')
     }
     const Member = async () => {
-        axios.get("http://localhost:3001/project/member")
+        axios.get("http://localhost:3001/admin/project/member")
             .then((result) => {
                 setmember(result.data)
                 // console.log(result.data);
@@ -361,16 +366,17 @@ export default function List() {
     };
 
     const handleSubmit = async () => {
+        
         const formData = new FormData();
         formData.append('title', inputTitle);
         formData.append('course_name', inputCourse);
+        formData.append('username', inputName)
         formData.append('descr', inputDesc);
-        formData.append('github_url', inputGit)
+        formData.append('github_url', inputGit);
         formData.append('file', inputFile);
 
         console.log(formData.get('file'));
-
-        axios.post("http://localhost:3001/project/create", formData,
+        axios.post("http://localhost:3001/admin/project/create", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -387,13 +393,20 @@ export default function List() {
         setDeleteID(id)
         setOpenDelete(true)
     }
-    const handleCreate = async (course_id) => {
-        setid(course_id)
+    const handleCreate = async (project_id) => {
+        console.log("hello");
+        console.log(project_id);
+        axios.post('http://localhost:3001/admin/project/addMember/' + project_id, { username: inputName })
+            .then((result) => {
+                console.log(project_id);
+                window.location.replace('/home/project/list')
+            })
+            .catch(error => console.log(error));
         setOpenCreate(true);
-    }
+    } 
 
     const team_project = async () => {
-        axios.get("http://localhost:3001/project/all")
+        axios.get("http://localhost:3001/admin/project/all")
             .then((result) => {
                 setproject(result.data)
                 // console.log(result.data);
@@ -402,7 +415,7 @@ export default function List() {
     };
 
     const handleDelete = async () => {
-        axios.post("http://localhost:3001/project/delete/" + deleteID)
+        axios.post("http://localhost:3001/admin/project/delete/" + deleteID)
             .then((result) => {
                 console.log("delete success");
                 window.location.replace('/home/project/list')
@@ -434,9 +447,6 @@ export default function List() {
         setPage(newPage);
     };
 
-    const handleDoc = (id) => {
-        window.location.replace(`/course/${id}/materials`)
-    }
     const handleChangeRowsPerPage = (event, newValue) => {
         setRowsPerPage(parseInt(newValue.toString(), 10));
         setPage(0);
@@ -512,6 +522,15 @@ export default function List() {
                                     type='text'
                                     color="neutral"
                                     onChange={handleInputCourse}
+                                />
+                                <FormLabel required>Student name </FormLabel>
+                                <Input
+                                    placeholder="Please enter your course"
+                                    variant="outlined"
+                                    defaultValue=''
+                                    type='text'
+                                    color="neutral"
+                                    onChange={handleInputName}
                                 />
                                 <FormLabel required>Git </FormLabel>
                                 <Input
@@ -698,7 +717,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 450,
-                        height: 480,
+                        height: 250,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -715,20 +734,20 @@ export default function List() {
                     />
                     <Flex mb="10px" justifyContent="space-between" alignItems="center">
                         <Typography level="h4">Add member</Typography>
-                        <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} variant="solid">
+                        <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} onClick={handleCreate} >
                             Assign
                         </Button>
                     </Flex>
-                    <Grid templateColumns="repeat(1,1fr)  " gap="2" sx={{ marginTop: '10px' }}>
+                    <Grid sx={{ marginTop: '10px' }}>
                         <VStack spacing="3">
-                            <FormControl sx={{ width: '250px' }}>
+                            <FormControl sx={{ width: '250px', marginTop: '10px' }}>
                                 <FormLabel required>Members</FormLabel>
                                 <Input
                                     placeholder="Please enter your number of member"
                                     variant="outlined"
                                     color="neutral"
-                                    value={inputmember}
-                                    onChange={handleInputMember}
+                                    value={inputName}
+                                    onChange={handleInputName}
                                 />
                             </FormControl>
                         </VStack>
@@ -746,8 +765,8 @@ export default function List() {
                 <Sheet
                     variant="outlined"
                     sx={{
-                        width: 650,
-                        height: 350,
+                        width: 550,
+                        height: 400,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -768,33 +787,39 @@ export default function List() {
                     <Flex mb="10px" justifyContent="space-between" alignItems="center">
                         <Typography level="h4">Class Project</Typography>
                     </Flex>
-                    <Grid >
-                        <VStack style={{ marginTop: '10px', textAlign: 'left', fontSize: '16px' }}>
-                            <div style={{ paddingLeft: '30px', width: 400, height: 200, borderRadius: '3px' }}>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Title : </b></span>
-                                    <span style={{ marginLeft: '95px', color: '#517388' }}>{inputTitle}</span>
-                                </div>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Course: </b></span>
-                                    <span style={{ marginLeft: '95px', color: '#517388' }}>{inputCourse}</span>
-                                </div>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Description : </b></span>
-                                    <span style={{ marginLeft: '50px', color: '#517388' }}>{inputDesc}</span>
-                                </div>
-                                <div style={{ marginTop: '10px' }}>
-                                    <span><b>Git: </b></span>
-                                    <span style={{ marginLeft: '50px', color: '#517388' }}>{inputGit}</span>
-                                </div>
-                                <div style={{ marginTop: '20px', display: 'flex' }} >
-                                    <div><b>File:</b></div>
-                                    <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '180px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
-                                </div>
-                            </div>
 
-                        </VStack>
-                    </Grid>
+                    <div style={{ paddingLeft: '50px', width: 500, height: 200, borderRadius: '3px' }}>
+                        <div style={{ marginTop: '10px' }}>
+                            <span><b>Title : </b></span>
+                            <span style={{ marginLeft: '105px', color: '#517388' }}>{inputTitle}</span>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <span><b>Course: </b></span>
+                            <span style={{ marginLeft: '90px', color: '#517388' }}>{inputCourse}</span>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <span><b>Student: </b></span>
+                            <span style={{ marginLeft: '90px', color: '#517388' }}>{inputName}</span>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <span><b>Teacher: </b></span>
+                            <span style={{ marginLeft: '90px', color: '#517388' }}>{inputTeacherName}</span>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <span><b>Description : </b></span>
+                            <span style={{ marginLeft: '50px', color: '#517388' }}>{inputDesc}</span>
+                        </div>
+                        <div style={{ marginTop: '10px' }}>
+                            <span><b>Git: </b></span>
+                            <span style={{ marginLeft: '120px', color: '#517388' }}>{inputGit}</span>
+                        </div>
+                        <div style={{ marginTop: '20px' }} >
+                            <span><b>File:</b></span>
+                            <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '120px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
+                        </div>
+                    </div>
+
+
                 </Sheet>
             </ModalView>
 
@@ -912,13 +937,11 @@ export default function List() {
                                                 textAlign: 'center',
                                                 cursor: 'pointer'
                                             }}
-                                            key={row.name}
+                                            key={row.project_id}
                                         >
                                             <td>
                                                 <IconButton
-                                                    onClick={() => {
-                                                        handleCreate(row.project_id)
-                                                    }}
+                                                    onClick={() => setOpenCreate(true)}
                                                     size="sm"
                                                     variant="ghost"
                                                     cursor="pointer"
