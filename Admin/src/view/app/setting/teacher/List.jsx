@@ -229,12 +229,9 @@ export default function List() {
     const [inputFirstname, setInputFirstname] = React.useState('');
     const [inputLastname, setInputLastname] = React.useState('');
     const [inputGender, setInputGender] = React.useState('');
-    const [inputRole, setInputRole] = React.useState('');
-    const [inputAddress, setInputAddress] = React.useState('');
+
     const [inputEmail, setInputEmail] = React.useState('');
-    const [inputPhone, setInputPhone] = React.useState('');
     const [inputPassword, setInputPassword] = React.useState('');
-    const [inputID, setInputID] = React.useState('');
     const [inputPhoto, setInputPhoto] = React.useState('');
     const [openEdit, setOpenEdit] = React.useState(false);
     const [Name, setName] = React.useState('');
@@ -247,22 +244,19 @@ export default function List() {
     const [ID, setID] = React.useState('');
     const [Photo, setPhoto] = React.useState(null);
     const [searchOpen, setSearchOpen] = useState(false)
-    const [inputFromYear1, setFromYear1] = React.useState('');
-    const [inputToYear1, setToYear1] = React.useState('');
-    const [inputYear, setInputYear] = React.useState('');
+
     const [openDelete, setOpenDelete] = React.useState(false);
     const [deleteID, setDeleteID] = React.useState('');
+
     const rows = teacher;
-    const [toYear, setToYear] = React.useState([]);
-    const [fromYear, setFromYear] = React.useState([]);
+
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
     const [courses, setCoures] = React.useState([]);
-    const [years, setYears] = React.useState([]);
-    const [froms, setFroms] = React.useState([]);
+
     const [tos, setTos] = React.useState([]);
     const [, setFilter] = useState({ searchText: '' });
 
@@ -275,23 +269,6 @@ export default function List() {
         setOpenDelete(true)
     }
 
-    const handleSelectYear = (e) => {
-        setInputYear(e.value)
-        handleSort(inputFromYear1, inputToYear1, e.value)
-    }
-
-    const handleFromYear = (e) => {
-        setFromYear1(e.value)
-        handleSort(e.value, inputToYear1, inputYear)
-    }
-
-    const handleToYear = (e) => {
-        setToYear1(e.value)
-        handleSort(inputFromYear1, e.value, inputYear)
-    }
-
-
-
     const handlePassword = async (e) => {
         setPassword(e.target.value)
     }
@@ -300,16 +277,12 @@ export default function List() {
         setInputName(e.target.value)
     }
 
-    const handleInputID = async (e) => {
-        setInputID(e.target.value)
-    }
+
 
     const handleSelectGender = async (event) => {
         setInputGender(event);
     };
-    const handleSelectRole = async (event) => {
-        setInputRole(event);
-    };
+
     const handleInputEmail = async (e) => {
         setInputEmail(e.target.value)
     }
@@ -319,9 +292,6 @@ export default function List() {
     }
     const handleInputLastname = async (e) => {
         setInputLastname(e.target.value)
-    }
-    const handleInputPhone = (e) => {
-        setInputPhone(e.target.files[0])
     }
 
     const handleInputPhoto = (e) => {
@@ -349,13 +319,7 @@ export default function List() {
         setEmail(e.target.value)
     }
 
-    const handleAddress = async (e) => {
-        setAddress(e.target.value)
-    }
 
-    const handlePhone = async (e) => {
-        setPhone(e.target.value)
-    }
     const handleInputPassword = async (e) => {
         setInputPassword(e.target.value)
     }
@@ -372,17 +336,9 @@ export default function List() {
 
     const handleSearch = (e) => {
         // console.log(search)
-        axios.post("http://localhost:3000/admin/search/teacher", { search: e.target.value }, { withCredentials: true })
+        axios.post("http://localhost:3001/teacher/all/name", { username: inputName })
             .then((result) => {
-                setTeacher(result.data.results)
-            })
-            .catch(error => console.log(error));
-    }
-
-    const handleSort = (fromYear, toYear, Year) => {
-        axios.post("http://localhost:3000/admin/sort/teacher", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-            .then((result) => {
-                setTeacher(result.data.results)
+                setTeacher(result.data)
             })
             .catch(error => console.log(error));
     }
@@ -395,69 +351,12 @@ export default function List() {
             .catch(error => console.log(error));
     }
 
-    function courseTable() {
-        return (
-            <div style={{ border: '1px solid silver', boxShadow: '2px 2px 2px gray', margin: 'auto', marginTop: '-10px', padding: '20px' }}>
-                <span>COURSETABLE</span>
-                <Grid templateColumns="repeat(4,2fr)" gap="2">
-                    <VStack spacing="5" style={{ margin: 'auto' }}>
-                        <div style={{ textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black', backgroundColor: '#23395d', color: 'white' }}>Course</div>
-                        {(
-                            courses.map((date, index) =>
-                                <span style={{ margin: '0px', textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black' }}>
-                                    <div>
-                                        {date}
-                                    </div>
-                                </span>
-                            ))
-                        }
-                    </VStack>
-                    <VStack spacing="5" style={{ margin: 'auto' }}>
-                        <div style={{ textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black', backgroundColor: '#23395d', color: 'white' }}>Year</div>
-                        {(
-                            years.map((year) =>
-                                <span style={{ margin: '0px', textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black' }}>
-                                    <div>
-                                        {year}
-                                    </div>
-                                </span>
-                            ))
-                        }
-                    </VStack>
-                    <VStack spacing="5" style={{ margin: 'auto' }}>
-                        <div style={{ textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black', backgroundColor: '#23395d', color: 'white' }}>From</div>
-                        {(
-                            froms.map((room, index) =>
-                                <span style={{ margin: '0px', textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black' }}>
-                                    <div>
-                                        {room}
-                                    </div>
-                                </span>
-                            ))
-                        }
-                    </VStack>
-                    <VStack spacing="5" style={{ margin: 'auto' }}>
-                        <div style={{ textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black', backgroundColor: '#23395d', color: 'white' }}>To</div>
-                        {(
-                            tos.map((group, index) =>
-                                <span style={{ margin: '0px', textAlign: 'center', paddingTop: '10px', paddingBottom: '10px', width: '120px', border: '1px solid black' }}>
-                                    <div>
-                                        {group}
-                                    </div>
-                                </span>
-                            ))
-                        }
-                    </VStack>
-                </Grid>
-            </div>
-        )
-    }
     const handleView = async (teacher_id) => {
         await axios.get("http://localhost:3001/teacher/" + teacher_id)
             .then((result) => {
                 // setAddress(result.data[0].address)
                 setEmail(result.data[0].email)
-                setName(result.data[0].username)
+                setInputName(result.data[0].username)
                 setID(result.data[0].teacher_id);
                 setGender(result.data[0].gender);
                 setInputFirstname(result.data[0].first_name);
@@ -642,7 +541,7 @@ export default function List() {
                         variant="outlined"
                         sx={{
                             width: 700,
-                            height: 400,
+                            height: 380,
                             borderRadius: 'md',
                             p: 3,
                             boxShadow: 'lg',
@@ -808,15 +707,6 @@ export default function List() {
                                         defaultValue={[{ label: Gender, value: Gender }]}
                                         options={gender}
                                     />
-                                    {/* <FormLabel required>ID</FormLabel>
-                                    <Input
-                                        placeholder="Please enter id"
-                                        variant="outlined"
-                                        defaultValue=''
-                                        color="neutral"
-                                        value={ID}
-                                        onChange={handleID}
-                                    /> */}
                                     <FormLabel required>Email</FormLabel>
                                     <Input
                                         placeholder="Please enter email"
@@ -830,23 +720,6 @@ export default function List() {
                             </VStack>
                             <VStack spacing="3" ml="40px">
                                 <FormControl sx={{ width: '300px' }}>
-                                    <FormLabel required>Address</FormLabel>
-                                    <Input
-                                        placeholder="Please enter address"
-                                        variant="outlined"
-                                        color="neutral"
-                                        value={Address}
-                                        onChange={handleAddress}
-                                    />
-                                    <FormLabel required>Phone Number</FormLabel>
-                                    <Input
-                                        placeholder="Please enter phone number"
-                                        variant="outlined"
-                                        defaultValue=''
-                                        color="neutral"
-                                        value={Phone}
-                                        onChange={handlePhone}
-                                    />
                                     <FormLabel required>Password</FormLabel>
                                     <Input
                                         startDecorator={<KeyRoundedIcon />}
@@ -913,7 +786,7 @@ export default function List() {
                         </Flex>
                         <Grid templateColumns="repeat(2,1fr)  " gap="1">
                             <VStack spacing="1">
-                                <span style={{ marginLeft: '70px', marginTop: '40px', width: 150, height: 150, border: '1px  solid #23395d', borderRadius: '3px', }}>
+                                <span style={{ marginLeft: '70px', marginTop: '40px', width: 200, height: 200, border: '1px  solid #23395d', borderRadius: '3px', }}>
                                     <img style={{ width: '100%', height: '100%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
                                 </span>
                             </VStack>
@@ -921,7 +794,7 @@ export default function List() {
                                 <div style={{ paddingLeft: '40px', paddingTop: '20px', width: 320, height: 240, borderRadius: '3px' }}>
                                     <div style={{ marginTop: '10px' }}>
                                         <span><b>Name : </b></span>
-                                        <span style={{ marginLeft: '33px', color: '#517388' }}>{Name}</span>
+                                        <span style={{ marginLeft: '33px', color: '#517388' }}>{inputName}</span>
                                     </div>
                                     <div style={{ marginTop: '10px' }}>
                                         <span><b>ID  : </b></span>
@@ -972,43 +845,17 @@ export default function List() {
                         variant="standard"
                         templateColumns="15vw max-content"
                         gap="4"
-                    ><FormControl sx={{ width: '200px' }}>
-                            <SELECT_OPTIONS
-                                onChange={handleFromYear}
-                                placeholder="From Year"
-                                defaultValue={[fromYear[20], fromYear[20]]}
-                                options={fromYear}
-                            >
-                            </SELECT_OPTIONS>
-                        </FormControl>
-                        <FormControl sx={{ width: '200px' }}>
-                            <SELECT_OPTIONS
-                                onChange={handleToYear}
-                                placeholder="To Year"
-                                defaultValue={[toYear[20], toYear[20]]}
-                                options={toYear}
-                            >
-                            </SELECT_OPTIONS>
-                        </FormControl>
-                        <FormControl sx={{ width: '200px' }}>
-                            {/* <SELECT_OPTIONS
-                                onChange={handleSelectYear}
-                                placeholder="Select Year"
-                                defaultValue={[Years[20], Years[20]]}
-                                options={Years}
-                            >
-                            </SELECT_OPTIONS> */}
-                        </FormControl>
+                    >
                         <span>
                             <Input
                                 sx={{
                                     '&:hover': { '& svg': { opacity: 1 } },
                                     width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
                                 }}
-                                placeholder="search ..."
+                                placeholder="search by username..."
                                 variant="outlined"
                                 color="neutral"
-                                onChange={handleSearch}
+                                onChange={handleInputName}
                             />
 
                         </span>
@@ -1019,7 +866,6 @@ export default function List() {
                             style={{ backgroundColor: '#23395d' }}
                             sx={{ position: 'absolute', right: '105px' }}
                             variant="solid"
-                        // onClick={() => history.push(`${parentUrl}/add`)}
                         >
                             <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
                         </Button>

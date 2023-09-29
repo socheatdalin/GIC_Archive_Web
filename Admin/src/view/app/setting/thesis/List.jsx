@@ -195,7 +195,6 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-    const [openMaterial, setOpenMaterial] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
     const [thesis, setthesis] = React.useState([]);
@@ -220,12 +219,14 @@ export default function List() {
     const [deleteID, setDeleteID] = React.useState('');
     const [inputFile, setInputFile] = React.useState(null);
     const [fileName, setFileName] = React.useState('');
+    const [inputField, setInputField] = React.useState('');
     const [inputPhoto, setInputPhoto] = React.useState('');
     const [Teacher, setTeacher] = React.useState('');
     const [Files, setFile] = React.useState(null);
-
+    const [open, setOpen] = React.useState(false);
     const [length, setLength] = useState([])
     const [index, setIndex] = useState('');
+
     const rows = thesis;
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
@@ -251,22 +252,15 @@ export default function List() {
     const searchValue = (e) => {
         setSearch1(e.target.value)
     }
-    const handleSearch = (e) => {
-        // console.log(search)
-        axios.post("http://localhost:3001/thesis/field", { search: e.target.value }, { withCredentials: true })
-            .then((result) => {
-                // setproject(result.data)
-            })
-            .catch(error => console.log(error));
-    }
 
-    const handleSort = (fromYear, toYear, Year) => {
-        axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-            .then((result) => {
-                // setproject(result.data.results)
-            })
-            .catch(error => console.log(error));
-    }
+
+    // const handleSort = (fromYear, toYear, Year) => {
+    //     axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
+    //         .then((result) => {
+    //             // setproject(result.data.results)
+    //         })
+    //         .catch(error => console.log(error));
+    // }
     const handlePhoto = async (e) => {
         setInputPhoto(e.target.files[0]);
     }
@@ -297,6 +291,10 @@ export default function List() {
         setInputDesc(e.target.value)
     }
 
+    const handleInputField = async (e) => {
+        setInputField(e.target.value)
+    }
+
     const handleName = async (e) => {
         setName(e.target.value)
     }
@@ -315,7 +313,14 @@ export default function List() {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 
-    const [open, setOpen] = React.useState(false);
+    const handleSearch = (e) => {
+        // console.log(search)
+        axios.post("http://localhost:3001/thesis/all/field", { field: inputField }
+        ).then((result) => {
+            setthesis(result.data)
+        })
+            .catch(error => console.log(error));
+    }
 
     const handleRequestSort = (event, property) => {
         const isAsc = orderBy === property && order === 'asc';
@@ -827,25 +832,16 @@ export default function List() {
                         templateColumns="15vw max-content"
                         gap="4"
                     >
-                        <FormControl sx={{ width: '200px' }}>
-                            {/* <SELECT_OPTIONS
-                                onChange={handleSelectYear}
-                                placeholder="Select Year"
-                                defaultValue={[Years[20], Years[20]]}
-                                options={Years}
-                            >
-                            </SELECT_OPTIONS> */}
-                        </FormControl>
                         <span>
                             <Input
                                 sx={{
                                     '&:hover': { '& svg': { opacity: 1 } },
                                     width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
                                 }}
-                                placeholder="search ..."
+                                placeholder="search by field ..."
                                 variant="outlined"
                                 color="neutral"
-                                onChange={handleSearch}
+                                onChange={handleInputField}
                             />
                         </span>
                         <Button

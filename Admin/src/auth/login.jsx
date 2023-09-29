@@ -7,18 +7,10 @@ import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
 import axios from 'axios';
-// import { IconButton,} from '@chakra-ui/react';
-// import { visuallyHidden } from '@mui/utils';
-// import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
-// import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-// import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-// import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
 
-  // necessary for server-side rendering
-  // because mode is undefined on the server
   React.useEffect(() => {
     setMounted(true);
   }, []);
@@ -39,14 +31,7 @@ function ModeToggle() {
 }
 
 export default function App() {
-  // const [email, setEmail] = React.useState('');
-  // const [password, setPassword] = React.useState('');
 
-  // React.useEffect(() => {
-  //   if (localStorage.getItem('user-info')) {
-  //     history.push('/')
-  //   }
-  // })
   const admin = { email: 'admin@123', password: 'admin' };
   const handleSubmit = async (e) => {
     e.preventDefault();

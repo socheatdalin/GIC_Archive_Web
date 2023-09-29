@@ -4,7 +4,7 @@
   }
 .img-project{
     width: 300px; /* Adjust this value to control the maximum width of the image */
-    height: 200px; /* Adjust this value to control the maximum height of the image */
+    height: 180px; /* Adjust this value to control the maximum height of the image */
 }
 .img-star {
   max-width: 20px;
@@ -18,12 +18,7 @@
   max-width: 200px; /* Adjust this value to control the maximum width of the image */
   max-height: 200px; /* Adjust this value to control the maximum height of the image */
 }
-.project {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  
-}
+
 /* styles.css */
 .modal {
   position: absolute;
@@ -69,4 +64,3 @@
   margin: auto;
   background-color: aqua;
 }
-

@@ -1,4 +1,4 @@
-import { BiCalendar, BiChild, BiMale, BiMedal, BiDoorOpen, BiBookBookmark, BiDetail } from 'react-icons/bi';
+import { BiChild, BiMale, BiMedal, BiDoorOpen, BiBookBookmark, BiDetail } from 'react-icons/bi';
 export const MenuConstants = [
   {
     // name: 'LIST',
@@ -8,12 +8,6 @@ export const MenuConstants = [
         name: 'Dashboard',
         path: '/home/dashboard',
         icon: <BiMedal />,
-      },
-      {
-        id: 'years',
-        name: 'Year',
-        path: '/home/year',
-        icon: <BiCalendar />,
       },
       {
         id: 'course',
@@ -36,7 +30,7 @@ export const MenuConstants = [
     ],
   },
   {
-    name: 'SETTING',
+    name: 'USER',
     item: [
       {
         id: 'teachers',

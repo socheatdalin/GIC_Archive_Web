@@ -14,18 +14,23 @@ import SELECT_OPTIONS from 'react-select';
 import Table from '@mui/joy/Table';
 import React, { useState } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import { HiOutlinePencilAlt, HiOutlineTrash, HiPlusCircle, HiDocumentText } from 'react-icons/hi';
+import {
+  HiOutlinePencilAlt,
+  HiOutlineTrash,
+  HiPlusCircle,
+  HiDocumentText,
+} from 'react-icons/hi';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { visuallyHidden } from '@mui/utils';
 import { useEffect } from 'react';
-import axios from "axios";
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ModalEdit from '@mui/joy/Modal'
-import ModalDelete from '@mui/joy/Modal'
-import ModalView from '@mui/joy/Modal'
+import ModalEdit from '@mui/joy/Modal';
+import ModalDelete from '@mui/joy/Modal';
+import ModalView from '@mui/joy/Modal';
 import {
   Box,
   Button,
@@ -37,7 +42,7 @@ import {
   Option,
   Select,
   Sheet,
-  Typography
+  Typography,
 } from '@mui/joy';
 
 function labelDisplayedRows({ from, to, count }) {
@@ -68,7 +73,6 @@ function stableSort(array, comparator) {
 }
 
 const headCells = [
-
   {
     id: 'course_id',
     numeric: true,
@@ -125,7 +129,12 @@ function EnhancedTableHead(props) {
           const active = orderBy === headCell.id;
           return (
             <th
-              style={{ textAlign: 'center', backgroundColor: '#23395d', color: 'white', width: '100%' }}
+              style={{
+                textAlign: 'center',
+                backgroundColor: '#23395d',
+                color: 'white',
+                width: '100%',
+              }}
               key={headCell.id}
               aria-sort={
                 active
@@ -133,7 +142,6 @@ function EnhancedTableHead(props) {
                   : undefined
               }
             >
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <Link
                 underline="none"
                 color="neutral"
@@ -191,8 +199,8 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-  const [openMaterial, setOpenMaterial] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [openMaterial, setOpenMaterial] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   // const { onOpen: onDeleteModalOpen } = useDisclosure();
   const [course, setCourse] = React.useState([]);
   const [inputID, setInputID] = React.useState('');
@@ -212,53 +220,60 @@ export default function List() {
   const [Teacher, setTeacher] = React.useState('');
 
   const handleInputPhoto = async (e) => {
-    setInputPhoto(e.target.files[0])
-  }
+    setInputPhoto(e.target.files[0]);
+  };
 
   const handlePhoto = async (e) => {
-    setPhoto(e.target.value)
-  }
-  const [length, setLength] = useState([])
-  const [index, setIndex] = useState('')
+    setPhoto(e.target.value);
+  };
+  const [length, setLength] = useState([]);
+  const [index, setIndex] = useState('');
 
   const [search1, setSearch1] = useState('');
   const searchValue = (e) => {
-    setSearch1(e.target.value)
-  }
+    setSearch1(e.target.value);
+  };
   const handleSearch = (e) => {
     // console.log(search)
-    axios.post("http://localhost:3000/admin/search/course", { search: e.target.value }, { withCredentials: true })
+    axios
+      .post(
+        'http://localhost:3000/admin/search/course',
+        { search: e.target.value },
+        { withCredentials: true }
+      )
       .then((result) => {
-        setCourse(result.data.results)
+        setCourse(result.data.results);
       })
-      .catch(error => console.log(error));
-  }
+      .catch((error) => console.log(error));
+  };
 
   const handleSort = (fromYear, toYear, Year) => {
-    axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
+    axios
+      .post(
+        'http://localhost:3000/admin/sort/course',
+        { fromYear: fromYear, toYear: toYear, Year: Year },
+        { withCredentials: true }
+      )
       .then((result) => {
-        setCourse(result.data.results)
+        setCourse(result.data.results);
       })
-      .catch(error => console.log(error));
-  }
+      .catch((error) => console.log(error));
+  };
 
   const handleInputName = async (e) => {
-    setInputName(e.target.value)
-  }
+    setInputName(e.target.value);
+  };
 
   const handleInputTeacher_name = async (e) => {
-    setInputTeacher_name(e.target.value)
-  }
-
+    setInputTeacher_name(e.target.value);
+  };
 
   const handleName = async (e) => {
-    setName(e.target.value)
-  }
+    setName(e.target.value);
+  };
   useEffect(() => {
-
     courses();
-  }, [])
-
+  }, []);
 
   const [open, setOpen] = React.useState(false);
   const rows = course;
@@ -284,20 +299,21 @@ export default function List() {
   };
 
   const handleDisplay = async (course_id, type) => {
-    const response = await axios.get("http://localhost:3001/course/update");
+    const response = await axios.get('http://localhost:3001/course/update');
     setName(response.data[0].course_name);
-    setID(response.data[0].id);
+    setID(response.data[0].course_id);
     setTeacher(response.data[0].teacher_name);
     setPhoto(response.data[0].photo);
     if (type == 'edit') {
       setOpenEdit(true);
     } else if (type == 'view') {
-      setOpenView(true)
+      setOpenView(true);
     }
-  }
+  };
 
   const handleView = async (course_id) => {
-    await axios.get("http://localhost:3001/course/" + course_id)
+    await axios
+      .get('http://localhost:3001/course/' + course_id)
       .then((result) => {
         console.log(result);
         setName(result.data[0].course_name);
@@ -305,71 +321,69 @@ export default function List() {
         setTeacher(result.data[0].username);
         setInputPhoto(result.data[0].filepath);
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
     setOpenView(true);
-  }
+  };
 
   const handleSubmitEdit = async () => {
-
     setOpenEdit(true);
-    window.location.replace('/course/list')
-  }
+    window.location.replace('/course/list');
+  };
 
   const onDeleteModalOpen = async (id) => {
-    setDeleteID(id)
-    setOpenDelete(true)
-  }
+    setDeleteID(id);
+    setOpenDelete(true);
+  };
   const handleSubmit = async () => {
-
     const formData = new FormData();
     formData.append('course_name', inputName);
     formData.append('username', inputTeacher_name);
-    formData.append('file', inputPhoto);
-    axios.post("http://localhost:3001/course/create/", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-
-    })
-      .then((result) => {
-        window.location.replace('/home/course/list')
+    formData.append('image', inputPhoto);
+    axios
+      .post('http://localhost:3001/course/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
       })
-      .catch(error => console.log(error));
-
-
-  }
+      .then((result) => {
+        window.location.replace('/home/course/list');
+      })
+      .catch((error) => console.log(error));
+  };
 
   const handleCreate = async () => {
-    axios.post("http://localhost:3001/photo/upload", {
-      // file_name: inputName,
-      username: inputTeacher_name,
-      filepath: inputPhoto
-
-    })
-      .then((result) => {
-        window.location.replace('/home/course/list')
+    axios
+      .post('http://localhost:3001/photo/upload', {
+        // file_name: inputName,
+        username: inputTeacher_name,
+        filepath: inputPhoto,
       })
-      .catch(error => console.log(error));
+      .then((result) => {
+        window.location.replace('/home/course/list');
+      })
+      .catch((error) => console.log(error));
 
     // setOpenCreate(true);
-  }
+  };
 
   const courses = async () => {
-    axios.get("http://localhost:3001/course/all")
+    axios
+      .get('http://localhost:3001/course/all')
       .then((result) => {
-        setCourse(result.data)
+        setCourse(result.data);
         // console.log(course)
       })
-      .catch(error => console.log(error));
+      .catch((error) => console.log(error));
   };
 
   const handleDelete = async () => {
-    axios.post("http://localhost:3001/course/remove/" + deleteID)
+    axios
+      .post('http://localhost:3001/course/remove/' + deleteID)
       .then((result) => {
-        window.location.replace('/home/course/list')
+        window.location.replace('/home/course/list');
       })
-      .catch(error => console.log(error));
-  }
+      .catch((error) => console.log(error));
+  };
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -396,8 +410,8 @@ export default function List() {
   };
 
   const handleDoc = (id) => {
-    window.location.replace(`/course/${id}/materials`)
-  }
+    window.location.replace(`/course/${id}/materials`);
+  };
   const handleChangeRowsPerPage = (event, newValue) => {
     setRowsPerPage(parseInt(newValue.toString(), 10));
     setPage(0);
@@ -412,12 +426,12 @@ export default function List() {
       : Math.min(rows.length, (page + 1) * rowsPerPage);
   };
   const handleCloseDelete = () => {
-    setOpenDelete(false)
-  }
+    setOpenDelete(false);
+  };
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
   return (
-    <Flex flexDir="column" mt='10px' bg="white" borderRadius="10px" h="full">
+    <Flex flexDir="column" mt="10px" bg="white" borderRadius="10px" h="full">
       {/* Popup */}
       <Modal
         aria-labelledby="modal-title"
@@ -434,7 +448,7 @@ export default function List() {
             borderRadius: 'md',
             p: 3,
             boxShadow: 'lg',
-            marginTop: '-100'
+            marginTop: '-100',
           }}
         >
           <ModalClose
@@ -448,7 +462,11 @@ export default function List() {
           />
           <Flex mb="10px" justifyContent="space-between" alignItems="center">
             <Typography level="h4">Create Course</Typography>
-            <Button onClick={handleSubmit} sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} variant="solid">
+            <Button
+              onClick={handleSubmit}
+              sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }}
+              variant="solid"
+            >
               Create
             </Button>
           </Flex>
@@ -471,8 +489,17 @@ export default function List() {
                   value={inputTeacher_name}
                   onChange={handleInputTeacher_name}
                 />
-                <Grid sx={{ mt: 10 }} >
-                  <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handlePhoto} />
+                <Grid sx={{ mt: 10 }}>
+                  <input
+                    style={{
+                      marginTop: '20px',
+                      marginBottom: '20px',
+                      marginLeft: '3px',
+                    }}
+                    type="file"
+                    name="image"
+                    onChange={handleInputPhoto}
+                  />
                 </Grid>
               </FormControl>
             </VStack>
@@ -495,17 +522,48 @@ export default function List() {
             borderRadius: 'md',
             p: 3,
             boxShadow: 'lg',
-            marginTop: '-100'
+            marginTop: '-100',
           }}
         >
-          <Flex style={{ marginTop: '20px', justifyContent: "space-between", textAlign: "center", margin: 'auto', alignItems: "center" }}>
+          <Flex
+            style={{
+              marginTop: '20px',
+              justifyContent: 'space-between',
+              textAlign: 'center',
+              margin: 'auto',
+              alignItems: 'center',
+            }}
+          >
             <p> Are you sure you want to delete this course?</p>
           </Flex>
-          <div style={{ justifyConten: "space-between", textAlign: "center", alignItems: "center" }}>
-            <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#CD3700', color: 'white' }} onClick={handleDelete}>
+          <div
+            style={{
+              justifyConten: 'space-between',
+              textAlign: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Button
+              sx={{
+                mr: '10px',
+                mt: '20px',
+                backgroundColor: '#CD3700',
+                color: 'white',
+              }}
+              onClick={handleDelete}
+            >
               Delete
             </Button>
-            <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d', color: 'white' }} onClick={handleCloseDelete} variant="solid">
+            <Button
+              sx={{
+                mr: '10px',
+                mt: '20px',
+                backgroundColor: '#23395d',
+                color: 'white',
+              }}
+              onClick={handleCloseDelete}
+              variant="solid"
+            >
               Cancel
             </Button>
           </div>
@@ -527,7 +585,7 @@ export default function List() {
             p: 3,
             boxShadow: 'lg',
             marginTop: '-100',
-            overflowX: 'auto'
+            overflowX: 'auto',
           }}
         >
           <ModalClose
@@ -541,7 +599,16 @@ export default function List() {
           />
           <Flex mb="10px" justifyContent="space-between" alignItems="center">
             <Typography level="h4">Update Course</Typography>
-            <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d', color: 'white' }} onClick={handleSubmitEdit} variant="solid">
+            <Button
+              sx={{
+                mr: '10px',
+                mt: '20px',
+                backgroundColor: '#23395d',
+                color: 'white',
+              }}
+              onClick={handleSubmitEdit}
+              variant="solid"
+            >
               Update
             </Button>
           </Flex>
@@ -559,22 +626,36 @@ export default function List() {
               </FormControl>
             </VStack>
             <VStack>
-              <FormControl sx={{ width: '150px', marginLeft: '-50px', marginBottom: '30px' }}>
+              <FormControl
+                sx={{
+                  width: '150px',
+                  marginLeft: '-50px',
+                  marginBottom: '30px',
+                }}
+              >
                 <FormLabel required>Teacher Name</FormLabel>
                 <Input
                   placeholder="Please enter teacher ID"
                   variant="outlined"
                   color="neutral"
                   value={teacher_name}
-                // onChange={handleTeach}
+                  // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>
           </Grid>
-          <Grid templateColumns="repeat(1,1fr) " gap="2" style={{ marginLeft: '30px', marginRight: '50px' }}>
+          <Grid
+            templateColumns="repeat(1,1fr) "
+            gap="2"
+            style={{ marginLeft: '30px', marginRight: '50px' }}
+          >
             <FormControl>
               <Grid mt={-10}>
-                <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handlePhoto} />
+                <input
+                  style={{ marginBottom: '20px', marginLeft: '3px' }}
+                  type="file"
+                  onChange={handlePhoto}
+                />
               </Grid>
             </FormControl>
           </Grid>
@@ -596,7 +677,7 @@ export default function List() {
             p: 3,
             boxShadow: 'lg',
             marginTop: '-100',
-            overflowX: 'auto'
+            overflowX: 'auto',
           }}
         >
           <ModalClose
@@ -606,7 +687,7 @@ export default function List() {
               borderRadius: '10%',
               bgcolor: 'white',
               right: '10px',
-              top: '10px'
+              top: '10px',
             }}
           />
           <Flex mb="10px" justifyContent="space-between" alignItems="center">
@@ -614,18 +695,50 @@ export default function List() {
           </Flex>
           <Grid templateColumns="repeat(2,2fr)  " gap="2">
             <VStack spacing="3">
-              <span style={{ marginLeft: '30px', marginTop: '10px', width: 250, height: 200, border: '2px  solid #6f2da8 ', borderRadius: '5px', boxShadow: '2px 2px 2px gray' }}>
-                <img style={{ width: '100%', height: '100%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
+              <span
+                style={{
+                  marginLeft: '30px',
+                  marginTop: '10px',
+                  width: 250,
+                  height: 200,
+                  border: '2px  solid #6f2da8 ',
+                  borderRadius: '5px',
+                  boxShadow: '2px 2px 2px gray',
+                }}
+              >
+                <img
+                  style={{ width: '100%', height: '100%' }}
+                  src={`http://localhost:3001/static/${inputPhoto}`}
+                />
               </span>
             </VStack>
-            <VStack style={{ marginTop: '60px', textAlign: 'left', fontSize: '16px' }}>
+            <VStack
+              style={{ marginTop: '60px', textAlign: 'left', fontSize: '16px' }}
+            >
               <div>
-                <b><span style={{ marginLeft: '-20px', color: '#517388', fontSize: '20px', textTransform: 'upperCase' }}>{Name}</span></b>
+                <b>
+                  <span
+                    style={{
+                      marginLeft: '-20px',
+                      color: '#517388',
+                      fontSize: '20px',
+                      textTransform: 'upperCase',
+                    }}
+                  >
+                    {Name}
+                  </span>
+                </b>
               </div>
-              <div style={{ paddingLeft: '70px', width: 330, borderRadius: '3px' }}>
+              <div
+                style={{ paddingLeft: '70px', width: 330, borderRadius: '3px' }}
+              >
                 <div style={{ marginTop: '10px' }}>
-                  <span><b>Taught By : </b></span>
-                  <span style={{ marginLeft: '20px', color: '#517388' }}>{Teacher}</span>
+                  <span>
+                    <b>Taught By : </b>
+                  </span>
+                  <span style={{ marginLeft: '20px', color: '#517388' }}>
+                    {Teacher}
+                  </span>
                 </div>
               </div>
             </VStack>
@@ -668,7 +781,10 @@ export default function List() {
               <Input
                 sx={{
                   '&:hover': { '& svg': { opacity: 1 } },
-                  width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
+                  width: '200px',
+                  left: '910px',
+                  position: 'absolute',
+                  transition: 'width 3s',
                 }}
                 placeholder="search ..."
                 variant="outlined"
@@ -677,13 +793,11 @@ export default function List() {
               />
             </span>
             <Button
-              onClick={() =>
-                handleSearch()
-              }
+              onClick={() => handleSearch()}
               style={{ backgroundColor: '#23395d' }}
               sx={{ position: 'absolute', right: '105px' }}
               variant="solid"
-            // onClick={() => history.push(`${parentUrl}/add`)}
+              // onClick={() => history.push(`${parentUrl}/add`)}
             >
               <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
             </Button>
@@ -707,7 +821,7 @@ export default function List() {
           borderRadius: 1,
           marginTop: '20px',
           marginRight: '40px',
-          marginBottom: '20px'
+          marginBottom: '20px',
         }}
       >
         <Sheet
@@ -721,7 +835,6 @@ export default function List() {
         >
           <Table aria-labelledby="tableTitle" hoverRow>
             <EnhancedTableHead
-              // numSelected={selected.length}
               order={order}
               orderBy={orderBy}
               onSelectAllClick={handleSelectAllClick}
@@ -741,13 +854,13 @@ export default function List() {
                       spacing={2}
                       style={{
                         textAlign: 'center',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
                       }}
                       key={row.name}
                     >
                       <td>{row.course_id}</td>
-                      <td >{row.course_name}</td>
-                      <td >{row.username}</td>
+                      <td>{row.course_name}</td>
+                      <td>{row.username}</td>
 
                       <td>
                         <Center spacing={2} gap="8">
@@ -759,7 +872,9 @@ export default function List() {
                             bg="none"
                             size="sm"
                             border="none"
-                            icon={<MdRemoveRedEye color="#4682B4" size="1.3rem" />}
+                            icon={
+                              <MdRemoveRedEye color="#4682B4" size="1.3rem" />
+                            }
                           />
 
                           <IconButton
@@ -769,11 +884,15 @@ export default function List() {
                             border="none"
                             bg="none"
                             size="sm"
-                            icon={<HiOutlinePencilAlt color="#03A89E" size="1.3rem" />}
+                            icon={
+                              <HiOutlinePencilAlt
+                                color="#03A89E"
+                                size="1.3rem"
+                              />
+                            }
                             onClick={() => {
-                              handleDisplay(row.course_id, 'edit')
-                            }
-                            }
+                              handleDisplay(row.course_id, 'edit');
+                            }}
                           />
                           <IconButton
                             onClick={() => {
@@ -785,10 +904,11 @@ export default function List() {
                             border="none"
                             bg="none"
                             color="#78909c"
-                            icon={<HiOutlineTrash color="#CD3700" size="1.3rem" />}
+                            icon={
+                              <HiOutlineTrash color="#CD3700" size="1.3rem" />
+                            }
                           />
                         </Center>
-
                       </td>
                     </tr>
                   );
@@ -816,10 +936,13 @@ export default function List() {
                         <Option value={25}>25</Option>
                       </Select>
                     </FormControl>
-                    <Typography textAlign="center" fontSize="12px" sx={{ minWidth: 80 }}>
+                    <Typography
+                      textAlign="center"
+                      fontSize="12px"
+                      sx={{ minWidth: 80 }}
+                    >
                       {labelDisplayedRows({
-                        from:
-                          rows.length === 0 ? 0 : page * rowsPerPage + 1,
+                        from: rows.length === 0 ? 0 : page * rowsPerPage + 1,
                         to: getLabelDisplayedRowsTo(),
                         count: rows.length === -1 ? -1 : rows.length,
                       })}
@@ -841,8 +964,7 @@ export default function List() {
                         variant="outlined"
                         disabled={
                           rows.length !== -1
-                            ? page >=
-                            Math.ceil(rows.length / rowsPerPage) - 1
+                            ? page >= Math.ceil(rows.length / rowsPerPage) - 1
                             : false
                         }
                         onClick={() => handleChangePage(page + 1)}
