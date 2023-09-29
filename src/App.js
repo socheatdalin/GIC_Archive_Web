@@ -32,6 +32,7 @@ function App() {
                                         <Route path="/project" element={<Project />} />
                                         <Route path="/project/:id" element={<ProDetail />} />
                                         <Route path='/userpf' element={<UserProfile />} />
+                                        
                                         {/* guest */}
                                         <Route path="/" element={<Guesthome />}/>
                                         <Route path="/projectguest" element={<GuestProject />} />
