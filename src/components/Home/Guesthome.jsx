@@ -6,12 +6,12 @@ import Service from './service';
 import Footer from './Footer';
 import About from './aboutus';
 import { Link } from 'react-router-dom';
-import Navbar from '../Header/Navbar';
-function Home() {
+import Header from '../GuestHeader';
+function Guesthome() {
   return (
     <>
-    <Navbar />
-   
+  
+   <Header />
     <div>
       <div className="container">
       <div className="row">
@@ -39,4 +39,4 @@ function Home() {
     
   );
 }
-export default Home;
+export default Guesthome;

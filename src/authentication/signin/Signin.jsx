@@ -19,20 +19,16 @@ const Signin = () => {
                     console.log(response.data);
                     console.log("login successfully");
                     // Handle response
-
                });
           if (role === "student") {
                // navigate('');
-               window.location.href = 'http://localhost:3003/home';
-          }
-          else if (role === "teacher") {
-               window.location.href = 'http://localhost:3000';
-          }
-          else {
-               window.location.href = 'http://localhost:3002/home';
+               window.location.href = "http://localhost:3000/home";
+          } else if (role === "teacher") {
+               window.location.href = "http://localhost:3000/home";
+          } else {
+               window.location.href = "http://localhost:3002/home";
           }
      };
-
 
      return (
           <div className={styles.login_container}>

@@ -16,11 +16,9 @@
 }
 
 .Navbar .leftSide {
-  /* flex: 70%; */
   height: 100%;
   display: flex;
   align-items: center;
-  /* padding-left: 10px; */
 }
 .Navbar .leftSide h6{
   padding-left: 10px;
@@ -78,19 +76,6 @@ padding-left: 10px;
   display: flex;
   align-items: center;
 }
-
-/* .profile-avatar img {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 10px;
-} */
-
-.profile-name {
-  font-weight: bold;
-  margin-right: 10px;
-}
-
 .profile-dropdown ul {
   list-style: none;
   margin: 0;
@@ -108,12 +93,12 @@ padding-left: 10px;
 }
 
 .profile-dropdown li {
+  font-size: large;
+  font-weight: bold;
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.2s;
   text-decoration: none;
-  /* color: white;
-  background-color: #007BB2; */
 }
 
 .profile-dropdown li:hover {
@@ -122,7 +107,6 @@ padding-left: 10px;
 .profile-section:hover .profile-dropdown ul {
   display: block;
 }
-
 @media only screen and (max-width: 900px) {
   .Navbar .rightSide a {
     width: 70px;

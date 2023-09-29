@@ -9,8 +9,7 @@ import {
 } from '@chakra-ui/react';
 import makeAnimated from 'react-select/animated';
 import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import SELECT_OPTIONS from 'react-select';
+
 import Table from '@mui/joy/Table';
 import React, { useState } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
@@ -28,6 +27,7 @@ import PropTypes from 'prop-types';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+<<<<<<< HEAD
 import ModalEdit from '@mui/joy/Modal';
 import ModalDelete from '@mui/joy/Modal';
 import ModalView from '@mui/joy/Modal';
@@ -45,6 +45,12 @@ import {
   Typography,
 } from '@mui/joy';
 
+=======
+import ModalEdit from '@mui/joy/Modal'
+import ModalDelete from '@mui/joy/Modal'
+import ModalView from '@mui/joy/Modal'
+import { Box,Button,FormControl,FormLabel,Input,Modal,ModalClose,Option,Select,Sheet,Typography} from '@mui/joy';
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
 function labelDisplayedRows({ from, to, count }) {
   return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
 }
@@ -199,8 +205,13 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
+<<<<<<< HEAD
   const [openMaterial, setOpenMaterial] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+=======
+
+  const [searchOpen, setSearchOpen] = useState(false)
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
   // const { onOpen: onDeleteModalOpen } = useDisclosure();
   const [course, setCourse] = React.useState([]);
   const [inputID, setInputID] = React.useState('');
@@ -229,6 +240,7 @@ export default function List() {
   const [length, setLength] = useState([]);
   const [index, setIndex] = useState('');
 
+<<<<<<< HEAD
   const [search1, setSearch1] = useState('');
   const searchValue = (e) => {
     setSearch1(e.target.value);
@@ -259,6 +271,9 @@ export default function List() {
       })
       .catch((error) => console.log(error));
   };
+=======
+
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
 
   const handleInputName = async (e) => {
     setInputName(e.target.value);
@@ -309,8 +324,20 @@ export default function List() {
     } else if (type == 'view') {
       setOpenView(true);
     }
+<<<<<<< HEAD
   };
 
+=======
+  }
+  const handleSearch = (e) => {
+    // console.log(search)
+    axios.post("http://localhost:3001/search/course", { course_name: inputName })
+      .then((result) => {
+        setCourse(result.data)
+      })
+      .catch(error => console.log(error));
+  }
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
   const handleView = async (course_id) => {
     await axios
       .get('http://localhost:3001/course/' + course_id)
@@ -339,11 +366,22 @@ export default function List() {
     formData.append('course_name', inputName);
     formData.append('username', inputTeacher_name);
     formData.append('image', inputPhoto);
+<<<<<<< HEAD
     axios
       .post('http://localhost:3001/course/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+=======
+    axios.post("http://localhost:3001/course/create", formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+      .then((result) => {
+        console.log(result);
+        window.location.replace('/home/course/list');
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
       })
       .then((result) => {
         window.location.replace('/home/course/list');
@@ -352,6 +390,7 @@ export default function List() {
   };
 
   const handleCreate = async () => {
+<<<<<<< HEAD
     axios
       .post('http://localhost:3001/photo/upload', {
         // file_name: inputName,
@@ -362,6 +401,9 @@ export default function List() {
         window.location.replace('/home/course/list');
       })
       .catch((error) => console.log(error));
+=======
+
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
 
     // setOpenCreate(true);
   };
@@ -370,8 +412,12 @@ export default function List() {
     axios
       .get('http://localhost:3001/course/all')
       .then((result) => {
+<<<<<<< HEAD
         setCourse(result.data);
         // console.log(course)
+=======
+        setCourse(result.data)
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
       })
       .catch((error) => console.log(error));
   };
@@ -409,9 +455,12 @@ export default function List() {
     setPage(newPage);
   };
 
+<<<<<<< HEAD
   const handleDoc = (id) => {
     window.location.replace(`/course/${id}/materials`);
   };
+=======
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
   const handleChangeRowsPerPage = (event, newValue) => {
     setRowsPerPage(parseInt(newValue.toString(), 10));
     setPage(0);
@@ -489,6 +538,7 @@ export default function List() {
                   value={inputTeacher_name}
                   onChange={handleInputTeacher_name}
                 />
+<<<<<<< HEAD
                 <Grid sx={{ mt: 10 }}>
                   <input
                     style={{
@@ -500,6 +550,10 @@ export default function List() {
                     name="image"
                     onChange={handleInputPhoto}
                   />
+=======
+                <Grid sx={{ mt: 10 }} >
+                  <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} />
+>>>>>>> a12e75c530df25714953204f2f6b38a44ca46995
                 </Grid>
               </FormControl>
             </VStack>
@@ -786,10 +840,10 @@ export default function List() {
                   position: 'absolute',
                   transition: 'width 3s',
                 }}
-                placeholder="search ..."
+                placeholder="search by course ..."
                 variant="outlined"
                 color="neutral"
-                onChange={handleSearch}
+                onChange={handleInputName}
               />
             </span>
             <Button

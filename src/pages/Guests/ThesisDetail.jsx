@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import Web from "../assets/ux.png";
-import Comment from "../components/comment";
-import Navbar from "../components/Header/Navbar";
+import Web from "../../assets/ux.png";
+import Comment from "../../components/comment";
+import Header from '../../components/GuestHeader'
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import LikeButton from "../components/LikeButton";
+import LikeButton from "../../components/LikeButton";
+
 
 function ThesisDetail() {
   const { id } = useParams();
@@ -16,7 +17,7 @@ function ThesisDetail() {
     axios
       .get(`http://localhost:3001/thesis/all/${id}`)
       .then((response) => {
-        setThesis(response.data[0]); // Access the first item in the array
+        setThesis(response.data[0]);
         setLoading(false); // Set loading to false when data is available
         setfile(response.data[0].filepath);
       })
@@ -26,23 +27,22 @@ function ThesisDetail() {
       });
   }, [id]);
 
-  const handleButtonClick = () => {
-    //make it able to route in new page
+  const handleButtonClick = () => {//make it able to route in new page
     if (thesis.github_url) {
       window.open(thesis.github_url, "_blank");
     }
   };
+
   const handleOpenFile = (url) => {
     if (thesis.fileName) {
       window.open(url, "_blank", "noopener,noreferrer");
     }
   };
-
+  
   return (
     <>
-      <Navbar />
+      <Header />
       <div className="p-5 container ">
-        
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
           <div className="card-thesis d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5  ">
             <img
@@ -71,12 +71,9 @@ function ThesisDetail() {
                     >
                       Code
                     </button>
-                    <button
-                      className="btn btn-primary"
-                      onClick={() =>
+                    <button className="btn btn-primary" type="button"  onClick={() =>
                         handleOpenFile(`http://localhost:3001/static/${File}`)
-                      }
-                    >
+                      }>
                       Pdf
                     </button>
                   </div>
@@ -94,41 +91,32 @@ function ThesisDetail() {
               {loading ? (
                 <p>Loading...</p>
               ) : (
-                <div class="col-sm-6">
-                  <h4>Fields</h4>
-                  <div className="text-success">
-                    <hr></hr>
-                  </div>
-                  <div
-                    className="Tags d-flex align-items-center justify-content-center p-2"
-                    style={{ width: "120px", height: "50px" }}
-                  >
-                    <img
-                      src={Web}
-                      alt="webpage"
-                      className="img-fluid img-smaller"
-                    />
-                    <span className="ms-2">{thesis.field}</span>
-                  </div>
-
-                  <div className="pt-5">
-                    <h4>Code</h4>
+                  <div class="col-sm-6">
+                    <h4>Fields</h4>
                     <div className="text-success">
                       <hr></hr>
-                      <p>
-                        GitHub URL:{" "}
-                        <a
-                          href={thesis.github_url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          {thesis.github_url}
-                        </a>
-                      </p>
                     </div>
-                    <p></p>
+                    <div
+                      className="Tags d-flex align-items-center justify-content-center p-2"
+                      style={{ width: "120px", height: "50px" }}
+                    >
+                      <img
+                        src={Web}
+                        alt="webpage"
+                        className="img-fluid img-smaller"
+                      />
+                      <span className="ms-2">{thesis.field}</span>
+                    </div>
+
+                    <div className="pt-5">
+                      <h4>Code</h4>
+                      <div className="text-success">
+                        <hr></hr>
+                        <p>GitHub URL: <a href={thesis.github_url} target="_blank" rel="noopener noreferrer">{thesis.github_url}</a></p>
+                      </div>
+                      <p></p>
+                    </div>
                   </div>
-                </div>
               )}
             </div>
           </div>

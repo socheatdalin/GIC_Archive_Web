@@ -336,7 +336,7 @@ export default function List() {
 
     const handleSearch = (e) => {
         // console.log(search)
-        axios.post("http://localhost:3001/teacher/all/name", { username: inputName })
+        axios.post("http://localhost:3001/admin/teacher/all/name", { username: inputName })
             .then((result) => {
                 setTeacher(result.data)
             })
@@ -344,7 +344,7 @@ export default function List() {
     }
 
     const handleDelete = async () => {
-        axios.post("http://localhost:3001/teacher/delete/" + deleteID)
+        axios.post("http://localhost:3001/admin/teacher/delete/" + deleteID)
             .then((result) => {
                 window.location.replace('/home/teacher/list')
             })
@@ -352,7 +352,7 @@ export default function List() {
     }
 
     const handleView = async (teacher_id) => {
-        await axios.get("http://localhost:3001/teacher/" + teacher_id)
+        await axios.get("http://localhost:3001/admin/teacher/" + teacher_id)
             .then((result) => {
                 // setAddress(result.data[0].address)
                 setEmail(result.data[0].email)
@@ -367,7 +367,7 @@ export default function List() {
         setOpenView(true);
     }
     const teachers = async () => {
-        axios.get("http://localhost:3001/teacher/all")
+        axios.get("http://localhost:3001/admin/teacher/all")
             .then((result) => {
                 setTeacher(result.data)
             })
@@ -377,7 +377,7 @@ export default function List() {
     const handleEdit = async (teacher_id) => {
         console.log(teacher_id);
         await axios
-            .get('http://localhost:3001/teacher/' + teacher_id)
+            .get('http://localhost:3001/admin/teacher/' + teacher_id)
             .then((result) => {
                 // setAddress(result.data[0].address);
                 setEmail(result.data[0].email);
@@ -403,7 +403,7 @@ export default function List() {
         formData.append('password', inputPassword);
         formData.append('image', inputPhoto);
         console.log(formData.get('image'));
-        axios.post("http://localhost:3001/signup/teacher", formData,
+        axios.post("http://localhost:3001/admin/signup/teacher", formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -427,7 +427,7 @@ export default function List() {
         formData.set('address', Address);
         formData.append('photo', Photo);
         console.log(formData.get('photo'));
-        axios.post(`http://localhost:3001/teacher/update/${teacher_id}`, formData,
+        axios.post(`http://localhost:3001/admin/teacher/update/${teacher_id}`, formData,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data'
