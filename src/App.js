@@ -39,6 +39,10 @@ function App() {
                                         <Route path="/thesisguest" element={<GuestThesis />} />
                                         <Route path="/projectguest/:id" element={<GuestProjectdetail />} />
                                         <Route path="/thesisguest/:id" element={<GuestThesisdetail />} />
+
+                                        {/* <Route path="/project/detail" element={<ProDetail />} /> */}
+                                        {/* <Route path="/project/upload" element={<ProjectUp />} /> */}
+
                                 </Routes>
                         </Router>
 
