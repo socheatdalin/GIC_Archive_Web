@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Navbar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
-import pic from "../assets/SNA.jpg";
-import "../styles/project.css";
-import star from "../assets/star.png";
-import Drop from "../components/drop";
+import pic from "../../assets/SNA.jpg";
+import "../../styles/project.css";
+import star from "../../assets/star.png";
+import Drop from "../../components/drop";
 import "reactjs-popup/dist/index.css";
-import git from "../assets/git.png";
+import git from "../../assets/git.png";
+import Header from '../../components/GuestHeader'
 
 class Project extends Component {
   constructor(props) {
@@ -35,7 +35,7 @@ class Project extends Component {
     }
     return (
       <>
-        <Navbar />
+        <Header />
         <div className="p-5 container ">
           <div className="trending my-3 d-flex flex-row justify-content-between">
             <div>
@@ -69,7 +69,7 @@ class Project extends Component {
                           {item.github_url}{" "}
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
-                        <Link to={`/project/${item.project_id}`}>
+                        <Link to={`/projectguest/${item.project_id}`}>
                           <button className="btn btn-outline-primary fw-bolder">
                             View
                           </button>

@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from "react";
-import Navbar from "../components/Header/Navbar";
-import pic from "../assets/SNA.jpg";
-import Comment from "../components/comment";
-import LikeButton from "../components/LikeButton";
+import pic from "../../assets/SNA.jpg";
+import Comment from "../../components/comment";
+import LikeButton from "../../components/LikeButton";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import Header from '../../components/GuestHeader'
 
 function ProDetail() {
   const { id } = useParams();
@@ -31,7 +30,6 @@ function ProDetail() {
       window.open(project.github_url, "_blank");
     }
   };
-
   const handleOpenFile = (url) => {
     if (project.fileName) {
       window.open(url, "_blank", "noopener,noreferrer");
@@ -39,7 +37,7 @@ function ProDetail() {
   };
   return (
     <>
-      <Navbar />
+      <Header />
       <div className="p-5 container">
        
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
@@ -63,9 +61,8 @@ function ProDetail() {
                       <button className="btn btn-primary me-md-2" type="button" onClick={handleButtonClick}>
                         Code
                       </button>
-                      <button className="btn btn-primary" type="button"  onClick={() =>
-                        handleOpenFile(`http://localhost:3001/static/${File}`)
-                      }>
+                      <button className="btn btn-primary" type="button" onClick={() =>
+                        handleOpenFile(`http://localhost:3001/static/${File}`)}>
                         Pdf
                       </button>
                     </div>
@@ -77,11 +74,9 @@ function ProDetail() {
 
           <div className="contain">
             <div class="row ">
-
               <div class="col-sm-6">
                 <Comment />
               </div>
-              
               {loading ? (
                 <p>Loading...</p>
               ) : (
