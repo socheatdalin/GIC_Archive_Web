@@ -786,12 +786,12 @@ export default function List() {
                         </Flex>
                         <Grid templateColumns="repeat(2,1fr)  " gap="1">
                             <VStack spacing="1">
-                                <span style={{ marginLeft: '70px', marginTop: '40px', width: 200, height: 200, border: '1px  solid #23395d', borderRadius: '3px', }}>
+                                <span style={{ marginLeft: '70px', marginTop: '30px', width: 200, height: 200, border: '1px  solid #23395d', borderRadius: '3px', }}>
                                     <img style={{ width: '100%', height: '100%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
                                 </span>
                             </VStack>
                             <VStack>
-                                <div style={{ paddingLeft: '40px', paddingTop: '20px', width: 320, height: 240, borderRadius: '3px' }}>
+                                <div style={{ paddingLeft: '40px', paddingTop: '40px', width: 320, height: 240, borderRadius: '3px' }}>
                                     <div style={{ marginTop: '10px' }}>
                                         <span><b>Name : </b></span>
                                         <span style={{ marginLeft: '33px', color: '#517388' }}>{inputName}</span>
