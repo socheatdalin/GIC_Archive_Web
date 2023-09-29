@@ -1,24 +1,18 @@
-.img-smaller {
-    max-width: 40px; /* Adjust this value to control the maximum width of the image */
-    max-height: 40px; /* Adjust this value to control the maximum height of the image */
-  }
 .img-project{
-    width: 300px; /* Adjust this value to control the maximum width of the image */
-    height: 180px; /* Adjust this value to control the maximum height of the image */
+    width: 280px; 
+    height: 180px; 
 }
 .img-star {
   max-width: 20px;
   max-height: 20px;
   margin-right: 10px;
 }
-.card {
-  width: 18rem;
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
 }
-.cardi img {
-  max-width: 200px; /* Adjust this value to control the maximum width of the image */
-  max-height: 200px; /* Adjust this value to control the maximum height of the image */
-}
-
 /* styles.css */
 .modal {
   position: absolute;
@@ -31,7 +25,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   max-width: 80%;
 }
-
 .overlay {
   position: fixed;
   top: 0;

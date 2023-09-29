@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import Web from "../assets/ux.png";
-import Mobile from "../assets/user-interface.png";
-import Network from "../assets/local-area-network.png";
-import Data from "../assets/data-science.png";
+import Web from "../../assets/ux.png";
+import Mobile from "../../assets/user-interface.png";
+import Network from "../../assets/local-area-network.png";
+import Data from "../../assets/data-science.png";
 import { Link} from "react-router-dom";
-import "../styles/Thesis.css";
-import star from "../assets/star.png";
-import Navbar from "../components/Header/Navbar";
-import Dropdown from "../components/dropdown";
-import git from "../assets/git.png";
+import "../../styles/Thesis.css";
+import star from "../../assets/star.png";
+import Dropdown from "../../components/dropdown";
+import git from "../../assets/git.png";
+import Header from '../../components/GuestHeader'
 class Thesis extends Component {
     constructor(props){
     super(props);
@@ -35,7 +35,7 @@ render(){
     }
       return (
             <>
-              <Navbar />
+              <Header />
               <div className="p-5 container">
                 <div className=" first-part">
                   <div className="d-flex flex-row justify-content-between">
@@ -111,7 +111,7 @@ render(){
                           {item.github_url}
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
-                        <Link to={`/thesis/${item.thesis_id}`}>
+                        <Link to={`/thesisguest/${item.thesis_id}`}>
                           <button className="btn btn-outline-primary fw-bolder">
                             View
                           </button>

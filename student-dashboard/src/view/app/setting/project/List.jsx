@@ -717,8 +717,8 @@ export default function List() {
                 <Sheet
                     variant="outlined"
                     sx={{
-                        width: 450,
-                        height: 480,
+                        width: 400,
+                        height: 200,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -744,44 +744,13 @@ export default function List() {
               <FormControl sx={{ width: '250px' }}>
                 <FormLabel required>Members</FormLabel>
                 <Input
-                  placeholder="Please enter your number of member"
+                  placeholder="Please enter your member"
                   variant="outlined"
                   color="neutral"
                   value={inputmember}
                   onChange={handleInputMember}
                 />
-                <FormLabel required>Member1</FormLabel>
-                <Input
-                  placeholder="Please enter member's name"
-                  variant="outlined"
-                  color="neutral"
-                  value={inputmember}
-                  onChange={handleInputMember}
-                />
-                <FormLabel required>Member2</FormLabel>
-                <Input
-                  placeholder="Please enter member's name"
-                  variant="outlined"
-                  color="neutral"
-                  value={inputmember}
-                  onChange={handleInputMember}
-                />
-                <FormLabel required>Member3</FormLabel>
-                <Input
-                  placeholder="Please enter member's name"
-                  variant="outlined"
-                  color="neutral"
-                  value={inputmember}
-                  onChange={handleInputMember}
-                />
-                <FormLabel required>Member4</FormLabel>
-                <Input
-                  placeholder="Please enter member's name"
-                  variant="outlined"
-                  color="neutral"
-                  value={inputmember}
-                  onChange={handleInputMember}
-                />
+                
               </FormControl>
             </VStack>
                     </Grid>

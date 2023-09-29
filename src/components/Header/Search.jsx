@@ -1,6 +1,6 @@
 
 import React, { useState } from "react"
-import "../styles/search.css"
+import "../../styles/search.css"
 import { Nav, Form } from "react-bootstrap"
 import useOnclickOutside from "react-cool-onclickoutside"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
