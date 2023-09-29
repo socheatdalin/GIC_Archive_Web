@@ -30,8 +30,19 @@ function App() {
                                         <Route path='/login' element={<Signin />} />
                                         <Route path='/register' element={<Register />} />
                                         <Route path="/project" element={<Project />} />
-                                        <Route path="/project/detail" element={<ProDetail />} />
-                                        <Route path="/project/upload" element={<ProjectUp />} />
+                                        <Route path="/project/:id" element={<ProDetail />} />
+                                        <Route path='/userpf' element={<UserProfile />} />
+                                        
+                                        {/* guest */}
+                                        <Route path="/" element={<Guesthome />}/>
+                                        <Route path="/projectguest" element={<GuestProject />} />
+                                        <Route path="/thesisguest" element={<GuestThesis />} />
+                                        <Route path="/projectguest/:id" element={<GuestProjectdetail />} />
+                                        <Route path="/thesisguest/:id" element={<GuestThesisdetail />} />
+
+                                        {/* <Route path="/project/detail" element={<ProDetail />} /> */}
+                                        {/* <Route path="/project/upload" element={<ProjectUp />} /> */}
+
                                 </Routes>
                         </Router>
 
