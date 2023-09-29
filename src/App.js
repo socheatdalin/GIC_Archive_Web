@@ -9,6 +9,7 @@ import Register from './authentication/register/Register';
 import Signin from './authentication/signin/Signin';
 import Project from './pages/Project';
 import ProDetail from './pages/ProDetail';
+import student from '../student-dashboard/src/app';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
                                         <Route path="/project" element={<Project />} />
                                         <Route path="/project/detail" element={<ProDetail />} />
                                         <Route path="/project/upload" element={<ProjectUp />} />
+                                        <Route path='/student/dashborad' element={<student />} />
                                 </Routes>
                         </Router>
 

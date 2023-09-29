@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import styles from "./styles/loginform.module.css";
 
 const Signin = () => {
-     let navigate = useNavigate();
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [role, setRole] = useState("");
@@ -13,19 +12,23 @@ const Signin = () => {
           // Prevent the default submit and page reload
           e.preventDefault();
           // Handle validations
-          axios
-               .post("http://localhost:3001/login", { email, password, role })
+          axios.post("http://localhost:3001/login", { email, password, role })
                .then((response) => {
                     console.log(response.data);
-                    console.log(response.data.username)
+                    console.log(response.data.email)
                     console.log("login successfully");
                     // Handle response
 
                });
           if (role === "student") {
-               // navigate('');
-               console.log(email);
-               window.location.href = 'http://localhost:3003/home';
+               axios.get('http://localhost:3001/user/getme')
+                    .then((response) => {
+                         console.log(response.data);
+                         console.log(response.data.email)
+                         console.log("login successfully");
+                         window.location.replace('http://localhost:3003/home');
+                    });
+            
           }
           else if (role === "teacher") {
                window.location.href = 'http://localhost:3000';
