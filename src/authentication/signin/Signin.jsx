@@ -16,13 +16,14 @@ const Signin = () => {
           axios
                .post("http://localhost:3001/login", { email, password, role })
                .then((response) => {
-                    console.log(response.data);
+                    console.log(response.data.email);
                     console.log("login successfully");
                     // Handle response
                });
-          if (role === "student") {
+          if (role === "student" && email === email) {
                // navigate('');
-               window.location.href = "http://localhost:3000/home";
+               navigate('/home');
+               // window.location.href = "http://localhost:3000/home";
           } else if (role === "teacher") {
                window.location.href = "http://localhost:3000/home";
           } else {
