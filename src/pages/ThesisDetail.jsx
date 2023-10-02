@@ -14,7 +14,7 @@ function ThesisDetail() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/thesis/all/${id}`)
+      .get(`http://localhost:3001/admin/thesis/all/${id}`)
       .then((response) => {
         setThesis(response.data[0]); // Access the first item in the array
         setLoading(false); // Set loading to false when data is available

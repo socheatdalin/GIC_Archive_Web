@@ -14,7 +14,7 @@ function ProDetail() {
   const [File, setfile] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/team_project/${id}`)
+      .get(`http://localhost:3001/admin/team_project/${id}`)
       .then((response) => {
         setProject(response.data[0]);
         setLoading(false); 
@@ -57,7 +57,9 @@ function ProDetail() {
                 <div>
                   <h4 className="fw-semibold">{project.title}</h4>
                   <p></p>
-                  <h6>by: {project.course_name}</h6>
+                  <h6>Class: {project.course_name}</h6>
+                  <h6>Taught by: {project.teacher_name}</h6>
+                  <h6>Posted by: {project.inputname}</h6>
                   <p className="text-secondary">{project.descr} </p>
                     <div className="d-grid gap-2 d-md-flex justify-content-start">
                       <button className="btn btn-primary me-md-2" type="button" onClick={handleButtonClick}>

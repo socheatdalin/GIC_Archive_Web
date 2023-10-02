@@ -18,7 +18,7 @@ class Project extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3001/project/all")
+    fetch("http://localhost:3001/admin/project/all")
       .then((res) => res.json())
       .then((json) => {
         this.setState({

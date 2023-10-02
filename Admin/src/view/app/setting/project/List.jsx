@@ -479,7 +479,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 700,
-                        height: 350,
+                        height: 400,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -525,7 +525,7 @@ export default function List() {
                                 />
                                 <FormLabel required>Student name </FormLabel>
                                 <Input
-                                    placeholder="Please enter your course"
+                                    placeholder="Please enter your student name"
                                     variant="outlined"
                                     defaultValue=''
                                     type='text'
