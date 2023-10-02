@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Navigation from "./navigation";
 import "../../styles/Navbar.css";
 import Search from "./Search";
-import Popup from "./Popup";
+// import Popup from "./Popup";
 function Navbar() {
 
   return (
@@ -60,9 +60,9 @@ function Navbar() {
           <div className="profile-dropdown">
             <ul>
               <li>
-                {/* <Link to="/userpf">Profile</Link> */}
-                Profile
-                <Popup />
+                <Link to="/userpf">Profile</Link>
+                {/* Profile
+                <Popup /> */}
               </li>
               <li>
                 <Link to="http://localhost:3003/home">Dashboard</Link>

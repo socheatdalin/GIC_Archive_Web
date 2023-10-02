@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import pic from "../../assets/SNA.jpg";
 import Comment from "../../components/comment";
 import LikeButton from "../../components/LikeButton";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from '../../components/GuestHeader'
 
@@ -10,14 +10,13 @@ function ProDetail() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [File, setfile] = useState(null);
+
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/team_project/${id}`)
+      .get(`http://localhost:3001/admin/team_project/${id}`)
       .then((response) => {
         setProject(response.data[0]);
         setLoading(false); 
-        setfile(response.data[0].filepath);
       })
       .catch((error) => {
         console.error(error);
@@ -25,16 +24,6 @@ function ProDetail() {
       });
   }, [id]);
 
-  const handleButtonClick = () => {//make it able to route in new page
-    if (project.github_url) {
-      window.open(project.github_url, "_blank");
-    }
-  };
-  const handleOpenFile = (url) => {
-    if (project.fileName) {
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-  };
   return (
     <>
       <Header />
@@ -55,16 +44,22 @@ function ProDetail() {
                 <div>
                   <h4 className="fw-semibold">{project.title}</h4>
                   <p></p>
-                  <h6>by: {project.course_name}</h6>
+                  <h6>Class: {project.course_name}</h6>
+                  <h6>Taught by: {project.teacher_name}</h6>
+                  <h6>Posted by: {project.inputname}</h6>
                   <p className="text-secondary">{project.descr} </p>
                     <div className="d-grid gap-2 d-md-flex justify-content-start">
-                      <button className="btn btn-primary me-md-2" type="button" onClick={handleButtonClick}>
+                      <Link to = "/login">
+                      <button className="btn btn-primary me-md-2" type="button" >
                         Code
                       </button>
-                      <button className="btn btn-primary" type="button" onClick={() =>
-                        handleOpenFile(`http://localhost:3001/static/${File}`)}>
+                      </Link>
+                      <Link  to = "/login">
+                      <button className="btn btn-primary" >
                         Pdf
                       </button>
+                      </Link>
+                      
                     </div>
                 </div>
               )}
@@ -87,7 +82,7 @@ function ProDetail() {
                   <div className="text-success">
                     <hr></hr>
                   </div>
-                  <p>GitHub URL: <a href={project.github_url} target="_blank" rel="noopener noreferrer">{project.github_url}</a></p>
+                  <p>GitHub URL: <Link to="/login"><a href={project.github_url} target="_blank" rel="noopener noreferrer">Require Login</a> </Link></p> 
                 </div>
               </div>
                 )}

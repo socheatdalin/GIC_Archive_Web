@@ -40,10 +40,16 @@ function GuestHeader() {
               to="/login"
               style={{
                 color: "#007BB2",
-                border: "1px solid white",
-                backgroundColor: "white",
-                borderRadius: "5px",
-                textDecoration: "none",
+              border: "1px solid white",
+              backgroundColor: "white",
+              borderRadius: "5px",
+              height: "30px", 
+              width: "70px",
+              fontSize: "20px", 
+              textDecoration: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center", 
               }}
             >
               Login

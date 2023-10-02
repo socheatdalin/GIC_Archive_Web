@@ -7,7 +7,7 @@ import { Link} from "react-router-dom";
 import "../styles/Thesis.css";
 import star from "../assets/star.png";
 import Navbar from "../components/Header/Navbar";
-import Dropdown from "../components/dropdown";
+// import Dropdown from "../components/dropdown";
 import git from "../assets/git.png";
 class Thesis extends Component {
     constructor(props){
@@ -18,7 +18,7 @@ class Thesis extends Component {
     }
 }
 componentDidMount() {
-    fetch('http://localhost:3001/thesis/all')
+    fetch('http://localhost:3001/admin/thesis/all')
         .then(res => res.json())
         .then(json => {
             this.setState({
@@ -42,7 +42,7 @@ render(){
                     <div>
                       <h2 className="fw-semibold">Thesis</h2>
                     </div>
-                    <Dropdown />
+                    {/* <Dropdown /> */}
                   </div>
         
                   <h6 >Everything you need to find in theis statement</h6>
