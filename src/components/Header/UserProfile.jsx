@@ -1,33 +1,53 @@
 import React, { useState } from 'react';
-import axois from 'axios';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import "../../styles/userpf.css";
 import { useEffect } from 'react';
-// import { use } from '../../../../Gic_Archive_Backend/routes';
-
-
 
 function UserProfile() {
-    const [profile, setprofile] = useState([]);
-    const [name, setName] = useState('');
+    let navigate = useNavigate();
+    const [auth, setAuth] = useState(false);
+    const [name, setname] = useState('');
+    const [email, setEmail] = useState('');
     const [gender, setGender] = useState('');
-
+    const [userId, setuserId] = useState('');
+    const [first_name, setFirstname] = useState('');
+    const [last_name, setLastName] = useState('');
+    const [role, setRole] = useState('');
+    const [generation, setGeneration] = useState('');
     useEffect(() => {
 
-        Profile();
+        axios.get("http://localhost:3001/me", {
+            headers: {
+                'Authorization': sessionStorage.getItem("token"),
+                "Content-Type": "application/json"
+            }
+        })
+            .then((result) => {
+                setAuth(true);
+                setEmail(result.data.email);
+                setname(result.data.name);
+                setGender(result.data.gender);
+                setFirstname(result.data.first_name);
+                setLastName(result.data.last_name);
+                setGeneration(result.data.generation);
+                setRole(result.data.role_name);
+                console.log(result.data)
+            })
+            .catch(err => {
+                console.log("Server error:", err);
+            });
+
     }, [])
 
-    const row = profile;
-
-    const Profile = async () => {
-        await axois.get("http://localhost:3001/getstudent")
-            .then((result) => {
-                // setprofile(result.data)
-                console.log(result.data);
-                setName(result.data[0].username);
-                setGender(result.data[0].gender);
+    const handleLogout = () => {
+        axios.get('http://localhost:3001/logout')
+            .then(res => {
+                // sessionStorage.removeItem("token");
+                navigate('/');
             })
-            .catch(error => console.log(error));
-    };
+            .catch((err => console.log(err)))
+    }
     return (
         <div>
             <div class="container d-flex justify-content-center align-items-center">
@@ -47,9 +67,13 @@ function UserProfile() {
                     </div>
                     <div class="mt-5 text-center">
                         <h4 class="mb-0">{name}</h4>
-                        <span class="text-muted d-block mb-2">Student</span>
-                        <span class="text-muted d-block mb-2">Gender:{row.gender} </span>
-                        <span class="text-muted d-block mb-2">Email:{row.email} </span>
+                        <span class="text-muted d-block mb-2">{role}</span>
+                        <span class="text-muted d-block mb-2">Firstname:{first_name} </span>
+                        <span class="text-muted d-block mb-2">Last Name: {last_name} </span>
+                        <span class="text-muted d-block mb-2">Gender:{gender} </span>
+                        <span class="text-muted d-block mb-2">Email:{email} </span>
+                        <span class="text-muted d-block mb-2">Generation:{generation} </span>
+                        <button onClick={handleLogout}>Logout</button>
                     </div>
 
                 </div>
