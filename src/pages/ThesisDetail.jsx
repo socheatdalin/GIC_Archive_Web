@@ -89,6 +89,7 @@ function ThesisDetail() {
             <div class="row">
               <div class="col-sm-6">
                 <Comment text="Thesis comment" theme="thesis"/>
+                
               </div>
 
               {loading ? (
