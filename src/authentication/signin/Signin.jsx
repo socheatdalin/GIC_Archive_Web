@@ -13,21 +13,23 @@ const Signin = () => {
           // Prevent the default submit and page reload
           e.preventDefault();
           // Handle validations
-          axios
-               .post("http://localhost:3001/login", { email, password, role })
+          axios.post("http://localhost:3001/login", { email: email, password: password, role: role })
                .then((response) => {
-                    console.log(response.data);
-                    console.log("login successfully");
-                    // Handle response
+                    if (role === "student" || role === "teacher") {
+                         const token = response.data.token;
+                         console.log(response.data);  // Change this line
+                         console.log(token);
+                         console.log("Login successful");
+                         sessionStorage.setItem('token', token);
+                         navigate('/home');
+                    }
+                    else {
+                         window.location.href = "http://localhost:3002/home";
+                    }
+               })
+               .catch(err => {
+                    console.log("Server error:", err);
                });
-          if (role === "student") {
-               // navigate('');
-               window.location.href = "http://localhost:3000/home";
-          } else if (role === "teacher") {
-               window.location.href = "http://localhost:3000/home";
-          } else {
-               window.location.href = "http://localhost:3002/home";
-          }
      };
 
      return (
