@@ -7,7 +7,6 @@ import {
   VStack,
   useDisclosure,
 } from '@chakra-ui/react';
-import FileViewer from 'react-file-viewer';
 import makeAnimated from 'react-select/animated';
 import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -243,7 +242,8 @@ export default function List() {
   const [fileName, setFileName] = React.useState('');
   const [inputTeacher_id, setInputTeacher_id] = React.useState('');
   const [inputGit, setInputGit] = React.useState('');
-
+  const [auth, setAuth] = useState(false);
+  const [email, setEmail] = useState('');
   const [ID, setID] = React.useState('');
   const [Name, setName] = React.useState('');
   const [inputField, setInputField] = React.useState('');
@@ -257,16 +257,6 @@ export default function List() {
   const [inputPhoto, setInputPhoto] = React.useState('');
   const [Teacher, setTeacher] = React.useState('');
   const [Files, setFile] = useState('');
-
-  const handleInputPhoto = async (e) => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setInputPhoto(base64);
-  };
-
-  const handlePhoto = async (e) => {
-    const base64 = await convertToBase64(e.target.files[0]);
-    setPhoto(base64);
-  };
   const [length, setLength] = useState([]);
   const [index, setIndex] = useState('');
 
@@ -332,24 +322,30 @@ export default function List() {
   };
   useEffect(() => {
     Thesis();
+    axios.get("http://localhost:3001/me", {
+      headers: {
+        'Authorization': sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      }
+    })
+      .then((result) => {
+        setAuth(true);
+        setEmail(result.data.email);
+        // setname(result.data.name);
+        // setGender(result.data.gender);
+        setName(result.data.first_name);
+        // setLastName(result.data.last_name);
+        // setGeneration(result.data.generation);
+        // setRole(result.data.role_name);
+        console.log(result.data)
+      })
+      .catch(err => {
+        console.log("Server error:", err);
+      });
   }, []);
 
   const [open, setOpen] = React.useState(false);
 
-  const convertToBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
   const handleDisplay = async () => {
     const response = await axios.get('http://localhost:3001/thesis/all/');
@@ -367,7 +363,7 @@ export default function List() {
       .get('http://localhost:3001/admin/thesis/all' + thesis_id)
       .then((result) => {
         console.log(result.data);
-     //    setID(result.data[0].thesis_id);
+        //    setID(result.data[0].thesis_id);
         setInputName(result.data[0].student_username);
         setInputTitle(result.data[0].title);
         setInputDesc(result.data[0].descr);
@@ -426,18 +422,13 @@ export default function List() {
       .catch((error) => console.log(error));
   };
 
-  // const handleCreate = async (course_id) => {
-  //   setid(course_id);
-  //   setOpenCreate(true);
-  // };
-
   const Thesis = async (email) => {
     axios
       .get('http://localhost:3001/student/thesis/' + email)
       .then((result) => {
         console.log(email);
-        setThesis(result.data);
-        console.log(result.data);
+        setThesis(result.data[0]);
+        console.log(result.data[0]);
       })
       .catch((error) => console.log(error));
   };
@@ -614,7 +605,7 @@ export default function List() {
                       marginLeft: '3px',
                     }}
                     type="file"
-                    onChange={handleInputPhoto}
+                  // onChange={handleInputPhoto}
                   />
                 </Grid>
               </FormControl>
@@ -767,7 +758,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   value={Teacher_id}
-                  // onChange={handleTeach}
+                // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>
@@ -779,7 +770,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   value={Type}
-                  // onChange={handleTeach}
+                // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>
@@ -794,7 +785,7 @@ export default function List() {
                 <input
                   style={{ marginBottom: '20px', marginLeft: '3px' }}
                   type="file"
-                  onChange={handlePhoto}
+                // onChange={handlePhoto}
                 />
               </Grid>
               <FormLabel style={{ marginTop: '-10px' }} required>
@@ -1054,7 +1045,7 @@ export default function List() {
                       key={row.name}
                     >
                       <td>{row.id}</td>
-                      <td>{row.student_name}</td>
+                      <td>{row.username}</td>
                       <td>{row.supervisor_name}</td>
                       <td>{row.field}</td>
                       <td>{row.title}</td>
