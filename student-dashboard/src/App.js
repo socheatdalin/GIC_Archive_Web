@@ -7,9 +7,10 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes path="/home"  />
+        
       </BrowserRouter>
     </div>
-  );
+  ); 
 }
 
 export default App;

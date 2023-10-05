@@ -47,7 +47,7 @@ function ProDetail() {
                   <h6>Class: {project.course_name}</h6>
                   <h6>Taught by: {project.teacher_name}</h6>
                   <h6>Posted by: {project.inputname}</h6>
-                  <p className="text-secondary">{project.descr} </p>
+                  <p className="text-secondary">Description: {project.descr} </p>
                     <div className="d-grid gap-2 d-md-flex justify-content-start">
                       <Link to = "/login">
                       <button className="btn btn-primary me-md-2" type="button" >

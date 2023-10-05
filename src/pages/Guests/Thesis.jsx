@@ -6,8 +6,7 @@ import Data from "../../assets/data-science.png";
 import { Link} from "react-router-dom";
 import "../../styles/Thesis.css";
 import star from "../../assets/star.png";
-// import Dropdown from "../../components/dropdown";
-import git from "../../assets/git.png";
+import { FaGithub } from 'react-icons/fa';
 import Header from '../../components/GuestHeader'
 class Thesis extends Component {
     constructor(props){
@@ -103,12 +102,7 @@ render(){
                     <div key={item.id}>
                         <h4 className="fw-semibold">{item.title} </h4>
                         <h6 className="text-primary text-opacity-75">
-                          <img
-                            src={git}
-                            alt="webpage"
-                            style={{ width: "20px" }}
-                          ></img>{" "}
-                          {item.github_url}
+                        <FaGithub /> {item.github_url}
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
                         <Link to={`/thesisguest/${item.thesis_id}`}>

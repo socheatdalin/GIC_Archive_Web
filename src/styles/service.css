@@ -2,7 +2,7 @@
     background-color: aliceblue;
     padding-bottom: 100px;
 }
-.card {
+.cardi {
     margin: 10px 20px;
     max-width: calc(100% / 3 - 100px);
     text-align: center;
@@ -22,6 +22,6 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
 }
-.card:hover {
+.cardi:hover {
     transform: scale(1.1);
   }

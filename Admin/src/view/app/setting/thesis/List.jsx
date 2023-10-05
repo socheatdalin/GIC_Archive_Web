@@ -327,12 +327,12 @@ export default function List() {
         setDesc(response.data[0].descr)
     }
 
-    const handleView = async (project_id) => {
+    const handleView = async (thesis_id) => {
 
-        await axios.get("http://localhost:3001/admin/thesis/all/" + project_id)
+        await axios.get("http://localhost:3001/admin/thesis/all/" + thesis_id)
             .then((result) => {
                 console.log(result.data);
-                setID(result.data[0].project_id);
+                setID(result.data[0].thesis_id);
                 setInputName(result.data[0].student_username);
                 setInputTitle(result.data[0].title);
                 setInputDesc(result.data[0].descr);

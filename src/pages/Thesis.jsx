@@ -7,8 +7,7 @@ import { Link} from "react-router-dom";
 import "../styles/Thesis.css";
 import star from "../assets/star.png";
 import Navbar from "../components/Header/Navbar";
-// import Dropdown from "../components/dropdown";
-import git from "../assets/git.png";
+import { FaGithub } from 'react-icons/fa';
 class Thesis extends Component {
     constructor(props){
     super(props);
@@ -103,12 +102,7 @@ render(){
                     <div key={item.id}>
                         <h4 className="fw-semibold">{item.title} </h4>
                         <h6 className="text-primary text-opacity-75">
-                          <img
-                            src={git}
-                            alt="webpage"
-                            style={{ width: "20px" }}
-                          ></img>{" "}
-                          {item.github_url}
+                        <FaGithub /> {item.github_url} 
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
                         <Link to={`/thesis/${item.thesis_id}`}>

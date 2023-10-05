@@ -7,6 +7,8 @@ import Register from './authentication/register/Register';
 import Signin from './authentication/signin/Signin';
 import Project from './pages/Project';
 import ProDetail from './pages/ProDetail';
+import ThesisUp from './pages/upload/Uploadthesis';
+import ProjectUp from './pages/upload/Uploadproject';
 //Guest
 import Guesthome from './components/Home/Guesthome';
 import GuestProject from './pages/Guests/Project';
@@ -41,7 +43,9 @@ function App() {
                                         <Route path="/thesisguest/:id" element={<GuestThesisdetail />} />
 
                                         {/* <Route path="/project/detail" element={<ProDetail />} /> */}
-                                        {/* <Route path="/project/upload" element={<ProjectUp />} /> */}
+                                        <Route path="/upload" element={<ThesisUp />} />
+                                        <Route path="/uploadpro" element={<ProjectUp />} />
+
 
                                 </Routes>
                         </Router>
