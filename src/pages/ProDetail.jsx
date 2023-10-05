@@ -81,7 +81,7 @@ function ProDetail() {
             <div class="row ">
 
               <div class="col-sm-6">
-                <Comment />
+                <Comment text="Project comment" theme="project"/>
               </div>
               
               {loading ? (

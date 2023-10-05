@@ -1,30 +1,49 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import React from "react";
 import "../styles/comment.css";
 import axois from "axios";
-function comment() {
-  const [comment_text, setCommentText] = useState("");
-  const handleSubmit = () => {
-    axois
-      .post("http://localhost:3001/comment/create", { text: comment_text })
+function comment ({ text, theme }) {
+  const [comments, setComments] = useState([]);
+  const [comment_text, setNewComment] = useState('');
 
-      .then((response) => {
-        console.log("Comment successfully", response.comment_text);
-      })
-      .catch((error) => {
-        console.error("Error: ", error);
+
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
+
+  const fetchComments = async () => {
+    try {
+      const response = await axois.get('http://localhost:3001/comment/all');
+      setComments(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const addComment = async () => {
+    try {
+      const response = await axois.post('http://localhost:3001/comment/create', {
+        text: comment_text,
       });
+      setComments([...comments, response.data]);
+      setNewComment('');
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <>
-      <div class="contain pt-1">
-        <div class="row">
+      <div className="contain pt-1">
+        <div className="row">
           <h5 className="fw-bold">Comments</h5>
         </div>
       </div>
-      <div class="contain mt-1 d-flex justify-content-evenly">
-        <div class="row">
+      <div className="contain mt-1 d-flex justify-content-evenly ">
+         <div className={`comment ${theme}-comment`}>
+        <div className="row">
+         
           <div class="col-md-8 d-none d-lg-block mr-4">
             <div class="input-group mb-3 ">
               <input
@@ -33,13 +52,14 @@ function comment() {
                 placeholder="Add a comment"
                 aria-describedby="button-addon2"
                 value={comment_text}
-                onChange={(e) => setCommentText(e.target.value)}
+                name="comment_text"
+                onChange={(e) => setNewComment(e.target.value)}
               ></input>
               <button
                 class="btn btn-outline-secondary"
                 type="button"
                 id="button-addon2"
-                onClick={handleSubmit}
+                onClick={addComment}
               >
                 Post
               </button>
@@ -47,25 +67,28 @@ function comment() {
             <div class="case">
               <ul class="list-unstyled ">
                 <li class="media d-flex">
-                  {" "}
-                  <span class="icons round pt-2">
+                {comments.map((comment) => (
+                <div key={comment.id}>{comment.body}</div>
+              ))}
+                  {/* <span class="icons round pt-2">
                     <img
                       src="https://img.icons8.com/bubbles/100/000000/groups.png"
                       class="align-self-start "
                       alt="icons"
                     ></img>
-                  </span>
-                  <div class="media-body">
+                  </span> */}
+                  
+                  {/* <div class="media-body">
                     <div class="row ">
                       <h6 class="user pt-2">Michael Andrews</h6>
                       <div class="ml-auto ">
                         <p class="text d-flex">3m</p>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </li>
 
-                <li class="media my-5 d-flex">
+                {/* <li class="media my-5 d-flex">
                   {" "}
                   <span class="round">
                     <img
@@ -96,9 +119,10 @@ function comment() {
                       </div>
                     </div>
                   </div>
-                </li>
+                </li> */}
               </ul>
             </div>
+          </div>
           </div>
         </div>
       </div>

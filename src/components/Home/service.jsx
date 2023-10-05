@@ -14,7 +14,7 @@ function service() {
         <p className='px-3 text-center'>Here are some overview of our works</p>
       </div>
       <div className='project pl-5'>
-         <div className="card shadow">
+         <div className="cardi shadow">
             <img src={web} class="card-img-top rounded mx-auto d-block" alt=""></img>
             <div class="card-body">
                 <h5 class="card-title fw-semibold">Web Development</h5>
@@ -22,7 +22,7 @@ function service() {
                
             </div>
         </div>
-        <div className="card shadow ">
+        <div className="cardi shadow ">
             <img src={user} class="card-img-top rounded mx-auto d-block" alt="mobile"></img>
             <div class="card-body">
                 <h5 class="card-title fw-semibold">Mobile</h5>
@@ -30,7 +30,7 @@ function service() {
                
             </div>
         </div>
-        <div className="card shadow ">
+        <div className="cardi shadow ">
             <img src={network} class="card-img-top rounded mx-auto d-block" alt="mobile"></img>
             <div class="card-body ">
                 <h5 class="card-title fw-semibold">Network</h5>
