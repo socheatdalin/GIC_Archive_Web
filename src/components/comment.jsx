@@ -25,9 +25,9 @@ function comment ({ text, theme }) {
   const addComment = async () => {
     try {
       const response = await axois.post('http://localhost:3001/comment/create', {
-        text: comment_text,
+        comment_text: comment_text,
       });
-      setComments([...comments, response.data]);
+      setComments([...comments, response.data.comment_text]);
       setNewComment('');
     } catch (error) {
       console.error(error);
@@ -66,60 +66,62 @@ function comment ({ text, theme }) {
             </div>
             <div class="case">
               <ul class="list-unstyled ">
+                      {/* {comments.map((comment) => (
+                  <li key={comment.comment_id}>
+                    <strong>Comment ID:</strong> {comment.comment_id}<br />
+                    <strong>Project ID:</strong> {comment.project_id}<br />
+                    <strong>Student ID:</strong> {comment.student_id}<br />
+                    <strong>Comment:</strong> {comment.comment_text}<br />
+                    <strong>Timestamp:</strong> {comment.timestamp}<br /><br />
+                  </li>
+                ))} */}
                 <li class="media d-flex">
-                {comments.map((comment) => (
-                <div key={comment.id}>{comment.body}</div>
-              ))}
-                  {/* <span class="icons round pt-2">
+                {/* {comments.map((comment) => (
+                <div key={comment.id}>{comment.student_id}</div>
+              ))} */}
+                  <span class="icons round pt-2">
                     <img
                       src="https://img.icons8.com/bubbles/100/000000/groups.png"
                       class="align-self-start "
                       alt="icons"
                     ></img>
-                  </span> */}
-                  
-                  {/* <div class="media-body">
-                    <div class="row ">
-                      <h6 class="user pt-2">Michael Andrews</h6>
-                      <div class="ml-auto ">
-                        <p class="text d-flex">3m</p>
-                      </div>
-                    </div>
-                  </div> */}
-                </li>
-
-                {/* <li class="media my-5 d-flex">
-                  {" "}
-                  <span class="round">
-                    <img
-                      src="https://img.icons8.com/office/100/000000/user-group-man-man--v1.png"
-                      alt="icons"
-                      class="align-self-start mr-3"
-                    />
                   </span>
+                  
                   <div class="media-body">
-                    <div class="row">
-                      <h6 class="user">Giana Ekstrom Bothman</h6>
+                    <div class="row ">
+                      <h6 class="user pt-3">Vy</h6>
                       <div class="ml-auto ">
-                        <p class="text d-flex">2h</p>
-                      </div>
-                    </div>
-                    <p class="text">Commented on your"Le Doux" Artwork</p>
-                    <div class="media mt-3 comment  d-flex">
-                      {" "}
-                      <img
-                        src="https://img.icons8.com/bubbles/100/000000/lock-male-user.png"
-                        alt="icons"
-                        class="icons align-self-center mr-1"
-                      />
-                      <div class="media-body pt-3">
+                        {/* <p class="text d-flex">3m</p> */}
                         <p class="reply">
-                          "Love this art, what inspired you to make this "
+                          "I liked it "
                         </p>
                       </div>
                     </div>
                   </div>
-                </li> */}
+                </li>
+
+                <li class="media d-flex">
+              
+                  <span class="icons round pt-2">
+                    <img
+                      src="https://i.imgur.com/JgYD2nQ.jpg"
+                      class="align-self-start "
+                      alt="icons"
+                    ></img>
+                  </span>
+                  
+                  <div class="media-body">
+                    <div class="row ">
+                      <h6 class="user pt-3">Khema</h6>
+                      <div class="ml-auto ">
+
+                        <p class="reply">
+                          wish it more cutter
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
               </ul>
             </div>
           </div>

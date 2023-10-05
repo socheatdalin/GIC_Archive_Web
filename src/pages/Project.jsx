@@ -73,7 +73,7 @@ class Project extends Component {
                     <div className="col-lg-3 col-md-4 col-sm-12">
                       <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
                         <img src={star} className=" img-star" alt="pic"></img>
-                        5, 075
+                        10
                       </button>
                     </div>
                   </div>
