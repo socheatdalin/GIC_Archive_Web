@@ -21,9 +21,6 @@ import ModalDelete from '@mui/joy/Modal'
 import ModalCreate from '@mui/joy/Modal'
 import ModalView from '@mui/joy/Modal'
 import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
-import { Viewer } from '@react-pdf-viewer/core';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'; // install this library
-import { Worker } from '@react-pdf-viewer/core'; // install this library
 
 function labelDisplayedRows({ from, to, count }) {
     return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
@@ -193,7 +190,6 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-    const [openMaterial, setOpenMaterial] = useState(false)
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
     const [project, setproject] = React.useState([]);
@@ -209,19 +205,16 @@ export default function List() {
     const [inputCourse, setInputCourse] = React.useState('');
     const [inputDesc, setInputDesc] = React.useState('');
     const [inputGit, setInputGit] = React.useState('');
-    const [inputType, setInputType] = React.useState('');
     const [ID, setID] = React.useState('')
     const [Name, setName] = React.useState('');
     const [Desc, setDesc] = React.useState('');
-    const [Teacher_id, setTeacher_id] = React.useState('');
-    const [oldID, set_oldID] = React.useState('');
+    // const [oldID, set_oldID] = React.useState('');
     const [Type, setType] = React.useState('');
     const [id, setid] = React.useState('');
     const [Photo, setPhoto] = React.useState('');
     const [deleteID, setDeleteID] = React.useState('');
     const [inputFile, setInputFile] = React.useState(null);
     const [inputPhoto, setInputPhoto] = React.useState('');
-    const [Teacher, setTeacher] = React.useState('');
     const [Files, setFile] = React.useState(null);
 
     const [length, setLength] = useState([])
@@ -250,10 +243,10 @@ export default function List() {
             .catch(error => console.log(error));
     }
 
-
-    const handleSelectType = (e) => {
-        setInputType(e.value)
-    }
+    const handleOpenUpload = async () => {
+        // setOpen(true);
+        window.location.replace(`http://localhost:3000/uploadpro`);
+      };
     const handleInputGit = (e) =>{
         setInputGit(e.target.value)
     }
@@ -344,7 +337,7 @@ export default function List() {
 
     const handleDisplay = async () => {
 
-        const response = await axios.get("http://localhost:3001/team_project/all");
+        const response = await axios.get("http://localhost:3001/admin/project/all");
         setName(response.data[0].project_name)
         setID(response.data[0].id)
         setDesc(response.data[0].descr)
@@ -352,7 +345,7 @@ export default function List() {
 
     const handleView = async (project_id) => {
 
-        await axios.get("http://localhost:3001/team_project/" + project_id)
+        await axios.get("http://localhost:3001/admin/team_project/" + project_id)
             .then((result) => {
                 console.log(result.data);
                 setID(result.data[0].project_id);
@@ -379,28 +372,28 @@ export default function List() {
             .catch(error => console.log(error));
     };
 
-    const handleSubmit = async () => {
-        const formData = new FormData();
-        formData.append('title', inputTitle);
-        formData.append('course_name', inputCourse);
-        formData.append('descr', inputDesc);
-        formData.append('github_url', inputGit)
-        formData.append('file', inputFile);
+    // const handleSubmit = async () => {
+    //     const formData = new FormData();
+    //     formData.append('title', inputTitle);
+    //     formData.append('course_name', inputCourse);
+    //     formData.append('descr', inputDesc);
+    //     formData.append('github_url', inputGit)
+    //     formData.append('file', inputFile);
 
-        console.log(formData.get('file'));
+    //     console.log(formData.get('file'));
 
-        axios.post("http://localhost:3001/project/create", formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-            .then((result) => {
-                console.log(result);
-                window.location.replace('/home/project/list')
-            })
-            .catch(error => console.log(error));
-    }
+    //     axios.post("http://localhost:3001/project/create", formData,
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data'
+    //             }
+    //         })
+    //         .then((result) => {
+    //             console.log(result);
+    //             window.location.replace('/home/project/list')
+    //         })
+    //         .catch(error => console.log(error));
+    // }
 
     const onDeleteModalOpen = async (id) => {
         setDeleteID(id)
@@ -453,9 +446,6 @@ export default function List() {
         setPage(newPage);
     };
 
-    const handleDoc = (id) => {
-        window.location.replace(`/course/${id}/materials`)
-    }
     const handleChangeRowsPerPage = (event, newValue) => {
         setRowsPerPage(parseInt(newValue.toString(), 10));
         setPage(0);
@@ -506,9 +496,9 @@ export default function List() {
                     />
                     <Flex mb="10px" justifyContent="space-between" alignItems="center">
                         <Typography level="h4">Create Project</Typography>
-                        <Button onClick={handleSubmit} sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} variant="solid">
+                        {/* <Button onClick={handleSubmit} sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }} variant="solid">
                             Create
-                        </Button>
+                        </Button> */}
                     </Flex>
                     <Grid templateColumns="repeat(2,1fr)  " gap="2">
                         <VStack spacing="3">
@@ -666,7 +656,7 @@ export default function List() {
                                     placeholder="Please enter teacher ID"
                                     variant="outlined"
                                     color="neutral"
-                                    value={Teacher_id}
+                                    // value={Teacher_id}
                                 // onChange={handleTeach}
                                 />
                             </FormControl>
@@ -889,7 +879,8 @@ export default function List() {
                         <Button
                             sx={{ width: '75px', backgroundColor: '#23395d' }}
                             variant="solid"
-                            onClick={() => setOpen(true)}
+                            // onClick={() => setOpen(true)}
+                            onClick={handleOpenUpload}
                         >
                             Add
                         </Button>
