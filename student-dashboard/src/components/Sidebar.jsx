@@ -19,12 +19,11 @@ import {
   ChakraProvider,
 } from '@chakra-ui/react';
 import image from './asssets';
-// import { Box } from '@mui/material';
+
 import { Box } from '@chakra-ui/react';
 import React, { createContext, useEffect, useState } from 'react';
 import { MenuConstants } from './constants/menu';
 import { useHistory, useLocation } from 'react-router-dom';
-// import { useHistory, useLocation } from 'react-router-dom';
 import { checkIsActive } from './utils/functions';
 import { getCurrentUrl } from './utils/functions';
 import { NavLink as CustomLink } from 'react-router-dom';
@@ -38,7 +37,6 @@ export default function Sidebar() {
   const [toggle, setToggle] = useState(false);
   const [collapse, setCollapse] = useState(false);
   const location = useLocation();
-  // const navigate = useNavigate();
   const history = useHistory();
 
   const getMenuItemActive = (url) => {
@@ -163,10 +161,8 @@ export default function Sidebar() {
 }
 
 const UserProfile = () => {
-  // const history = useHistory();
-  // const { collapse, logout } = useContext(SidebarContext);
   const navigateToGoogle = () => {
-    window.location.href = 'http://localhost:3000/';
+    window.location.href = 'http://localhost:3000/home';
   };
   return (
     <ChakraProvider>
@@ -178,18 +174,9 @@ const UserProfile = () => {
             py="2"
             color={mode('gray.600', 'gray.300')}
             px="2"
-          >
-            {/* <MenuItem
-              rounded="md"
-              onClick={() => {
-                history.push('/change-password');
-              }}
-            >
-              Change Password
-            </MenuItem> */}
-            {/* <CustomLink to='/login'> */}
+          >           
             <MenuItem rounded="md" onClick={navigateToGoogle}>Logout</MenuItem>
-            {/* </CustomLink> */}
+
           </MenuList>
         </Menu>
       </HStack>
@@ -198,7 +185,6 @@ const UserProfile = () => {
 };
 
 const AccountSwitcherButton = () => {
-  // const { collapse, user } = useContext(SidebarContext);
   const buttonProps = useMenuButton();
 
   return (
