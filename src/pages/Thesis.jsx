@@ -115,7 +115,7 @@ render(){
                     <div className="col-lg-3">
                       <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
                         <img src={star} className=" img-star" alt="pic"></img>
-                        5, 075
+                        20
                       </button>
                     </div>
                   </div>
