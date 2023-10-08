@@ -12,6 +12,7 @@ import { visuallyHidden } from '@mui/utils';
 import { useEffect } from 'react';
 import axios from "axios";
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -195,6 +196,7 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
+    const history = useHistory();
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
     const [thesis, setthesis] = React.useState([]);
@@ -304,6 +306,11 @@ export default function List() {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
     const handleSearch = (e) => {
         // console.log(search)
         axios.post("http://localhost:3001/admin/thesis/all/field", { field: inputField }
@@ -313,11 +320,6 @@ export default function List() {
             .catch(error => console.log(error));
     }
 
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
 
     const handleDisplay = async () => {
 
@@ -344,7 +346,6 @@ export default function List() {
                 setFileName(result.data[0].fileName);
                 setInputFile(result.data[0].filepath);
             })
-
             .catch(error => console.log(error));
         setOpenView(true);
     }
@@ -400,9 +401,10 @@ export default function List() {
     };
 
     const handleDelete = async () => {
-        axios.post("http://localhost:3001/admin/project/delete/" + deleteID)
+        axios.post("http://localhost:3001/admin/thesis/delete/" + deleteID)
             .then((result) => {
                 console.log("delete success");
+                // history.push('/home/thesis/list');
                 window.location.replace('/home/project/list')
             })
             .catch(error => console.log(error));
@@ -601,7 +603,7 @@ export default function List() {
                     }}
                 >
                     <Flex style={{ marginTop: '20px', justifyContent: "space-between", textAlign: "center", margin: 'auto', alignItems: "center" }}>
-                        <p> Are you sure you want to delete this course?</p>
+                        <p> Are you sure you want to delete this thesis?</p>
                     </Flex>
                     <div style={{ justifyConten: "space-between", textAlign: "center", alignItems: "center" }}>
                         <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#CD3700', color: 'white' }} onClick={handleDelete}>

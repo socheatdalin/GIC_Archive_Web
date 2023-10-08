@@ -1,8 +1,8 @@
 import { Box, Flex, Image } from '@chakra-ui/react';
 import { Card, Typography } from '@mui/joy';
-import {  BiReceipt, BiUser } from 'react-icons/bi';
+import { BiReceipt, BiUser } from 'react-icons/bi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
-import {PiProjectorScreenChartLight} from 'react-icons/pi';
+import { PiProjectorScreenChartLight } from 'react-icons/pi';
 import { Pie, Cell, Legend, Bar, BarChart } from 'recharts';
 import { PieChart } from '@mui/x-charts/PieChart';
 import React, { useState } from 'react';
@@ -42,7 +42,7 @@ const renderCustomizedLabel = ({
 
 export default function List() {
 
-  
+
     const [course, setCourse] = useState(0);
     const [girl, setGirl] = useState(0);
     const [boy, setBoy] = useState(0);
@@ -108,12 +108,12 @@ export default function List() {
         CountMale();
     }, [])
 
-    
+
     return (
         <Flex flexDir="column" borderRadius="10px" bg="white" h="full">
             <span style={{ margin: '20px', fontSize: '20px', fontWeight: 'bold' }}>Student Dashboard</span>
             <Box mt="10px" display="flex" mb="20px" flex="1" overflow="auto">
-              
+
                 <Card
                     variant="outlined"
                     orientation="horizontal"
@@ -160,7 +160,7 @@ export default function List() {
                         </Typography>
                     </div>
                 </Card>
-                      {/* total of Project */}
+                {/* total of Project */}
                 <Card
                     variant="outlined"
                     orientation="horizontal"
@@ -202,7 +202,7 @@ export default function List() {
                                 sx={{ color: 'white', textTransform: 'uppercase' }}
                             >
                                 <PiProjectorScreenChartLight sx={{ width: '90px' }} />
-                                <Typography ml="15px"></Typography>
+                                <Typography ml="15px">1</Typography>
                             </Box>
                         </Typography>
                     </div>
@@ -248,8 +248,8 @@ export default function List() {
                                 href="#interactive-card"
                                 sx={{ color: 'white', textTransform: 'uppercase' }}
                             >
-                                <HiOutlineClipboardDocumentList  sx={{ width: '90px' }} />
-                                <Typography ml="15px"></Typography>
+                                <HiOutlineClipboardDocumentList sx={{ width: '90px' }} />
+                                <Typography ml="15px">2</Typography>
                                 {/* <Typography ml="15px">{studentCount}</Typography> */}
                             </Box>
                         </Typography>
@@ -303,17 +303,17 @@ export default function List() {
                     </div>
                 </Card>
 
-                
+
             </Box>
-            
+
             <Box ml="10px" mt="30px" flex="1" overflow="auto" display="flex">
                 <Box>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateCalendar />
                     </LocalizationProvider>
                 </Box>
-                
-                <Box style={{ padding: '10px', marginLeft : "350px", width: '500px', backgroundColor: '#f1f1f1', boxShadow: '1px 1px 50% black', height: '300px', borderRadius: '20px' }}>
+
+                <Box style={{ padding: '10px', marginLeft: "350px", width: '500px', backgroundColor: '#f1f1f1', boxShadow: '1px 1px 50% black', height: '300px', borderRadius: '20px' }}>
                     <Typography ml="10px" level="h4">
                         Study Diversity
                     </Typography>
@@ -338,18 +338,18 @@ export default function List() {
                             </Pie>
                         </PieChart> */}
                         <PieChart
-                    series={[
-                        {
-                        data: [
-                            { id: 0, value: 10, label: 'series A' },
-                            { id: 1, value: 15, label: 'series B' },
-                            { id: 2, value: 20, label: 'series C' },
-                        ],
-                        },
-                    ]}
-                    width={400}
-                    height={200}
-                 />
+                            series={[
+                                {
+                                    data: [
+                                        { id: 0, value: 10, label: 'series A' },
+                                        { id: 1, value: 15, label: 'series B' },
+                                        { id: 2, value: 20, label: 'series C' },
+                                    ],
+                                },
+                            ]}
+                            width={400}
+                            height={200}
+                        />
                         <Box>
                             {/* <Box display="flex">
                                 <Card
@@ -404,7 +404,7 @@ export default function List() {
                         </Box>
                     </Box>
                 </Box>
-                
+
             </Box>
         </Flex>
     );

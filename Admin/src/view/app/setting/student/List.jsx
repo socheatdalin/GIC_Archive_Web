@@ -334,13 +334,13 @@ export default function List() {
           formData.append('image', inputPhoto);
           console.log(formData.get('image'));
           axios
-               .post('http://localhost:3001/admin/signup/student/', formData, {
+               .post('http://localhost:3001/admin/signup/student', formData, {
                     headers: {
                          'Content-Type': 'multipart/form-data',
                     },
                })
                .then((result) => {
-                    console.log(result);
+                    console.log(result.data);
                     window.location.replace('/home/student/list');
                })
                .catch((error) => console.log(error));

@@ -4,6 +4,7 @@ import makeAnimated from 'react-select/animated';
 import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
 import SELECT_OPTIONS from 'react-select';
+import { useHistory } from 'react-router-dom';
 import Table from '@mui/joy/Table';
 import React, { useState } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
@@ -191,11 +192,11 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-    const [openMaterial, setOpenMaterial] = useState(false)
+    const history = useHistory();
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
     const [project, setproject] = React.useState([]);
-    const [member, setmember] = React.useState([]);
+    const [Member, setMember] = React.useState([]);
     const [inputmember, setinputMember] = React.useState([]);
     const [inputID, setInputID] = React.useState('');
     const [openEdit, setOpenEdit] = React.useState(false);
@@ -205,6 +206,7 @@ export default function List() {
     const [inputName, setInputName] = React.useState('');
     const [inputTeacherName, setTeacherName] = React.useState('');
     const [inputTitle, setInputTitle] = React.useState('');
+    const [member, setmember] = React.useState('');
     const [inputCourse, setInputCourse] = React.useState('');
     const [inputDesc, setInputDesc] = React.useState('');
     const [inputGit, setInputGit] = React.useState('');
@@ -229,13 +231,15 @@ export default function List() {
     const [length, setLength] = useState([])
     const [index, setIndex] = useState('');
 
-    const handleInputMember = async (e) => {
-        setinputMember(e.target.value);
-    };
+    // const handleInputMember = async (e) => {
+    //     setinputMember(e.target.value);
+    // };
     const [search1, setSearch1] = useState('');
     const searchValue = (e) => {
         setSearch1(e.target.value)
     }
+    // const members = inputmember.splice(',');
+
     const rows = project;
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
@@ -261,7 +265,9 @@ export default function List() {
     const handleInputName = async (e) => {
         setInputName(e.target.value)
     }
-
+    const handleInputMember = async (e) => {
+        setinputMember(e.target.value)
+    }
     const handleInputID = async (e) => {
         setInputID(e.target.value)
     }
@@ -301,10 +307,8 @@ export default function List() {
     useEffect(() => {
 
         team_project();
-        // Member();
 
     }, [])
-
 
     const [open, setOpen] = React.useState(false);
 
@@ -326,23 +330,22 @@ export default function List() {
 
     const handleDisplay = async () => {
 
-        const response = await axios.get("http://localhost:3001/admin/team_project/all");
+        const response = await axios.get("http://localhost:3001/admin/project/all");
         setName(response.data[0].project_name)
         setID(response.data[0].id)
         setDesc(response.data[0].descr)
     }
 
-
     const handleView = async (project_id) => {
-        await axios.get("http://localhost:3001/admin/team_project/" + project_id)
+        await axios.get("http://localhost:3001/admin/project/" + project_id)
             .then((result) => {
                 console.log(result.data);
-                // setID(result.data[0].project_id);
+                console.log(result.data[0].project_id);
                 setInputTitle(result.data[0].title);
                 setInputDesc(result.data[0].descr);
                 setInputCourse(result.data[0].course_name);
-                setInputName(result.data[0].student_name);
-                setTeacherName(result.data[0].teacher_name);
+                setinputMember(result.data[0].student_names);
+                // setTeacherName(result.data[0].teacher_name);
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
                 setInputFile(result.data[0].filepath);
@@ -356,21 +359,20 @@ export default function List() {
         setOpenEdit(false);
         window.location.replace('/project/list')
     }
-    const Member = async () => {
-        axios.get("http://localhost:3001/admin/project/member")
-            .then((result) => {
-                setmember(result.data)
-                // console.log(result.data);
-            })
-            .catch(error => console.log(error));
-    };
+    // const ShowMember = async () => {
+    //     axios.get("http://localhost:3001/project/member")
+    //         .then((result) => {
+    //             setMember(result.data)
+    //             // console.log(result.data);
+    //         })
+    //         .catch(error => console.log(error));
+    // };
 
     const handleSubmit = async () => {
-        
+
         const formData = new FormData();
         formData.append('title', inputTitle);
         formData.append('course_name', inputCourse);
-        formData.append('username', inputName)
         formData.append('descr', inputDesc);
         formData.append('github_url', inputGit);
         formData.append('file', inputFile);
@@ -384,7 +386,8 @@ export default function List() {
             })
             .then((result) => {
                 console.log(result);
-                window.location.replace('/home/project/list')
+                history.push('/home/project/list');
+                // window.location.replace('/home/project/list')
             })
             .catch(error => console.log(error));
     }
@@ -393,23 +396,27 @@ export default function List() {
         setDeleteID(id)
         setOpenDelete(true)
     }
-    const handleCreate = async (project_id) => {
-        console.log("hello");
-        console.log(project_id);
-        axios.post('http://localhost:3001/admin/project/addMember/' + project_id, { username: inputName })
-            .then((result) => {
-                console.log(project_id);
-                window.location.replace('/home/project/list')
-            })
-            .catch(error => console.log(error));
+    const onCreateOpen = async (id) => {
+        console.log(id);
+        setmember(id);
         setOpenCreate(true);
-    } 
+    }
+    const handleCreate = async () => {
+        try {
+            const response = await axios.post('http://localhost:3001/project/addMember/' + member, {
+                username: inputmember
+            });
+            console.log(response.data);
+            history.push('/home/project/list');
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
 
     const team_project = async () => {
         axios.get("http://localhost:3001/admin/project/all")
             .then((result) => {
                 setproject(result.data)
-                // console.log(result.data);
             })
             .catch(error => console.log(error));
     };
@@ -746,8 +753,8 @@ export default function List() {
                                     placeholder="Please enter your number of member"
                                     variant="outlined"
                                     color="neutral"
-                                    value={inputName}
-                                    onChange={handleInputName}
+                                    value={inputmember}
+                                    onChange={handleInputMember}
                                 />
                             </FormControl>
                         </VStack>
@@ -797,10 +804,7 @@ export default function List() {
                             <span><b>Course: </b></span>
                             <span style={{ marginLeft: '90px', color: '#517388' }}>{inputCourse}</span>
                         </div>
-                        <div style={{ marginTop: '10px' }}>
-                            <span><b>Student: </b></span>
-                            <span style={{ marginLeft: '90px', color: '#517388' }}>{inputName}</span>
-                        </div>
+
                         <div style={{ marginTop: '10px' }}>
                             <span><b>Teacher: </b></span>
                             <span style={{ marginLeft: '90px', color: '#517388' }}>{inputTeacherName}</span>
@@ -811,11 +815,18 @@ export default function List() {
                         </div>
                         <div style={{ marginTop: '10px' }}>
                             <span><b>Git: </b></span>
-                            <span style={{ marginLeft: '120px', color: '#517388' }}>{inputGit}</span>
+                            <span style={{ marginLeft: '120px', color: '#517388' }}> <a href={inputGit}>{inputGit}</a></span>
                         </div>
                         <div style={{ marginTop: '20px' }} >
                             <span><b>File:</b></span>
                             <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '120px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
+                        </div>
+                        <div><h2>Member</h2></div>
+                        <div style={{ marginTop: '10px' }}>
+                            <ul>
+                                <li>{inputmember}</li>
+                            </ul>
+                            {/* <span style={{ marginLeft: '90px', color: '#517388' }}>{inputmember}</span> */}
                         </div>
                     </div>
 
@@ -941,7 +952,9 @@ export default function List() {
                                         >
                                             <td>
                                                 <IconButton
-                                                    onClick={() => setOpenCreate(true)}
+                                                    onClick={() => {
+                                                        onCreateOpen(row.project_id)
+                                                    }}
                                                     size="sm"
                                                     variant="ghost"
                                                     cursor="pointer"
@@ -954,7 +967,7 @@ export default function List() {
                                             <td>{row.project_id}</td>
                                             <td>{row.title}</td>
                                             <td>{row.course_name}</td>
-                                            <td>{row.username}</td>
+                                            <td>{row.member}</td>
                                             <td>{row.github_url}</td>
                                             <td>
                                                 <Center spacing={2} gap="8">

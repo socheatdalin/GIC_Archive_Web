@@ -73,7 +73,7 @@ function UserProfile() {
                         <span class="text-muted d-block mb-2">Gender:{gender} </span>
                         <span class="text-muted d-block mb-2">Email:{email} </span>
                         <span class="text-muted d-block mb-2">Generation:{generation} </span>
-                        <button onClick={handleLogout}>Logout</button>
+                        <a href="/"><button onClick={handleLogout}>Logout</button></a>
                     </div>
 
                 </div>
