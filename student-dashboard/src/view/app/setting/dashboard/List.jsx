@@ -102,6 +102,7 @@ export default function List() {
     }
 
     useEffect(() => {
+        
         CountTeacher();
         CountCourse();
         CountFemale();

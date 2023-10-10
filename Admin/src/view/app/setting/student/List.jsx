@@ -364,41 +364,46 @@ export default function List() {
           setOpenView(true);
      };
 
-     const handleEdit = async (student_id) => {
-          await axios
-               .get('http://localhost:3001/displayOne/student/' + student_id)
-               .then((result) => {
-                    setEmail(result.data[0].email);
-                    setName(result.data[0].name);
-                    setRoleId(result.data[0].role_id);
-                    set_oldID(result.data[0].id);
-                    setGender(result.data[0].gender);
-                    setGeneration1(result.data[0].generation);
-                    setPhoto(result.data[0].photo);
-               })
-               .catch((error) => console.log(error));
-          setOpenEdit(true);
-     };
+     // const handleEdit = async (student_id) => {
+     //      await axios
+     //           .get('http://localhost:3001/displayOne/student/' + student_id)
+     //           .then((result) => {
+     //                setEmail(result.data[0].email);
+     //                setName(result.data[0].name);
+     //                setRoleId(result.data[0].role_id);
+     //                // set_oldID(result.data[0].id);
+     //                setGender(result.data[0].gender);
+     //                setGeneration1(result.data[0].generation);
+     //                setPhoto(result.data[0].photo);
+     //           })
+     //           .catch((error) => console.log(error));
+     //      setOpenEdit(true);
+     // };
 
-     const handleSubmitEdit = async () => {
-          await axios
-               .post('http://localhost:3001/admin/student/update/', {
-                    first_name: First_Name,
-                    last_name: Last_Name,
-                    username: Name,
-                    email: Email,
-                    student_id: oldID,
-                    role_id: RoleId,
-                    password: Password,
-                    generations: Generation1,
-                    photo: Photo,
+     const handleSubmitEdit = async (student_id) => {
+          console.log(student_id);
+          const formData = new FormData();
+          formData.append('username', inputName);
+          formData.append('email', inputEmail);
+          formData.append('first_name', inputFirstname);
+          formData.append('last_name', inputLastname);
+          formData.append('password', inputPassword);
+          formData.append('gender', inputGender.value);
+          formData.append('generation', inputGeneration.value);
+          formData.append('image', inputPhoto);
+          console.log(formData.get('image'));
+          axios
+               .post('http://localhost:3001/admin/student/update/' + student_id, formData, {
+                    headers: {
+                         'Content-Type': 'multipart/form-data',
+                    },
                })
                .then((result) => {
-                    console.log(Photo);
-                    setOpenEdit(false);
+                    console.log(result.data);
                     window.location.replace('/home/student/list');
                })
                .catch((error) => console.log(error));
+          setOpenEdit(true);
      };
 
      const students = async () => {
@@ -671,7 +676,7 @@ export default function List() {
                                                   placeholder="Please enter first-name"
                                                   variant="outlined"
                                                   color="neutral"
-                                                  defaultValue={First_Name}
+                                                  defaultValue={inputFirstname}
                                                   onChange={handleFirstName}
                                              />
                                              <FormLabel required>Last-Name</FormLabel>
@@ -679,7 +684,7 @@ export default function List() {
                                                   placeholder="Please enter last-name"
                                                   variant="outlined"
                                                   color="neutral"
-                                                  defaultValue={Last_Name}
+                                                  defaultValue={inputLastname}
                                                   onChange={handleLastName}
                                              />
                                              <FormLabel required>Name</FormLabel>
@@ -687,16 +692,8 @@ export default function List() {
                                                   placeholder="Please enter name"
                                                   variant="outlined"
                                                   color="neutral"
-                                                  defaultValue={Name}
-                                                  onChange={handleName}
-                                             />
-                                             <FormLabel required>ID</FormLabel>
-                                             <Input
-                                                  placeholder="Please enter id"
-                                                  variant="outlined"
-                                                  color="neutral"
-                                                  defaultValue={ID}
-                                                  onChange={handleID}
+                                                  defaultValue={inputName}
+                                                  onChange={handleInputName}
                                              />
                                              <FormLabel required>Gender</FormLabel>
                                              <SELECT_OPTIONS
@@ -712,21 +709,14 @@ export default function List() {
                                                   placeholder="Please enter email"
                                                   variant="outlined"
                                                   color="neutral"
-                                                  defaultValue={Email}
-                                                  onChange={handleEmail}
+                                                  defaultValue={inputEmail}
+                                                  onChange={handleInputEmail}
                                              />
                                         </FormControl>
                                    </VStack>
                                    <VStack spacing="3" ml="40px">
                                         <FormControl sx={{ width: '300px' }}>
-                                             <FormLabel required>Role_id</FormLabel>
-                                             <Input
-                                                  placeholder="Please enter your role_id"
-                                                  variant="outlined"
-                                                  color="neutral"
-                                                  defaultValue={RoleId}
-                                                  onChange={handleRoleId}
-                                             />
+
                                              <FormLabel required>Password</FormLabel>
                                              <Input
                                                   startDecorator={<KeyRoundedIcon />}
@@ -737,7 +727,7 @@ export default function List() {
                                                             <VisibilityRoundedIcon />
                                                        </IconButton>
                                                   }
-                                                  onChange={handlePassword}
+                                                  onChange={handleInputPassword}
                                              />
                                              <FormLabel required>Generation</FormLabel>
                                              <SELECT_OPTIONS
@@ -746,7 +736,16 @@ export default function List() {
                                                   defaultValue={[generations[10], generations[10]]}
                                                   options={generations}
                                              ></SELECT_OPTIONS>
-
+                                             <input
+                                                  style={{
+                                                       marginTop: '20px',
+                                                       marginBottom: '20px',
+                                                       marginLeft: '3px',
+                                                  }}
+                                                  type="file"
+                                                  name="image"
+                                                  onChange={handleInputPhoto}
+                                             />
                                         </FormControl>
                                    </VStack>
 
@@ -1064,7 +1063,7 @@ export default function List() {
                                                                            />
                                                                       }
                                                                       onClick={() => {
-                                                                           handleEdit(row.id);
+                                                                           handleSubmitEdit(row.student_id);
                                                                       }}
                                                                  />
                                                                  <IconButton

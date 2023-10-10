@@ -395,12 +395,26 @@ export default function List() {
   }
 
   const Thesis = async () => {
-    axios.get("http://localhost:3001/student/thesis")
+    axios.get("http://localhost:3001/me", {
+      headers: {
+        'Authorization': sessionStorage.getItem("token"),
+        "Content-Type": "application/json"
+      }
+    })
       .then((result) => {
-        setthesis(result.data)
-        // console.log(result.data);
+        console.log(result.data);
+        console.log(result.data.name);
+        axios.get("http://localhost:3001/student/thesis/" + result.data.name)
+          .then((results) => {
+            setthesis(results.data)
+            console.log(results.data);
+          })
+          .catch(error => console.log(error));
       })
-      .catch(error => console.log(error));
+      .catch(err => {
+        console.log("Server error:", err);
+      });
+
   };
 
   const handleDelete = async () => {

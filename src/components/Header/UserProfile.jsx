@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 function UserProfile() {
     let navigate = useNavigate();
+
     const [auth, setAuth] = useState(false);
     const [name, setname] = useState('');
     const [email, setEmail] = useState('');
@@ -19,12 +20,13 @@ function UserProfile() {
 
         axios.get("http://localhost:3001/me", {
             headers: {
-                'Authorization': sessionStorage.getItem("token"),
+                'Authorization': sessionStorage.getItem("access_token"),
                 "Content-Type": "application/json"
             }
         })
             .then((result) => {
                 setAuth(true);
+                setuserId(result.data.id);
                 setEmail(result.data.email);
                 setname(result.data.name);
                 setGender(result.data.gender);
@@ -38,12 +40,13 @@ function UserProfile() {
                 console.log("Server error:", err);
             });
 
+
     }, [])
 
     const handleLogout = () => {
         axios.get('http://localhost:3001/logout')
             .then(res => {
-                // sessionStorage.removeItem("token");
+                sessionStorage.removeItem("token");
                 navigate('/');
             })
             .catch((err => console.log(err)))
@@ -68,6 +71,7 @@ function UserProfile() {
                     <div class="mt-5 text-center">
                         <h4 class="mb-0">{name}</h4>
                         <span class="text-muted d-block mb-2">{role}</span>
+                        <span class="text-muted d-block mb-2">{userId}</span>
                         <span class="text-muted d-block mb-2">Firstname:{first_name} </span>
                         <span class="text-muted d-block mb-2">Last Name: {last_name} </span>
                         <span class="text-muted d-block mb-2">Gender:{gender} </span>

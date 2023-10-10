@@ -197,7 +197,7 @@ export default function List() {
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
     const [project, setproject] = React.useState([]);
     const [Member, setMember] = React.useState([]);
-    const [inputmember, setinputMember] = React.useState([]);
+    const [inputmember, setinputMember] = React.useState('');
     const [inputID, setInputID] = React.useState('');
     const [openEdit, setOpenEdit] = React.useState(false);
     const [openDelete, setOpenDelete] = React.useState(false);
@@ -225,7 +225,6 @@ export default function List() {
     const [Teacher, setTeacher] = React.useState('');
     const [Files, setFile] = React.useState(null);
     const [fileName, setFileName] = React.useState('');
-    const [fileContent, setFileContent] = useState(null);
 
 
     const [length, setLength] = useState([])
@@ -238,7 +237,7 @@ export default function List() {
     const searchValue = (e) => {
         setSearch1(e.target.value)
     }
-    // const members = inputmember.splice(',');
+    const studentNamesArray = inputmember ? inputmember.split(',') : [];
 
     const rows = project;
     const [order, setOrder] = React.useState('asc');
@@ -266,6 +265,8 @@ export default function List() {
         setInputName(e.target.value)
     }
     const handleInputMember = async (e) => {
+        const newNameString = e.target.value;
+        const namesArray = newNameString.split(',');
         setinputMember(e.target.value)
     }
     const handleInputID = async (e) => {
@@ -301,6 +302,8 @@ export default function List() {
     const handleOpenFile = url => {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
+
+
     const handleDesc = async (e) => {
         setDesc(e.target.value)
     }
@@ -345,7 +348,7 @@ export default function List() {
                 setInputDesc(result.data[0].descr);
                 setInputCourse(result.data[0].course_name);
                 setinputMember(result.data[0].student_names);
-                // setTeacherName(result.data[0].teacher_name);
+                setTeacherName(result.data[0].teacher_name);
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
                 setInputFile(result.data[0].filepath);
@@ -359,14 +362,6 @@ export default function List() {
         setOpenEdit(false);
         window.location.replace('/project/list')
     }
-    // const ShowMember = async () => {
-    //     axios.get("http://localhost:3001/project/member")
-    //         .then((result) => {
-    //             setMember(result.data)
-    //             // console.log(result.data);
-    //         })
-    //         .catch(error => console.log(error));
-    // };
 
     const handleSubmit = async () => {
 
@@ -407,7 +402,7 @@ export default function List() {
                 username: inputmember
             });
             console.log(response.data);
-            history.push('/home/project/list');
+            window.location.replace('/home/project/list')
         } catch (error) {
             console.error('Error:', error);
         }
@@ -795,7 +790,7 @@ export default function List() {
                         <Typography level="h4">Class Project</Typography>
                     </Flex>
 
-                    <div style={{ paddingLeft: '50px', width: 500, height: 200, borderRadius: '3px' }}>
+                    <div style={{ paddingLeft: '50px', width: 500, height: 250, borderRadius: '3px' }}>
                         <div style={{ marginTop: '10px' }}>
                             <span><b>Title : </b></span>
                             <span style={{ marginLeft: '105px', color: '#517388' }}>{inputTitle}</span>
@@ -821,15 +816,19 @@ export default function List() {
                             <span><b>File:</b></span>
                             <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '120px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
                         </div>
-                        <div><h2>Member</h2></div>
-                        <div style={{ marginTop: '10px' }}>
-                            <ul>
-                                <li>{inputmember}</li>
-                            </ul>
-                            {/* <span style={{ marginLeft: '90px', color: '#517388' }}>{inputmember}</span> */}
+                        <div>
+                            <span><b>Member:</b></span>        
+                                <ol style={{ marginLeft: '150px', color: '#517388' }}>
+                                    {studentNamesArray.length > 0 ? (
+                                        studentNamesArray.map((student, index) => (
+                                            <li key={index}>{student.trim()}</li>
+                                        ))
+                                    ) : (
+                                        <li>No students found</li>
+                                    )}
+                                </ol>
                         </div>
                     </div>
-
 
                 </Sheet>
             </ModalView>

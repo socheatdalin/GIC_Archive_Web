@@ -193,8 +193,9 @@ export default function List() {
         const [searchOpen, setSearchOpen] = useState(false)
         // const { onOpen: onDeleteModalOpen } = useDisclosure();
         const [project, setproject] = React.useState([]);
-        const [member, setmember] = React.useState([]);
-        const [inputmember, setinputMember] = React.useState([]);
+        const [Member, setMember] = React.useState([]);
+        const [member, setmember] = React.useState('');
+        const [inputmember, setinputMember] = React.useState('');
         const [inputID, setInputID] = React.useState('');
         const [openEdit, setOpenEdit] = React.useState(false);
         const [openDelete, setOpenDelete] = React.useState(false);
@@ -208,7 +209,7 @@ export default function List() {
         const [ID, setID] = React.useState('')
         const [Name, setName] = React.useState('');
         const [Desc, setDesc] = React.useState('');
-        // const [oldID, set_oldID] = React.useState('');
+        const [inputTeacherName, setTeacherName] = React.useState('');
         const [Type, setType] = React.useState('');
         const [id, setid] = React.useState('');
         const [Photo, setPhoto] = React.useState('');
@@ -216,16 +217,18 @@ export default function List() {
         const [inputFile, setInputFile] = React.useState(null);
         const [inputPhoto, setInputPhoto] = React.useState('');
         const [Files, setFile] = React.useState(null);
+        const [fileName, setFileName] = React.useState('');
 
         const [length, setLength] = useState([])
         const [index, setIndex] = useState('');
-        const handleInputMember = async (e) => {
-                setinputMember(e.target.value);
-        };
         const [search1, setSearch1] = useState('');
         const searchValue = (e) => {
                 setSearch1(e.target.value)
         }
+
+        const studentNamesArray = inputmember ? inputmember.split(',') : [];
+
+
         const handleSearch = (e) => {
                 // console.log(search)
                 axios.post("http://localhost:3001/thesis/field", { search: e.target.value }, { withCredentials: true })
@@ -278,20 +281,19 @@ export default function List() {
         const handleID = async (e) => {
                 setID(e.target.value)
         }
-
+        const handleInputMember = async (e) => {
+                const newNameString = e.target.value;
+                const namesArray = newNameString.split(',');
+                setinputMember(e.target.value)
+        }
+        const handleOpenFile = url => {
+                window.open(url, '_blank', 'noopener,noreferrer');
+        };
         const handleDesc = async (e) => {
                 setDesc(e.target.value)
         }
         useEffect(() => {
-
                 team_project();
-                // Member();
-                // axios.get('http://localhost:3001/project/member').then((result) => {
-                //     setproject(result.data)
-                //     // console.log(result.data);
-                // })
-                //     .catch(error => console.log(error));
-
         }, [])
         const rows = project;
         const [order, setOrder] = React.useState('asc');
@@ -344,14 +346,17 @@ export default function List() {
         }
 
         const handleView = async (project_id) => {
-
-                await axios.get("http://localhost:3001/admin/team_project/" + project_id)
+                await axios.get("http://localhost:3001/admin/project/" + project_id)
                         .then((result) => {
                                 console.log(result.data);
-                                setID(result.data[0].project_id);
+                                console.log(result.data[0].project_id);
                                 setInputTitle(result.data[0].title);
                                 setInputDesc(result.data[0].descr);
                                 setInputCourse(result.data[0].course_name);
+                                setinputMember(result.data[0].student_names);
+                                setTeacherName(result.data[0].teacher_name);
+                                setInputGit(result.data[0].github_url);
+                                setFileName(result.data[0].fileName);
                                 setInputFile(result.data[0].filepath);
                         })
                         .catch(error => console.log(error));
@@ -363,37 +368,6 @@ export default function List() {
                 setOpenEdit(false);
                 window.location.replace('/project/list')
         }
-        const Member = async () => {
-                axios.get("http://localhost:3001/project/member")
-                        .then((result) => {
-                                setmember(result.data)
-                                // console.log(result.data);
-                        })
-                        .catch(error => console.log(error));
-        };
-
-        // const handleSubmit = async () => {
-        //     const formData = new FormData();
-        //     formData.append('title', inputTitle);
-        //     formData.append('course_name', inputCourse);
-        //     formData.append('descr', inputDesc);
-        //     formData.append('github_url', inputGit)
-        //     formData.append('file', inputFile);
-
-        //     console.log(formData.get('file'));
-
-        //     axios.post("http://localhost:3001/project/create", formData,
-        //         {
-        //             headers: {
-        //                 'Content-Type': 'multipart/form-data'
-        //             }
-        //         })
-        //         .then((result) => {
-        //             console.log(result);
-        //             window.location.replace('/home/project/list')
-        //         })
-        //         .catch(error => console.log(error));
-        // }
 
         const onDeleteModalOpen = async (id) => {
                 setDeleteID(id)
@@ -404,13 +378,27 @@ export default function List() {
                 setOpenCreate(true);
         }
 
-        const team_project = async () => {
-                axios.get("http://localhost:3001/student/project")
+        const team_project = async (name) => {
+                axios.get("http://localhost:3001/me", {
+                        headers: {
+                                'Authorization': sessionStorage.getItem("access_token"),
+                                "Content-Type": "application/json"
+                        }
+                })
                         .then((result) => {
-                                setproject(result.data)
-                                // console.log(result.data);
+                                console.log(result.data);
+                                console.log(result.data.name);
+                                axios.get("http://localhost:3001/student/project/" + result.data.name)
+                                        .then((results) => {
+                                                setproject(results.data)
+                                                console.log(results.data);
+                                        })
+                                        .catch(error => console.log(error));
                         })
-                        .catch(error => console.log(error));
+                        .catch(err => {
+                                console.log("Server error:", err);
+                        });
+
         };
 
         const handleDelete = async () => {
@@ -793,25 +781,46 @@ export default function List() {
                                                 </Typography>
                                         </Flex>
                                         <Grid >
-                                                <VStack spacing="3">
-                                                        <span style={{ marginLeft: '50px', marginTop: '10px', width: 400, height: 250, border: '2px  solid #6f2da8 ', borderRadius: '5px', boxShadow: '2px 2px 2px gray' }}>
-                                                                <iframe style={{ height: '100%', width: '100%' }} overflow="hidden" scrolling="no" frameBorder="none" src={`http://localhost:3001/static/${inputFile}`}></iframe>
-                                                        </span>
-                                                </VStack>
-
-                                                <VStack style={{ marginTop: '10px', textAlign: 'left', fontSize: '16px' }}>
-                                                        <div style={{ paddingLeft: '30px', width: 330, height: 325, borderRadius: '3px' }}>
-                                                                <div style={{ marginTop: '10px' }}>
-                                                                        <span><b>Title : </b></span>
-                                                                        <span style={{ marginLeft: '87px', color: '#517388' }}>{inputTitle}</span>
-                                                                </div>
-                                                                <div style={{ marginTop: '10px' }}>
-                                                                        <span><b>Description : </b></span>
-                                                                        <span style={{ marginLeft: '50px', color: '#517388' }}>{inputDesc}</span>
-                                                                </div>
+                                                <div style={{ paddingLeft: '50px', width: 500, height: 250, borderRadius: '3px' }}>
+                                                        <div style={{ marginTop: '10px' }}>
+                                                                <span><b>Title : </b></span>
+                                                                <span style={{ marginLeft: '105px', color: '#517388' }}>{inputTitle}</span>
+                                                        </div>
+                                                        <div style={{ marginTop: '10px' }}>
+                                                                <span><b>Course: </b></span>
+                                                                <span style={{ marginLeft: '90px', color: '#517388' }}>{inputCourse}</span>
                                                         </div>
 
-                                                </VStack>
+                                                        <div style={{ marginTop: '10px' }}>
+                                                                <span><b>Teacher: </b></span>
+                                                                <span style={{ marginLeft: '90px', color: '#517388' }}>{inputTeacherName}</span>
+                                                        </div>
+                                                        <div style={{ marginTop: '10px' }}>
+                                                                <span><b>Description : </b></span>
+                                                                <span style={{ marginLeft: '50px', color: '#517388' }}>{inputDesc}</span>
+                                                        </div>
+                                                        <div style={{ marginTop: '10px' }}>
+                                                                <span><b>Git: </b></span>
+                                                                <span style={{ marginLeft: '120px', color: '#517388' }}> <a href={inputGit}>{inputGit}</a></span>
+                                                        </div>
+                                                        <div style={{ marginTop: '20px' }} >
+                                                                <span><b>File:</b></span>
+                                                                <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '120px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
+                                                        </div>
+                                                        <div>
+                                                                <span><b>Member:</b></span>
+                                                                <ol style={{ marginLeft: '150px', color: '#517388' }}>
+                                                                        {studentNamesArray.length > 0 ? (
+                                                                                studentNamesArray.map((student, index) => (
+                                                                                        <li key={index}>{student.trim()}</li>
+                                                                                ))
+                                                                        ) : (
+                                                                                <li>No students found</li>
+                                                                        )}
+                                                                </ol>
+                                                        </div>
+                                                </div>
+
                                         </Grid>
                                 </Sheet>
                         </ModalView>

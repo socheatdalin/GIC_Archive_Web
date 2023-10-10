@@ -3,9 +3,7 @@ import { Card, Typography } from '@mui/joy';
 import { BiNotepad, BiReceipt, BiUser } from 'react-icons/bi';
 import { PieChart, Pie, Cell, Legend, Bar, BarChart } from 'recharts';
 import { XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line } from 'recharts';
-// import image from '../../../../components/asssets';
 import React, { useState } from 'react';
-// import { Dialog, DialogContent, DialogTitle } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
@@ -113,7 +111,7 @@ const value = [
 
 export default function List() {
 
-  
+
     const [studentCount, setStudent] = useState(0);
     const [teacherCount, setTeacher] = useState();
     const [course, setCourse] = useState(0);
@@ -194,7 +192,7 @@ export default function List() {
         CountMale();
     }, [])
 
-    
+
     return (
         <Flex flexDir="column" borderRadius="10px" bg="white" h="full">
             <span style={{ margin: '20px', fontSize: '20px' }}>Admin Dashboard</span>
@@ -342,58 +340,8 @@ export default function List() {
                     </div>
                 </Card>
 
-                {/* total session */}
-                <Card
-                    variant="outlined"
-                    orientation="horizontal"
-                    sx={{
-                        mr: 5,
-                        height: 120,
-                        width: 310,
-                        bgcolor: '#fd0a54',
 
-                        gap: 2,
-                        '&:hover': {
-                            boxShadow: 'md',
-                            borderColor: 'neutral.outlinedHoverBorder',
-                        },
-                    }}
-                >
-                    <div>
-                        <Typography
-                            sx={{ color: 'white', textTransform: 'uppercase' }}
-                            level="h2"
-                            fontSize="sm"
-                            id="card-description"
-                            mb={0.5}
-                        >
-                            Sessions
-                        </Typography>
-                        <Typography
-                            fontSize="40px"
-                            aria-describedby="card-description"
-                            mb={1}
-                        >
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                overlay
-                                underline="none"
-                                href="#interactive-card"
-                                sx={{ color: 'white', textTransform: 'uppercase' }}
-                            >
-                                <BiNotepad sx={{ width: '90px' }} />
-                                <Typography ml="15px">44</Typography>
-                            </Box>
-                        </Typography>
-                    </div>
-                </Card>
             </Box>
-            {/* <Box>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateCalendar />
-        </LocalizationProvider>
-      </Box> */}
             <Box ml="10px" mt="30px" flex="1" overflow="auto" display="flex">
                 <Box>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>

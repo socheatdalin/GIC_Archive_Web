@@ -19,7 +19,7 @@ const DelayImport = (path) => {
 const Thesis = DelayImport(import('./setting/thesis'));
 const Project = DelayImport(import('./setting/project'));
 const Dashboard = DelayImport(import('./setting/dashboard'));
-
+const Profile = DelayImport(import('./setting/profile'));
 const routeItem = [
 
   {
@@ -33,6 +33,10 @@ const routeItem = [
   {
     path: '/home/dashboard',
     element: <Dashboard />,
+  },
+  {
+    path: '/home/profile',
+    element: <Profile />,
   }
 ];
 
