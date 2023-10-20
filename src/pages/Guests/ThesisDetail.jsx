@@ -4,7 +4,7 @@ import Comment from "../../components/comment";
 import Header from '../../components/GuestHeader'
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import LikeButton from "../../components/LikeButton";
+
 
 
 function ThesisDetail() {
@@ -68,7 +68,6 @@ function ThesisDetail() {
                 </div>
               )}
             </div>
-            <LikeButton />
           </div>
           <div className="contain">
             <div class="row">

@@ -5,9 +5,13 @@
   padding: 8px;
   background-color: #fff;
   position: relative;
-  height: 400px;
-
+  margin: 10px 20px;
+  max-width: calc(100% / 3 - 100px);
+  text-align: center;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s;
 }
+
 
 .upper {
   height: 100px;

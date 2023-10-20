@@ -1,23 +1,25 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Header/Navbar";
 import pic from "../assets/SNA.jpg";
 import Comment from "../components/comment";
 import LikeButton from "../components/LikeButton";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import Loader from "../components/Loader";
+import { UserProvider } from '../components/UserContext';
 
 function ProDetail() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [File, setfile] = useState(null);
+  
   useEffect(() => {
     axios
       .get(`http://localhost:3001/admin/team_project/${id}`)
       .then((response) => {
         setProject(response.data[0]);
-        setLoading(false); 
+        setLoading(false);
         setfile(response.data[0].filepath);
       })
       .catch((error) => {
@@ -26,7 +28,8 @@ function ProDetail() {
       });
   }, [id]);
 
-  const handleButtonClick = () => {//make it able to route in new page
+  const handleButtonClick = () => {
+    //make it able to route in new page
     if (project.github_url) {
       window.open(project.github_url, "_blank");
     }
@@ -41,7 +44,6 @@ function ProDetail() {
     <>
       <Navbar />
       <div className="p-5 container">
-       
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
           <div className="card-work d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5  ">
             <img
@@ -51,8 +53,8 @@ function ProDetail() {
             ></img>
 
             <div className="information">
-            {loading ? (
-                <p>Loading...</p>
+              {loading ? (
+                <Loader />
               ) : (
                 <div>
                   <h4 className="fw-semibold">{project.title}</h4>
@@ -60,45 +62,77 @@ function ProDetail() {
                   <h6>Class: {project.course_name}</h6>
                   <h6>Taught by: {project.teacher_name}</h6>
                   <h6>Posted by: {project.inputname}</h6>
-                  <p className="text-secondary">Description: {project.descr} </p>
-                    <div className="d-grid gap-2 d-md-flex justify-content-start">
-                      <button className="btn btn-primary me-md-2" type="button" onClick={handleButtonClick}>
-                        Code
-                      </button>
-                      <button className="btn btn-primary" type="button"  onClick={() =>
+                  <p className="text-secondary">
+                    Description: {project.descr}{" "}
+                  </p>
+                  <div className="d-grid gap-2 d-md-flex justify-content-start">
+                    <button
+                      className="btn btn-primary me-md-2"
+                      type="button"
+                      onClick={handleButtonClick}
+                    >
+                      Code
+                    </button>
+                    <button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={() =>
                         handleOpenFile(`http://localhost:3001/static/${File}`)
-                      }>
-                        Pdf
-                      </button>
-                    </div>
+                      }
+                    >
+                      Pdf
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
-            <LikeButton />
+            <div>
+              {loading ? (
+                <Loader />
+              ) : (
+                <div>
+                  < UserProvider> 
+                  <LikeButton project_id={project.project_id} />
+                  </UserProvider>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="contain">
-            <div class="row ">
-
-              <div class="col-sm-6">
-                <Comment text="Project comment" theme="project"/>
-              </div>
-              
+          
               {loading ? (
-                <p>Loading...</p>
+                    <Loader />
               ) : (
-
-              <div class="col-sm-6">
-                <div className="">
-                  <h4>Code</h4>
-                  <div className="text-success">
-                    <hr></hr>
+                <div> 
+                   <div class="row ">
+                  <div class="col-sm-6">
+                    < UserProvider> 
+                    <Comment project_id={project.project_id}   />
+                    </UserProvider>
                   </div>
-                  <p>GitHub URL: <a href={project.github_url} target="_blank" rel="noopener noreferrer">{project.github_url}</a></p>
+                  <div class="col-sm-6">
+                    <div className="">
+                      <h4>Code</h4>
+                      <div className="text-success">
+                        <hr></hr>
+                      </div>
+                      <p>
+                        GitHub URL:{" "}
+                        <a
+                          href={project.github_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {project.github_url}
+                        </a>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-                )}
-            </div>
+              )}
+           
           </div>
         </div>
       </div>

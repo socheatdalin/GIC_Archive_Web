@@ -9,6 +9,7 @@ import Project from './pages/Project';
 import ProDetail from './pages/ProDetail';
 import ThesisUp from './pages/upload/Uploadthesis';
 import ProjectUp from './pages/upload/Uploadproject';
+
 //Guest
 import Guesthome from './components/Home/Guesthome';
 import GuestProject from './pages/Guests/Project';
@@ -49,8 +50,9 @@ function App() {
 
                                 </Routes>
                         </Router>
-
+                       
                 </div>
+                  
         );
 };
 
