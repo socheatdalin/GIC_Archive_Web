@@ -12,6 +12,7 @@ import { visuallyHidden } from '@mui/utils';
 import { useEffect } from 'react';
 import axios from "axios";
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
@@ -195,6 +196,7 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
+    const history = useHistory();
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
     const [thesis, setthesis] = React.useState([]);
@@ -252,7 +254,7 @@ export default function List() {
     const searchValue = (e) => {
         setSearch1(e.target.value)
     }
-    const handlePhoto = async (e) => {
+    const handleInputPhoto = async (e) => {
         setInputPhoto(e.target.files[0]);
     }
     const handleInputGit = (e) => {
@@ -304,6 +306,11 @@ export default function List() {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
 
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
     const handleSearch = (e) => {
         // console.log(search)
         axios.post("http://localhost:3001/admin/thesis/all/field", { field: inputField }
@@ -313,11 +320,6 @@ export default function List() {
             .catch(error => console.log(error));
     }
 
-    const handleRequestSort = (event, property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
 
     const handleDisplay = async () => {
 
@@ -342,9 +344,9 @@ export default function List() {
                 setInputTeacher_name(result.data[0].teacher_username)
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
+                setInputPhoto(result.data[0].imagePath)
                 setInputFile(result.data[0].filepath);
             })
-
             .catch(error => console.log(error));
         setOpenView(true);
     }
@@ -364,9 +366,10 @@ export default function List() {
         formData.append('descr', inputDesc);
         formData.append('github_url', inputGit);
         formData.append('tags', inputTag);
+        formData.append('image', inputPhoto);
         formData.append('file', inputFile);
         console.log(formData.get('file'));
-
+        console.log(formData.get('image'));
         axios.post("http://localhost:3001/admin/thesis/create", formData,
             {
                 headers: {
@@ -400,9 +403,10 @@ export default function List() {
     };
 
     const handleDelete = async () => {
-        axios.post("http://localhost:3001/admin/project/delete/" + deleteID)
+        axios.post("http://localhost:3001/admin/thesis/delete/" + deleteID)
             .then((result) => {
                 console.log("delete success");
+                // history.push('/home/thesis/list');
                 window.location.replace('/home/project/list')
             })
             .catch(error => console.log(error));
@@ -465,7 +469,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 700,
-                        height: 460,
+                        height: 500,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -538,11 +542,6 @@ export default function List() {
                                     defaultValue={[Fields[4], Fields[5]]}
                                     options={Fields}
                                 />
-
-                            </FormControl>
-                        </VStack>
-                        <VStack spacing="3" ml="40px">
-                            <FormControl sx={{ width: '300px' }}>
                                 <FormLabel required>tags</FormLabel>
                                 <Input
                                     placeholder="Please enter your intro project"
@@ -552,6 +551,11 @@ export default function List() {
                                     color="neutral"
                                     onChange={handleInputTags}
                                 />
+                            </FormControl>
+                        </VStack>
+                        <VStack spacing="3" ml="40px">
+                            <FormControl sx={{ width: '300px' }}>
+
                                 <FormLabel required>Git</FormLabel>
                                 <Input
                                     placeholder="Please enter your link URL"
@@ -574,8 +578,15 @@ export default function List() {
                                     required
                                 />
                             </FormControl>
-                            <Grid sx={{ mt: 10, }}>
-                                <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
+                            <Grid sx={{ mt: 5, }}>
+                                <div>
+                                    <h5 >Image</h5>
+                                    <input style={{ marginTop: '10px', marginBottom: '15px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} placeholder='image' />
+                                </div>
+                                <div>
+                                    <h5>Document</h5>
+                                    <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
+                                </div>
                             </Grid>
                         </VStack>
                     </Grid>
@@ -601,7 +612,7 @@ export default function List() {
                     }}
                 >
                     <Flex style={{ marginTop: '20px', justifyContent: "space-between", textAlign: "center", margin: 'auto', alignItems: "center" }}>
-                        <p> Are you sure you want to delete this course?</p>
+                        <p> Are you sure you want to delete this thesis?</p>
                     </Flex>
                     <div style={{ justifyConten: "space-between", textAlign: "center", alignItems: "center" }}>
                         <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#CD3700', color: 'white' }} onClick={handleDelete}>
@@ -699,7 +710,7 @@ export default function List() {
                     <Grid templateColumns="repeat(1,1fr) " gap="2" style={{ marginLeft: '30px', marginRight: '50px' }}>
                         <FormControl>
                             <Grid mt={-10}>
-                                <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='pdfFiles' onChange={handlePhoto} />
+                                <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='pdfFiles' />
                             </Grid>
                             <FormLabel style={{ marginTop: '-10px' }} required>Description</FormLabel>
                             <TextField
@@ -729,7 +740,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 600,
-                        height: 450,
+                        height: 500,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -781,6 +792,10 @@ export default function List() {
                                     <span><b>Field   : </b></span>
                                     <span style={{ marginLeft: '180px', color: '#517388' }}>{inputType}</span>
                                 </div>
+                                {/* <div style={{ marginTop: '10px', marginLeft: '50px' }}>
+                                    <img style={{ width: '50%', height: '50%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
+                                </div> */}
+
                                 <div style={{ marginTop: '20px', display: 'flex' }} >
                                     <div><b>File:</b></div>
                                     <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '180px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>

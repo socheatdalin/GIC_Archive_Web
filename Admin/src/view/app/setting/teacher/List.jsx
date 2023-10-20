@@ -411,7 +411,7 @@ export default function List() {
             }
         )
             .then((result) => {
-                console.log(result);
+                console.log(result.data);
                 window.location.replace('/home/teacher/list')
             })
             .catch(error => console.log(error));
@@ -960,7 +960,7 @@ export default function List() {
                                                         size="sm"
                                                         icon={<HiOutlinePencilAlt color="#03A89E" size="1.3rem" />}
                                                         onClick={() => {
-                                                            handleEdit(row.id)
+                                                            handleEdit(row.teacher_id)
                                                         }
                                                         }
                                                     />
