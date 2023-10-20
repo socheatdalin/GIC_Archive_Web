@@ -16,6 +16,7 @@ function UserProfile() {
     const [last_name, setLastName] = useState('');
     const [role, setRole] = useState('');
     const [generation, setGeneration] = useState('');
+    const [photo, setPhoto] = useState('');
     useEffect(() => {
 
         axios.get("http://localhost:3001/me", {
@@ -29,6 +30,7 @@ function UserProfile() {
                 setuserId(result.data.id);
                 setEmail(result.data.email);
                 setname(result.data.name);
+                setPhoto(result.data.filepath);
                 setGender(result.data.gender);
                 setFirstname(result.data.first_name);
                 setLastName(result.data.last_name);
@@ -65,7 +67,7 @@ function UserProfile() {
 
                         <div class="profile">
 
-                            <img src="https://i.imgur.com/JgYD2nQ.jpg" class="rounded-circle" width="80" alt='' />
+                            <img src={`http://localhost:3001/static/${photo}`} class="rounded-circle" width="80" height="50" alt='' />
                         </div>
                     </div>
                     <div class="mt-5 text-center">

@@ -629,7 +629,7 @@ export default function List() {
               <Input
                 sx={{
                   '&:hover': { '& svg': { opacity: 1 } },
-                  width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
+                  width: '200px', left: '900px', position: "absolute", transition: 'width 3s'
                 }}
                 placeholder="search by course ..."
                 variant="outlined"
@@ -644,7 +644,6 @@ export default function List() {
               style={{ backgroundColor: '#23395d' }}
               sx={{ position: 'absolute', right: '105px' }}
               variant="solid"
-            // onClick={() => history.push(`${parentUrl}/add`)}
             >
               <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
             </Button>

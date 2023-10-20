@@ -59,7 +59,6 @@ function Navbar() {
                                                         console.log(token);
                                                         console.log(response.data.email);
                                                         sessionStorage.setItem("access_token", token);
-                                                        // window.location.href = "http://localhost:3002/home";
                                                         navigate('http://localhost:3002/home');
                                                 }
                                                 else {
@@ -131,10 +130,8 @@ function Navbar() {
                                                 <ul>
                                                         <li>
                                                                 <Link to="/userpf">Profile</Link>
-                                                                {/* Profile
-                <Popup /> */}
                                                         </li>
-                                                        <li onClick={handleLogin}>Login
+                                                        <li onClick={handleLogin}>Dashboard
 
                                                                 {/* <Link to="http://localhost:3003/home">Dashboard</Link> */}
                                                         </li>

@@ -351,6 +351,7 @@ export default function List() {
                 setTeacherName(result.data[0].teacher_name);
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
+                setInputPhoto(result.data[0].imagePath)
                 setInputFile(result.data[0].filepath);
             })
             .catch(error => console.log(error));
@@ -370,9 +371,11 @@ export default function List() {
         formData.append('course_name', inputCourse);
         formData.append('descr', inputDesc);
         formData.append('github_url', inputGit);
+        formData.append('image', inputPhoto);
         formData.append('file', inputFile);
-
+        
         console.log(formData.get('file'));
+        console.log(formData.get('image'));
         axios.post("http://localhost:3001/admin/project/create", formData,
             {
                 headers: {
@@ -381,8 +384,8 @@ export default function List() {
             })
             .then((result) => {
                 console.log(result);
-                history.push('/home/project/list');
-                // window.location.replace('/home/project/list')
+                // history.push('/home/project/list');
+                window.location.replace('/home/project/list')
             })
             .catch(error => console.log(error));
     }
@@ -561,6 +564,7 @@ export default function List() {
                                 />
                             </FormControl>
                             <Grid sx={{ mt: 10, }}>
+                                <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} placeholder='image' />
                                 <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
                             </Grid>
                         </VStack>
@@ -768,7 +772,7 @@ export default function List() {
                     variant="outlined"
                     sx={{
                         width: 550,
-                        height: 400,
+                        height: 600,
                         borderRadius: 'md',
                         p: 3,
                         boxShadow: 'lg',
@@ -812,21 +816,24 @@ export default function List() {
                             <span><b>Git: </b></span>
                             <span style={{ marginLeft: '120px', color: '#517388' }}> <a href={inputGit}>{inputGit}</a></span>
                         </div>
+                        <div style={{ marginTop: '10px', marginLeft: '50px' }}>
+                            <img style={{ width: '50%', height: '50%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
+                        </div>
                         <div style={{ marginTop: '20px' }} >
                             <span><b>File:</b></span>
                             <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '120px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
                         </div>
                         <div>
-                            <span><b>Member:</b></span>        
-                                <ol style={{ marginLeft: '150px', color: '#517388' }}>
-                                    {studentNamesArray.length > 0 ? (
-                                        studentNamesArray.map((student, index) => (
-                                            <li key={index}>{student.trim()}</li>
-                                        ))
-                                    ) : (
-                                        <li>No students found</li>
-                                    )}
-                                </ol>
+                            <span><b>Member:</b></span>
+                            <ol style={{ marginLeft: '150px', color: '#517388' }}>
+                                {studentNamesArray.length > 0 ? (
+                                    studentNamesArray.map((student, index) => (
+                                        <li key={index}>{student.trim()}</li>
+                                    ))
+                                ) : (
+                                    <li>No students found</li>
+                                )}
+                            </ol>
                         </div>
                     </div>
 
