@@ -16,16 +16,48 @@ class Thesis extends Component {
         isLoaded:false,
     }
 }
-componentDidMount() {
-    fetch('http://localhost:3001/admin/thesis/all')
-        .then(res => res.json())
-        .then(json => {
-            this.setState({
-                 isLoaded: true,
-            items: json,
-            })
-        });
-    };
+
+async fetchLikeCount(Id) {
+  try {
+    const response = await fetch(`http://localhost:3001/thesisliked/${Id}`);
+    if (response.ok) {
+      const data = await response.json();
+      return data[0].countlike; // Assuming the API response is an array with a single object
+    } else {
+      return 0; // Handle error case
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    return 0; // Handle error case
+  }
+}
+
+
+async componentDidMount() {
+  try {
+    const response = await fetch('http://localhost:3001/admin/thesis/all');
+    if (response.ok) {
+      const thesis = await response.json();
+
+      // Fetch like count for each project
+      const updatedProjects = await Promise.all(
+        thesis.map(async (thesis) => {
+          const likeCount = await this.fetchLikeCount(thesis.thesis_id);
+          return { ...thesis, likeCount };
+        })
+      );
+
+      this.setState({
+        isLoaded: true,
+        items: updatedProjects,
+      });
+    } else {
+      throw new Error('Failed to fetch thesis');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
 
 render(){
     var {isLoaded, items } = this.state;
@@ -115,7 +147,7 @@ render(){
                     <div className="col-lg-3">
                       <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
                         <img src={star} className=" img-star" alt="pic"></img>
-                        5, 075
+                        {item.likeCount}
                       </button>
                     </div>
                   </div>

@@ -17,21 +17,51 @@ class Project extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch("http://localhost:3001/admin/project/all")
-      .then((res) => res.json())
-      .then((json) => {
+  async fetchLikeCount(Id) {
+    try {
+      const response = await fetch(`http://localhost:3001/countlike/${Id}`);
+      if (response.ok) {
+        const data = await response.json();
+        return data[0].countlike; // Assuming the API response is an array with a single object
+      } else {
+        return 0; // Handle error case
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      return 0; // Handle error case
+    }
+  }
+
+  async componentDidMount() {
+    try {
+      const response = await fetch('http://localhost:3001/admin/project/all');
+      if (response.ok) {
+        const projects = await response.json();
+
+        // Fetch like count for each project
+        const updatedProjects = await Promise.all(
+          projects.map(async (project) => {
+            const likeCount = await this.fetchLikeCount(project.project_id);
+            return { ...project, likeCount };
+          })
+        );
+
         this.setState({
           isLoaded: true,
-          items: json,
+          items: updatedProjects,
         });
-      });
+      } else {
+        throw new Error('Failed to fetch projects');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   render() {
     var { isLoaded, items } = this.state;
     if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div>loading ... </div>;
     }
     return (
       <>
@@ -74,7 +104,7 @@ class Project extends Component {
                     <div className="col-lg-3 col-md-4 col-sm-12">
                       <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
                         <img src={star} className=" img-star" alt="pic"></img>
-                        5, 075
+                        {item.likeCount}
                       </button>
                     </div>
                   </div>

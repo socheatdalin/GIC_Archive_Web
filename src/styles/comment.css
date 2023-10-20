@@ -1,63 +1,51 @@
-
-.case {
-    border: none;
-    border-radius: 20px;
-    /* padding: 20px; */
-    margin-bottom: 40px
+.comment-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px 0;
+  max-height: 300px; /* Set a maximum height to display 3 or 4 comments */
+  overflow-y: auto; /* Enable vertical scrolling when content exceeds the container height */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
 }
 
-.icons {
-    border-radius: 10px;
-    padding-right: 5px;
-    width: 60px;
-    height: 55px
+.icon-container {
+  margin-right: 10px;
+}
+.comment-item {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  /* Additional comment item styles */
 }
 
-.icons :hover {
-    cursor: pointer
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.round .align-self-start {
-    border-radius: 100%;
-    width: 45px;
-    height: 40px
+.user {
+  font-weight: bold;
+  margin: 0;
 }
 
-.media .comment {
-    background: #F4F4F4;
-    border: none;
-    border-radius: 10px
+.timestamp {
+  margin: 0;
+  color: #888;
 }
 
-h6.user {
-    color: #5C5C5C;
-    font-size: 15px !important;
-    padding-left: 15px !important;
-    margin-bottom: 0
-}
-
-h6.user:hover {
-    cursor: pointer;
-    text-decoration: underline
-}
-
-p.text {
-    margin-bottom: 0;
-    color: #8A8A8A !important;
-    font-size: 14px
-}
-
-.ml-auto {
-    margin-right: 10px
-}
-
-p .reply {
-    color: #5C5C5C;
-    font-size: 15px
+.comment-text {
+  margin-top: 10px;
 }
 
 @media screen and (min-width: 576px) {
-    .comment {
-        width: 470px !important
-    }
+  .comment {
+    width: 470px !important;
+  }
 }
