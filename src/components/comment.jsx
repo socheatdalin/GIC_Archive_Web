@@ -2,20 +2,22 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useUser } from "./UserContext";
 import { useParams } from "react-router-dom";
-import { BsTrashFill } from "react-icons/bs";
-import { BiEdit } from "react-icons/bi";
+
+import { HiOutlinePencilAlt,HiOutlineTrash } from "react-icons/hi";
 
 function Comment({ text, theme, project_id, thesis_id }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
   const { user } = useUser();
   const { id } = useParams();
+  const [photo, setPhoto] = useState(null);
 
   useEffect(() => {
     axios
       .get(`http://localhost:3001/comment/${id}`)
       .then((response) => {
         setComments(response.data);
+        setPhoto(response.data[0].filepath);
       })
       .catch((error) => {
         console.error(error);
@@ -27,6 +29,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
       .get(`http://localhost:3001/comment/thesis/${id}`)
       .then((response) => {
         setComments(response.data);
+        setPhoto(response.data[0].filepath);
       })
       .catch((error) => {
         console.error(error);
@@ -40,7 +43,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         {
           comment_text: commentText,
           project_id,
-          thesis_id,
+          thesis_id, 
           student_id: user ? user.id : null, // Include the user's ID in the request
         }
       );
@@ -82,10 +85,10 @@ function Comment({ text, theme, project_id, thesis_id }) {
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container">
         <img
-          src="https://i.imgur.com/JgYD2nQ.jpg"
+          src= {`http://localhost:3001/static/${photo}`}
           className="rounded-circle"
           width="60"
-          alt=""
+          alt="pic"
         />
       </div>
       <div className="comment-content">
@@ -96,8 +99,8 @@ function Comment({ text, theme, project_id, thesis_id }) {
         <p className="timestamp ">{comment.timestamp}</p>
       </div>
       <div>
-        <BiEdit style={{ cursor: "pointer" }} />
-        <BsTrashFill
+        <HiOutlinePencilAlt style={{ cursor: "pointer"}} />
+        <HiOutlineTrash
           onClick={() => deleteComment(comment.comment_id)}
           style={{ cursor: "pointer", color: "#ff0000" }}
         />

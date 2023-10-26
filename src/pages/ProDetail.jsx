@@ -13,7 +13,7 @@ function ProDetail() {
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [File, setfile] = useState(null);
-  
+  const [photo, setPhoto] = useState(null);
   useEffect(() => {
     axios
       .get(`http://localhost:3001/admin/team_project/${id}`)
@@ -21,6 +21,7 @@ function ProDetail() {
         setProject(response.data[0]);
         setLoading(false);
         setfile(response.data[0].filepath);
+        setPhoto(response.data[0].imagePath);
       })
       .catch((error) => {
         console.error(error);
@@ -46,16 +47,16 @@ function ProDetail() {
       <div className="p-5 container">
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
           <div className="card-work d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5  ">
-            <img
-              src={pic}
-              style={{ width: "350px", height: "220px" }}
-              alt="network"
-            ></img>
-
             <div className="information">
               {loading ? (
                 <Loader />
               ) : (
+                <div>
+                  <img
+              src={`http://localhost:3001/static/${photo}`}
+              style={{ width: "350px", height: "220px" }}
+              alt="network"
+            ></img>
                 <div>
                   <h4 className="fw-semibold">{project.title}</h4>
                   <p></p>
@@ -63,7 +64,7 @@ function ProDetail() {
                   <h6>Taught by: {project.teacher_name}</h6>
                   <h6>Posted by: {project.inputname}</h6>
                   <p className="text-secondary">
-                    Description: {project.descr}{" "}
+                    Description: {project.descr}
                   </p>
                   <div className="d-grid gap-2 d-md-flex justify-content-start">
                     <button
@@ -83,6 +84,7 @@ function ProDetail() {
                       Pdf
                     </button>
                   </div>
+                </div>
                 </div>
               )}
             </div>
