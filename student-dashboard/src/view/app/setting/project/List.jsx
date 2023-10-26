@@ -388,6 +388,7 @@ export default function List() {
                         .then((result) => {
                                 console.log(result.data);
                                 console.log(result.data.name);
+                            
                                 axios.get("http://localhost:3001/student/project/" + result.data.name)
                                         .then((results) => {
                                                 setproject(results.data)

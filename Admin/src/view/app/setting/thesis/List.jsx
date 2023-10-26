@@ -407,7 +407,7 @@ export default function List() {
             .then((result) => {
                 console.log("delete success");
                 // history.push('/home/thesis/list');
-                window.location.replace('/home/project/list')
+                window.location.replace('/home/thesis/list')
             })
             .catch(error => console.log(error));
     }

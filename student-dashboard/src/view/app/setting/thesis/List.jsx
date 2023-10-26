@@ -407,7 +407,6 @@ export default function List() {
         axios.get("http://localhost:3001/student/thesis/" + result.data.name)
           .then((results) => {
             setthesis(results.data)
-            // console.log(results.data);
           })
           .catch(error => console.log(error));
       })
