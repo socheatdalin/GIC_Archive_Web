@@ -221,7 +221,7 @@ export default function List() {
     const [Photo, setPhoto] = React.useState('');
     const [deleteID, setDeleteID] = React.useState('');
     const [inputFile, setInputFile] = React.useState(null);
-    const [inputPhoto, setInputPhoto] = React.useState('');
+    const [inputPhoto, setInputPhoto] = React.useState(null);
     const [Teacher, setTeacher] = React.useState('');
     const [Files, setFile] = React.useState(null);
     const [fileName, setFileName] = React.useState('');
@@ -276,7 +276,7 @@ export default function List() {
         setInputFile(e.target.files[0])
     }
     const handleInputPhoto = async (e) => {
-        setInputPhoto(e.target.file[0])
+        setInputPhoto(e.target.files[0])
     }
     const handleInputTeacherName = async (e) => {
         setTeacherName(e.target.value)
@@ -373,9 +373,9 @@ export default function List() {
         formData.append('github_url', inputGit);
         formData.append('image', inputPhoto);
         formData.append('file', inputFile);
-        
-        console.log(formData.get('file'));
         console.log(formData.get('image'));
+        console.log(formData.get('file'));
+
         axios.post("http://localhost:3001/admin/project/create", formData,
             {
                 headers: {
@@ -384,7 +384,6 @@ export default function List() {
             })
             .then((result) => {
                 console.log(result);
-                // history.push('/home/project/list');
                 window.location.replace('/home/project/list')
             })
             .catch(error => console.log(error));
@@ -564,8 +563,14 @@ export default function List() {
                                 />
                             </FormControl>
                             <Grid sx={{ mt: 10, }}>
-                                <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} placeholder='image' />
-                                <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
+                                <div>
+                                    <h5 >Image</h5>
+                                    <input style={{ marginTop: '10px', marginBottom: '15px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} placeholder='image' />
+                                </div>
+                                <div>
+                                    <h5>Document</h5>
+                                    <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
+                                </div>
                             </Grid>
                         </VStack>
                     </Grid>
@@ -816,9 +821,9 @@ export default function List() {
                             <span><b>Git: </b></span>
                             <span style={{ marginLeft: '120px', color: '#517388' }}> <a href={inputGit}>{inputGit}</a></span>
                         </div>
-                        <div style={{ marginTop: '10px', marginLeft: '50px' }}>
+                        {/* <div style={{ marginTop: '10px', marginLeft: '50px' }}>
                             <img style={{ width: '50%', height: '50%' }} src={`http://localhost:3001/static/${inputPhoto}`} />
-                        </div>
+                        </div> */}
                         <div style={{ marginTop: '20px' }} >
                             <span><b>File:</b></span>
                             <button onClick={() => handleOpenFile(`http://localhost:3001/static/${inputFile}`)} style={{ marginLeft: '120px', borderRadius: '5px', backgroundColor: 'skyblue', padding: '5px' }} type='button' >{fileName}</button>
