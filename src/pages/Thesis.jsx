@@ -73,7 +73,6 @@ render(){
                     <div>
                       <h2 className="fw-semibold">Thesis</h2>
                     </div>
-                    {/* <Dropdown /> */}
                   </div>
         
                   <h6 >Everything you need to find in theis statement</h6>
