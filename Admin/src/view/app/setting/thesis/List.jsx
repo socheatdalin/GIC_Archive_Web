@@ -434,16 +434,15 @@ export default function List() {
       .catch((error) => console.log(error));
   };
 
-  const handleDelete = async () => {
-    axios
-      .post('http://localhost:3001/admin/thesis/delete/' + deleteID)
-      .then((result) => {
-        console.log('delete success');
-        // history.push('/home/thesis/list');
-        window.location.replace('/home/project/list');
-      })
-      .catch((error) => console.log(error));
-  };
+    const handleDelete = async () => {
+        axios.post("http://localhost:3001/admin/thesis/delete/" + deleteID)
+            .then((result) => {
+                console.log("delete success");
+                // history.push('/home/thesis/list');
+                window.location.replace('/home/thesis/list')
+            })
+            .catch(error => console.log(error));
+    }
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);

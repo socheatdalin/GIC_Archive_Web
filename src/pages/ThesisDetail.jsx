@@ -105,7 +105,7 @@ function ThesisDetail() {
             ) : (
               <div class="row">
                 <div class="col-sm-6">
-                  {/* <Comment text="Thesis comment" theme="thesis"/> */}
+               
                   <UserProvider>
                     <Comment thesis_id={thesis.thesis_id} />
                   </UserProvider>
