@@ -15,18 +15,13 @@ const DelayImport = (path) => {
   });
 };
 
-const Dashboard = DelayImport(import('./setting/dashboard'));
 
 const Thesis = DelayImport(import('./setting/thesis'));
 const Project = DelayImport(import('./setting/project'));
-
-
+const Dashboard = DelayImport(import('./setting/dashboard'));
+const Profile = DelayImport(import('./setting/profile'));
 const routeItem = [
 
-  {
-    path: '/home/dashboard',
-    element: <Dashboard />,
-  },
   {
     path: '/home/thesis',
     element: <Thesis />,
@@ -35,6 +30,14 @@ const routeItem = [
     path: '/home/project',
     element: <Project />,
   },
+  {
+    path: '/home/dashboard',
+    element: <Dashboard />,
+  },
+  {
+    path: '/home/profile',
+    element: <Profile />,
+  }
 ];
 
 const MotionBox = motion(Box);

@@ -6,10 +6,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes path="/student"  />
+        <Routes path="/home"  />
+        
       </BrowserRouter>
     </div>
-  );
+  ); 
 }
 
 export default App;

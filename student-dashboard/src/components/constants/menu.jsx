@@ -1,50 +1,34 @@
-import { BiDoorOpen, BiBookBookmark } from 'react-icons/bi';
+import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
+import { PiProjectorScreenChartLight } from 'react-icons/pi';
+import { BiMedal } from 'react-icons/bi';
 export const MenuConstants = [
   {
-    // name: 'LIST',
     item: [
-      // {
-      //   id: 'dashboard',
-      //   name: 'Dashboard',
-      //   path: '/home/dashboard',
-      //   icon: <BiMedal />,
-      // },
-      // {
-      //   id: 'years',
-      //   name: 'Year',
-      //   path: '/home/year',
-      //   icon: <BiCalendar />,
-      // },
+      {
+        id: 'dashboard',
+        name: 'Dashboard',
+        path: '/home/dashboard/',
+        icon: <BiMedal />,
+      },
       {
         id: 'thesis',
         name: 'Thesis',
         path: '/home/thesis/list',
-        icon: <BiDoorOpen />,
+        icon: <HiOutlineClipboardDocumentList />,
       },
       {
         id: 'classproject',
         name: 'Class project',
         path: '/home/project/list',
-        icon: <BiBookBookmark />,
+        icon: <PiProjectorScreenChartLight />,
       },
+      // {
+      //   id: 'profile',
+      //   name: 'Profile',
+      //   path: '/home/profile/list',
+      //   icon: <PiProjectorScreenChartLight />,
+      // },
     ],
   },
-  // {
-  //   name: 'SETTING',
-  //   item: [
-  //     {
-  //       id: 'teachers',
-  //       name: 'Teacher',
-  //       path: '/home/teacher',
-  //       icon: <BiMale />,
-  //     },
-  //     {
-  //       id: 'students',
-  //       name: 'Student',
-  //       path: '/home/student',
-  //       icon: <BiChild />,
-  //     },
-     
-  //   ],
-  // },
+
 ];

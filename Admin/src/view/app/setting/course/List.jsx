@@ -9,8 +9,7 @@ import {
 } from '@chakra-ui/react';
 import makeAnimated from 'react-select/animated';
 import { Link } from 'react-router-dom';
-import TextField from '@mui/material/TextField';
-import SELECT_OPTIONS from 'react-select';
+
 import Table from '@mui/joy/Table';
 import React, { useState } from 'react';
 import { BiSearchAlt2 } from 'react-icons/bi';
@@ -26,20 +25,7 @@ import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ModalEdit from '@mui/joy/Modal'
 import ModalDelete from '@mui/joy/Modal'
 import ModalView from '@mui/joy/Modal'
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalClose,
-  Option,
-  Select,
-  Sheet,
-  Typography
-} from '@mui/joy';
-
+import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
 function labelDisplayedRows({ from, to, count }) {
   return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
 }
@@ -191,7 +177,7 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-  const [openMaterial, setOpenMaterial] = useState(false)
+
   const [searchOpen, setSearchOpen] = useState(false)
   // const { onOpen: onDeleteModalOpen } = useDisclosure();
   const [course, setCourse] = React.useState([]);
@@ -221,26 +207,7 @@ export default function List() {
   const [length, setLength] = useState([])
   const [index, setIndex] = useState('')
 
-  const [search1, setSearch1] = useState('');
-  const searchValue = (e) => {
-    setSearch1(e.target.value)
-  }
-  const handleSearch = (e) => {
-    // console.log(search)
-    axios.post("http://localhost:3000/admin/search/course", { search: e.target.value }, { withCredentials: true })
-      .then((result) => {
-        setCourse(result.data.results)
-      })
-      .catch(error => console.log(error));
-  }
 
-  const handleSort = (fromYear, toYear, Year) => {
-    axios.post("http://localhost:3000/admin/sort/course", { fromYear: fromYear, toYear: toYear, Year: Year }, { withCredentials: true })
-      .then((result) => {
-        setCourse(result.data.results)
-      })
-      .catch(error => console.log(error));
-  }
 
   const handleInputName = async (e) => {
     setInputName(e.target.value)
@@ -295,7 +262,14 @@ export default function List() {
       setOpenView(true)
     }
   }
-
+  const handleSearch = (e) => {
+    // console.log(search)
+    axios.post("http://localhost:3001/search/course", { course_name: inputName })
+      .then((result) => {
+        setCourse(result.data)
+      })
+      .catch(error => console.log(error));
+  }
   const handleView = async (course_id) => {
     await axios.get("http://localhost:3001/course/" + course_id)
       .then((result) => {
@@ -324,15 +298,15 @@ export default function List() {
     const formData = new FormData();
     formData.append('course_name', inputName);
     formData.append('username', inputTeacher_name);
-    formData.append('file', inputPhoto);
-    axios.post("http://localhost:3001/course/create/", formData, {
+    formData.append('image', inputPhoto);
+    axios.post("http://localhost:3001/course/create", formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-
     })
       .then((result) => {
-        window.location.replace('/home/course/list')
+        console.log(result.data);
+        window.location.replace('/home/course/list');
       })
       .catch(error => console.log(error));
 
@@ -340,16 +314,7 @@ export default function List() {
   }
 
   const handleCreate = async () => {
-    axios.post("http://localhost:3001/photo/upload", {
-      // file_name: inputName,
-      username: inputTeacher_name,
-      filepath: inputPhoto
 
-    })
-      .then((result) => {
-        window.location.replace('/home/course/list')
-      })
-      .catch(error => console.log(error));
 
     // setOpenCreate(true);
   }
@@ -358,7 +323,6 @@ export default function List() {
     axios.get("http://localhost:3001/course/all")
       .then((result) => {
         setCourse(result.data)
-        // console.log(course)
       })
       .catch(error => console.log(error));
   };
@@ -395,9 +359,6 @@ export default function List() {
     setPage(newPage);
   };
 
-  const handleDoc = (id) => {
-    window.location.replace(`/course/${id}/materials`)
-  }
   const handleChangeRowsPerPage = (event, newValue) => {
     setRowsPerPage(parseInt(newValue.toString(), 10));
     setPage(0);
@@ -472,7 +433,7 @@ export default function List() {
                   onChange={handleInputTeacher_name}
                 />
                 <Grid sx={{ mt: 10 }} >
-                  <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handlePhoto} />
+                  <input style={{ marginTop: '20px', marginBottom: '20px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} />
                 </Grid>
               </FormControl>
             </VStack>
@@ -668,12 +629,12 @@ export default function List() {
               <Input
                 sx={{
                   '&:hover': { '& svg': { opacity: 1 } },
-                  width: '200px', left: '910px', position: "absolute", transition: 'width 3s'
+                  width: '200px', left: '900px', position: "absolute", transition: 'width 3s'
                 }}
-                placeholder="search ..."
+                placeholder="search by course ..."
                 variant="outlined"
                 color="neutral"
-                onChange={handleSearch}
+                onChange={handleInputName}
               />
             </span>
             <Button
@@ -683,7 +644,6 @@ export default function List() {
               style={{ backgroundColor: '#23395d' }}
               sx={{ position: 'absolute', right: '105px' }}
               variant="solid"
-            // onClick={() => history.push(`${parentUrl}/add`)}
             >
               <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
             </Button>

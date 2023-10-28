@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import Navbar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
-import pic from "../assets/SNA.jpg";
-import "../styles/project.css";
-import star from "../assets/star.png";
-import Drop from "../components/drop";
+import pic from "../../assets/SNA.jpg";
+import "../../styles/project.css";
+import star from "../../assets/star.png";
+import Drop from "../../components/drop";
 import "reactjs-popup/dist/index.css";
 import { FaGithub } from 'react-icons/fa';
-import Loader from "../components/Loader";
+import Header from '../../components/GuestHeader'
+
 class Project extends Component {
   constructor(props) {
     super(props);
@@ -61,11 +61,11 @@ class Project extends Component {
   render() {
     var { isLoaded, items } = this.state;
     if (!isLoaded) {
-      return <div><Loader /></div>;
+      return <div>loading ... </div>;
     }
     return (
       <>
-        <Navbar />
+        <Header />
         <div className="p-5 container ">
           <div className="trending my-3 d-flex flex-row justify-content-between">
             <div>
@@ -91,10 +91,10 @@ class Project extends Component {
                         <h4 className="fw-semibold">{item.title} </h4>
                         <h6>Course: {item.course_name}</h6>
                         <h6 className="text-primary text-opacity-75">
-                          <FaGithub /> {item.github_url}
+                        <FaGithub /> {item.github_url}
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
-                        <Link to={`/project/${item.project_id}`}>
+                        <Link to={`/projectguest/${item.project_id}`}>
                           <button className="btn btn-outline-primary fw-bolder">
                             View
                           </button>

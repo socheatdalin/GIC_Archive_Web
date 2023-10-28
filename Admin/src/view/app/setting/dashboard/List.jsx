@@ -3,59 +3,14 @@ import { Card, Typography } from '@mui/joy';
 import { BiNotepad, BiReceipt, BiUser } from 'react-icons/bi';
 import { PieChart, Pie, Cell, Legend, Bar, BarChart } from 'recharts';
 import { XAxis, YAxis, CartesianGrid, Tooltip, LineChart, Line } from 'recharts';
-import image from '../../../../components/asssets';
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogTitle } from '@mui/material';
+import React, { useState } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-const student = [
-    {
-        name: 'Generation 13',
-        female: 4000,
-        male: 2400,
-        amt: 2400,
-    },
-    {
-        name: 'Generation 14',
-        female: 3000,
-        male: 1398,
-        amt: 2210,
-    },
-    {
-        name: 'Generation 15',
-        female: 2000,
-        male: 9800,
-        amt: 2290,
-    },
-    {
-        name: 'Generation 16',
-        female: 2780,
-        male: 3908,
-        amt: 2000,
-    },
-    {
-        name: 'Generation 17',
-        female: 1890,
-        male: 4800,
-        amt: 2181,
-    },
-    {
-        name: 'Generation 18',
-        female: 2390,
-        male: 3800,
-        amt: 2500,
-    },
-    {
-        name: 'Generation 19',
-        female: 3490,
-        male: 4300,
-        amt: 2100,
-    },
-];
+
 
 const COLORS = ['#0088FE', '#FF8042'];
 
@@ -84,80 +39,124 @@ const renderCustomizedLabel = ({
         </text>
     );
 };
-const value = [
-    {
-        name: 'A',
-        c1: 3000,
-        c2: 2400,
-        c2: 1400,
-    },
-    {
-        name: 'B',
-        c1: 2000,
-        c2: 1000,
-        c3: 2210,
-    },
-    {
-        name: 'C',
-        c1: 1400,
-        c2: 10100,
-        c3: 1290,
-    },
-    {
-        name: 'D',
-        c1: 3120,
-        c2: 4400,
-        c3: 1000,
-    }
-];
+
 
 export default function List() {
 
-    const [open, setOpen] = useState(false);
-    const [student, setStudent] = useState(0);
-    const [teacher, setTeacher] = useState(null);
+
+    const [studentCount, setStudent] = useState(0);
+    const [teacherCount, setTeacher] = useState();
     const [course, setCourse] = useState(0);
+    const [thesis, setThesis] = useState(0);
+    const [project, setproject] = useState(0);
     const [girl, setGirl] = useState(0);
     const [boy, setBoy] = useState(0);
 
-    const handleDisplayTeacher = async () => {
-        await axios.get("http://localhost:3001/teacher/cnout")
-            .then((result) => {
-                console.log(result.data);
-                setTeacher(result.data)
-            })
-            .catch(error => console.log(error));
-    }
+
     const data = [
         { name: 'Male', value: boy },
         { name: 'Female', value: girl },
     ];
+    const CountTeacher = async () => {
+        try {
+            await axios.get('http://localhost:3001/getTeacherCount')
+                .then((result) => {
+                    setTeacher(result.data[0].teacherCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountStudent = async () => {
+        try {
+            await axios.get('http://localhost:3001/getStudentCount')
+                .then((result) => {
+                    setStudent(result.data[0].studentCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountCourse = async () => {
+        try {
+            await axios.get('http://localhost:3001/getCourseCount')
+                .then((result) => {
+                    setCourse(result.data[0].courseCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountThesis = async () => {
+        try {
+            await axios.get('http://localhost:3001/getThesisCount')
+                .then((result) => {
+                    setThesis(result.data[0].ThesisCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching student count:', error);
+        }
+    }
+    const CountFemale = async () => {
+        try {
+            await axios.get('http://localhost:3001/getFemaleCount')
+                .then((result) => {
+                    setGirl(result.data[0].girl);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching Femalecount:', error);
+        }
+    }
+    const CountMale = async () => {
+        try {
+            await axios.get('http://localhost:3001/getMaleCount')
+                .then((result) => {
+                    setBoy(result.data[0].boy);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching Male count:', error);
+        }
+    }
+    const CountProject = async () => {
+        try {
+            await axios.get('http://localhost:3001/getProjectCount')
+                .then((result) => {
+                    setproject(result.data[0].ProjectCount);
+                })
+                .catch(error => console.log(error));
+        }
+        catch (error) {
+            console.error('Error fetching Male count:', error);
+        }
+    }
 
     useEffect(() => {
-        // axios.get("http://localhost:3000/admin/get/data", { withCredentials: true })
-        //   .then((result) => {
-        //     setGirl(result.data.result[0])
-        //     setBoy(result.data.result[1])
-        //     setStudent(result.data.result[2])
-        //     setTeacher(result.data.result[3])
-        //     setCourse(result.data.result[4])
-        //   })
-        axios.get('http://localhost:3001/teacher/count')
-        .then(response => setTeacher(response.data.teacher))
-        .catch(error => console.error('Error fetching teacher count:', error));
+        CountTeacher();
+        CountStudent();
+        CountCourse();
+        CountFemale();
+        CountMale();
+        CountThesis();
+        CountProject();
     }, [])
 
-    const handleOpen = () => {
-        setOpen(true);
-    };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
     return (
         <Flex flexDir="column" borderRadius="10px" bg="white" h="full">
             <span style={{ margin: '20px', fontSize: '20px' }}>Admin Dashboard</span>
-            <Box mt="10px" display="flex" mb="20px" flex="1" overflow="auto">
+            <Box mt="10px" display="flex" mb="20px" flex="1" overflow="auto" justifyContent="space-around">
                 {/* total of teacher */}
                 <Card
                     variant="outlined"
@@ -167,7 +166,7 @@ export default function List() {
                         mr: 5,
                         height: 120,
                         width: 310,
-                        bgcolor: 'tomato',
+                        bgcolor: '#321fdb',
 
                         gap: 2,
                         '&:hover': {
@@ -198,61 +197,13 @@ export default function List() {
                                 underline="none"
                                 href="#interactive-card"
                                 sx={{ color: 'white', textTransform: 'uppercase' }}
-                            >GHQUIO;LKLKJNM,./  20
-                                <BiUser sx={{ width: '90px' }} />
-                                <Typography ml="15px">{teacher}</Typography>
-                            </Box>
-                        </Typography>
-                    </div>
-                </Card>
-
-                {/* total of student */}
-                <Card
-                    variant="outlined"
-                    orientation="horizontal"
-                    sx={{
-                        mr: 5,
-                        height: 120,
-                        width: 310,
-                        bgcolor: '#005bc5',
-
-                        gap: 2,
-                        '&:hover': {
-                            boxShadow: 'md',
-                            borderColor: 'neutral.outlinedHoverBorder',
-                        },
-                    }}
-                >
-                    <div>
-                        <Typography
-                            sx={{ color: 'white', textTransform: 'uppercase' }}
-                            level="h2"
-                            fontSize="sm"
-                            id="card-description"
-                            mb={0.5}
-                        >
-                            Students
-                        </Typography>
-                        <Typography
-                            fontSize="40px"
-                            aria-describedby="card-description"
-                            mb={1}
-                        >
-                            <Box
-                                display="flex"
-                                alignItems="center"
-                                overlay
-                                underline="none"
-                                href="#interactive-card"
-                                sx={{ color: 'white', textTransform: 'uppercase' }}
                             >
                                 <BiUser sx={{ width: '90px' }} />
-                                <Typography ml="15px">{student}</Typography>
+                                <Typography ml="15px">{teacherCount}</Typography>
                             </Box>
                         </Typography>
                     </div>
                 </Card>
-
                 {/* total assignment */}
                 <Card
                     variant="outlined"
@@ -261,7 +212,7 @@ export default function List() {
                         mr: 5,
                         height: 120,
                         width: 310,
-                        bgcolor: '#355c7d',
+                        bgcolor: '#3399ff',
 
                         gap: 2,
                         '&:hover': {
@@ -299,8 +250,6 @@ export default function List() {
                         </Typography>
                     </div>
                 </Card>
-
-                {/* total session */}
                 <Card
                     variant="outlined"
                     orientation="horizontal"
@@ -308,7 +257,7 @@ export default function List() {
                         mr: 5,
                         height: 120,
                         width: 310,
-                        bgcolor: '#fd0a54',
+                        bgcolor: '#f9b116',
 
                         gap: 2,
                         '&:hover': {
@@ -325,7 +274,7 @@ export default function List() {
                             id="card-description"
                             mb={0.5}
                         >
-                            Sessions
+                            Thesis
                         </Typography>
                         <Typography
                             fontSize="40px"
@@ -340,26 +289,69 @@ export default function List() {
                                 href="#interactive-card"
                                 sx={{ color: 'white', textTransform: 'uppercase' }}
                             >
-                                <BiNotepad sx={{ width: '90px' }} />
-                                <Typography ml="15px">44</Typography>
+                                <BiReceipt sx={{ width: '90px' }} />
+                                <Typography ml="15px">{thesis}</Typography>
                             </Box>
                         </Typography>
                     </div>
                 </Card>
+
+                {/* total of student */}
+                <Card
+                    variant="outlined"
+                    orientation="horizontal"
+                    sx={{
+                        mr: 5,
+                        height: 120,
+                        width: 310,
+                        bgcolor: '#e55352',
+
+                        gap: 2,
+                        '&:hover': {
+                            boxShadow: 'md',
+                            borderColor: 'neutral.outlinedHoverBorder',
+                        },
+                    }}
+                >
+                    <div>
+                        <Typography
+                            sx={{ color: 'white', textTransform: 'uppercase' }}
+                            level="h2"
+                            fontSize="sm"
+                            id="card-description"
+                            mb={0.5}
+                        >
+                            Students
+                        </Typography>
+                        <Typography
+                            fontSize="40px"
+                            aria-describedby="card-description"
+                            mb={1}
+                        >
+                            <Box
+                                display="flex"
+                                alignItems="center"
+                                overlay
+                                underline="none"
+                                href="#interactive-card"
+                                sx={{ color: 'white', textTransform: 'uppercase' }}
+                            >
+                                <BiUser sx={{ width: '90px' }} />
+                                <Typography ml="15px">{studentCount}</Typography>
+                            </Box>
+                        </Typography>
+                    </div>
+                </Card>
+
             </Box>
-            {/* <Box>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DateCalendar />
-        </LocalizationProvider>
-      </Box> */}
-            <Box ml="10px" mt="30px" flex="1" overflow="auto" display="flex">
+            <Box ml="10px" mt="30px" flex="5" overflow="auto" display="flex" justifyContent="space-around">
                 <Box>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateCalendar />
                     </LocalizationProvider>
                 </Box>
                 <Box style={{ padding: '10px', width: '500px', backgroundColor: '#f1f1f1', boxShadow: '1px 1px 50% black', height: '300px', borderRadius: '20px' }}>
-                    <Typography ml="10px" level="h4">
+                    <Typography ml="50px" level="h4">
                         Student Gender Diversity
                     </Typography>
                     <Box display="flex">
@@ -436,7 +428,7 @@ export default function List() {
                         </Box>
                     </Box>
                 </Box>
-                <Box>
+                {/* <Box>
                     <div>
                         <LineChart
                             width={500} height={300}
@@ -456,33 +448,7 @@ export default function List() {
                             <Line type="monotone" dataKey="c2" stroke="green" />
                         </LineChart>
                     </div>
-                </Box>
-                {/* <Box ml="80px">
-          <Typography ml="10px" level="h3">
-            Total Students By Generation
-          </Typography>
-          <Box mt="20px">
-            <BarChart
-              width={1000}
-              height={300}
-              data={student}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="male" fill="#8884d8" />
-              <Bar dataKey="female" fill="#82ca9d" />
-            </BarChart>
-          </Box>
-        </Box> */}
+                </Box> */}
             </Box>
         </Flex>
     );

@@ -2,9 +2,10 @@ import { Box } from '@chakra-ui/react';
 import React from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import List from './List';
+// import Material from './material'
+// import MaterialByID from './materialByID'
 
-
-export default function Thesis() {
+export default function Profile() {
   const { url } = useRouteMatch();
   return (
     <Box>

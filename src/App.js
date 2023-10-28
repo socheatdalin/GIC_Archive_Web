@@ -2,34 +2,57 @@ import './App.css'
 import Home from "./components/Home/Home"
 import Thesis from './pages/Thesis';
 import Class from './pages/Project';
-import Upload from './pages/Uploadthesis';
-import ProjectUp from './pages/Uploadproject'
 import Detail from './pages/ThesisDetail';
 import Register from './authentication/register/Register';
 import Signin from './authentication/signin/Signin';
 import Project from './pages/Project';
 import ProDetail from './pages/ProDetail';
+import ThesisUp from './pages/upload/Uploadthesis';
+import ProjectUp from './pages/upload/Uploadproject';
+
+//Guest
+import Guesthome from './components/Home/Guesthome';
+import GuestProject from './pages/Guests/Project';
+import GuestThesis from './pages/Guests/Thesis';
+import GuestThesisdetail from './pages/Guests/ThesisDetail.jsx'
+import GuestProjectdetail from './pages/Guests/ProDetail'
+import UserProfile from './components/Header/UserProfile';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
 function App() {
 
         return (
                 <div className="App">
                         <Router>
                                 <Routes>
-                                        <Route path="/" element={<Home />} />
+                                        {/* user */}
+                                        <Route path="/home" element={<Home />} />
                                         <Route path="/thesis" element={<Thesis />} />
                                         <Route path="/class" element={<Class />} />
-                                        <Route path="/upload" element={<Upload />} />
-                                        <Route path="/thesis/detail" element={<Detail />} />
-                                        <Route path='/login' element={<Signin />} ></Route>
-                                        <Route path='/register' element={<Register />} ></Route>
+                                        <Route path="/thesis/:id" element={<Detail />} />
+                                        <Route path='/login' element={<Signin />} />
+                                        <Route path='/register' element={<Register />} />
                                         <Route path="/project" element={<Project />} />
-                                        <Route path="/project/detail" element={<ProDetail />} />
-                                        <Route path="/project/upload" element={<ProjectUp />} />
+                                        <Route path="/project/:id" element={<ProDetail />} />
+                                        <Route path='/userpf' element={<UserProfile />} />
+                                        
+                                        {/* guest */}
+                                        <Route path="/" element={<Guesthome />}/>
+                                        <Route path="/projectguest" element={<GuestProject />} />
+                                        <Route path="/thesisguest" element={<GuestThesis />} />
+                                        <Route path="/projectguest/:id" element={<GuestProjectdetail />} />
+                                        <Route path="/thesisguest/:id" element={<GuestThesisdetail />} />
+
+                                        {/* <Route path="/project/detail" element={<ProDetail />} /> */}
+                                        <Route path="/upload" element={<ThesisUp />} />
+                                        <Route path="/uploadpro" element={<ProjectUp />} />
+
+
                                 </Routes>
                         </Router>
-
+                       
                 </div>
+                  
         );
 };
 

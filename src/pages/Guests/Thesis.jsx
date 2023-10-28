@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import Web from "../assets/ux.png";
-import Mobile from "../assets/user-interface.png";
-import Network from "../assets/local-area-network.png";
-import Data from "../assets/data-science.png";
+import Web from "../../assets/ux.png";
+import Mobile from "../../assets/user-interface.png";
+import Network from "../../assets/local-area-network.png";
+import Data from "../../assets/data-science.png";
 import { Link} from "react-router-dom";
-import "../styles/Thesis.css";
-import star from "../assets/star.png";
-import Navbar from "../components/Header/Navbar";
+import "../../styles/Thesis.css";
+import star from "../../assets/star.png";
 import { FaGithub } from 'react-icons/fa';
-import Loader from "../components/Loader";
+import Header from '../../components/GuestHeader'
 class Thesis extends Component {
     constructor(props){
     super(props);
@@ -32,6 +31,7 @@ async fetchLikeCount(Id) {
     return 0; // Handle error case
   }
 }
+
 
 async componentDidMount() {
   try {
@@ -62,11 +62,11 @@ async componentDidMount() {
 render(){
     var {isLoaded, items } = this.state;
     if(!isLoaded) {
-        return <div><Loader /></div>;
+        return <div>Loading...</div>;
     }
       return (
             <>
-              <Navbar />
+              <Header />
               <div className="p-5 container">
                 <div className=" first-part">
                   <div className="d-flex flex-row justify-content-between">
@@ -134,10 +134,10 @@ render(){
                     <div key={item.id}>
                         <h4 className="fw-semibold">{item.title} </h4>
                         <h6 className="text-primary text-opacity-75">
-                        <FaGithub /> {item.github_url} 
+                        <FaGithub /> {item.github_url}
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
-                        <Link to={`/thesis/${item.thesis_id}`}>
+                        <Link to={`/thesisguest/${item.thesis_id}`}>
                           <button className="btn btn-outline-primary fw-bolder">
                             View
                           </button>

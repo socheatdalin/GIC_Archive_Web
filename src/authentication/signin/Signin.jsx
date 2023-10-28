@@ -9,30 +9,30 @@ const Signin = () => {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [role, setRole] = useState("");
+
      const handleSubmit = (e) => {
-          // Prevent the default submit and page reload
+
           e.preventDefault();
-          // Handle validations
-          axios
-               .post("http://localhost:3001/login", { email, password, role })
+
+          axios.post("http://localhost:3001/login", { email: email, password: password, role: role })
                .then((response) => {
-                    console.log(response.data);
-                    console.log("login successfully");
-                    // Handle response
+                    const token = response.data.token;
 
+                    if (role === "student" || role === "teacher") {
+                         console.log(response.data);
+                         console.log("Login successful");
+                         console.log(token);
+                         sessionStorage.setItem("access_token", token);
+                         navigate('/home');
+                    }
+                    else {
+                         window.location.href = "http://localhost:3002/home";
+                    }
+               })
+               .catch(err => {
+                    console.log("Server error:", err);
                });
-          if (role === "student") {
-               // navigate('');
-               window.location.href = 'http://localhost:3003/home';
-          }
-          else if (role === "teacher") {
-               window.location.href = 'http://localhost:3000';
-          }
-          else {
-               window.location.href = 'http://localhost:3002/home';
-          }
-     };
-
+     }
 
      return (
           <div className={styles.login_container}>
