@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 import { HiOutlinePencilAlt,HiOutlineTrash } from "react-icons/hi";
 
-function Comment({ text, theme, project_id, thesis_id }) {
+function Comment_project({ text, theme, project_id, thesis_id }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
   const { user } = useUser();
@@ -14,7 +14,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/comment/thesis/${id}`)
+      .get(`http://localhost:3001/comment/project/${id}`)
       .then((response) => {
         setComments(response.data);
         setPhoto(response.data[0].filepath);
@@ -155,4 +155,4 @@ function Comment({ text, theme, project_id, thesis_id }) {
   );
 }
 
-export default Comment;
+export default Comment_project;

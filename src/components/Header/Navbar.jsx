@@ -31,7 +31,7 @@ function Navbar() {
                 })
                         .then((result) => {
                                 setAuth(true);
-                                // console.log(result.data.student_id);
+                                // console.log(result.data);
                         })
                         .catch(err => {
                                 console.log("Server error:", err);

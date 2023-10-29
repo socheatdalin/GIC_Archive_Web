@@ -32,6 +32,7 @@ function LikeButton({ project_id, thesis_id }) {
         project_id,
         thesis_id,
         student_id: user ? user.id : null,
+        teacher_id: user ? user.teacher_id : null,
       });
       setLikes(response.data.likes);
       setLiked(!liked);

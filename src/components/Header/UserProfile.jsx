@@ -36,7 +36,7 @@ function UserProfile() {
                 setLastName(result.data.last_name);
                 setGeneration(result.data.generation);
                 setRole(result.data.role_name);
-                setuserId(result.data.id);
+                // setuserId(result.data.id);
             })
             .catch(err => {
                 console.log("Server error:", err);
