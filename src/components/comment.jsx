@@ -33,6 +33,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
           project_id,
           thesis_id, 
           student_id: user ? user.id : null, // Include the user's ID in the request
+          teacher_id: user ? user.teacher_id : null,
         }
       );
       setComments([...comments, response.data]); // Add the new comment to the comments array

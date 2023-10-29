@@ -24,6 +24,7 @@ export function UserProvider({ children }) {
         setUser({
           id: result.data.id,
           name: result.data.name,
+          teacher_id : result.data.teacher_id,
         });
       })
       .catch(err => {
