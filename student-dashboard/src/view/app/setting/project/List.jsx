@@ -21,6 +21,7 @@ import ModalDelete from '@mui/joy/Modal'
 import ModalCreate from '@mui/joy/Modal'
 import ModalView from '@mui/joy/Modal'
 import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
+import { Cookies } from 'react-cookie';
 
 function labelDisplayedRows({ from, to, count }) {
         return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
@@ -219,6 +220,7 @@ export default function List() {
         const [Files, setFile] = React.useState(null);
         const [fileName, setFileName] = React.useState('');
 
+
         const [length, setLength] = useState([])
         const [index, setIndex] = useState('');
         const [search1, setSearch1] = useState('');
@@ -294,6 +296,7 @@ export default function List() {
         }
         useEffect(() => {
                 team_project();
+
         }, [])
         const rows = project;
         const [order, setOrder] = React.useState('asc');
@@ -378,29 +381,44 @@ export default function List() {
                 setOpenCreate(true);
         }
 
+        // const team_project = async (name) => {
+        //         const cookie = new Cookies();
+        //         const access_token = cookie.get('access_token');
+        //         console.log(access_token);
+        //         axios.get("http://localhost:3001/me", {
+        //                 headers: {
+        //                         Authorization: `Bearer ${Cookies.get("access_token")}`,
+        //                         "Content-Type": "application/json"
+        //                 }
+        //         })
+        //                 .then((result) => {
+
+        //                         console.log(result.data);
+        //                         console.log(result.data.name);
+
+        //                         axios.get("http://localhost:3001/student/project/" + result.data.name)
+        //                                 .then((results) => {
+        //                                         setproject(results.data)
+        //                                         console.log(results.data);
+        //                                 })
+        //                                 .catch(error => console.log(error));
+        //                 })
+        //                 .catch(err => {
+        //                         console.log("Server error:", err);
+        //                 });
+
+        // };
         const team_project = async (name) => {
-                axios.get("http://localhost:3001/me", {
-                        headers: {
-                                'Authorization': get.cookie("access_token"),
-                                "Content-Type": "application/json"
-                        }
-                })
+                const cookie = new Cookies();
+                const access_token = cookie.get('access_token');
+                console.log(access_token);
+
+                axios.get("http://localhost:3001/me")
                         .then((result) => {
                                 console.log(result.data);
-                                console.log(result.data.name);
 
-                                axios.get("http://localhost:3001/student/project/" + result.data.name)
-                                        .then((results) => {
-                                                setproject(results.data)
-                                                console.log(results.data);
-                                        })
-                                        .catch(error => console.log(error));
                         })
-                        .catch(err => {
-                                console.log("Server error:", err);
-                        });
-
-        };
+        }
 
         const handleDelete = async () => {
                 axios.post("http://localhost:3001/project/delete/" + deleteID)
