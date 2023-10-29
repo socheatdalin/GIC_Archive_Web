@@ -52,6 +52,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
 
       if (response.status === 200) {
         console.log("Comment deleted successfully");
+        window.location.replace(window.location.href);
       } else {
         console.error(
           "Error deleting comment:",
@@ -82,13 +83,14 @@ function Comment({ text, theme, project_id, thesis_id }) {
       </div>
       <div className="comment-content">
         <div className="user-info">
-          <h6 className="user fw-bold">{comment.username}</h6>
+          <h6 className="user fw-bold">{comment.student_username}</h6>
+          <h6 className="user fw-bold">{comment.teacher_username}</h6>
           <p className="comment-text">{comment.comment_text}</p>
         </div>
         <p className="timestamp ">{comment.timestamp}</p>
       </div>
       <div>
-        <HiOutlinePencilAlt style={{ cursor: "pointer"}} />
+        {/* <HiOutlinePencilAlt style={{ cursor: "pointer"}} /> */}
         <HiOutlineTrash
           onClick={() => deleteComment(comment.comment_id)}
           style={{ cursor: "pointer", color: "#ff0000" }}
