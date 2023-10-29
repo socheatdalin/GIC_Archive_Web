@@ -12,7 +12,7 @@ function UserProfile() {
     const [email, setEmail] = useState('');
     const [gender, setGender] = useState('');
     const [userId, setuserId] = useState(null);
-    const [teacherId, setteacherId ] =  useState(null);
+    const [teacherId, setteacherId] = useState(null);
     const [first_name, setFirstname] = useState('');
     const [last_name, setLastName] = useState('');
     const [role, setRole] = useState('');
@@ -38,7 +38,8 @@ function UserProfile() {
                 setGeneration(result.data.generation);
                 setRole(result.data.role_name);
                 setuserId(result.data.id);
-                setteacherId(result.data.teacher_id);
+                // setteacherId(result.data.teacher_id);
+                console.log(result.data);
             })
             .catch(err => {
                 console.log("Server error:", err);
