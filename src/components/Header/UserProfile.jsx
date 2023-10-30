@@ -12,7 +12,6 @@ function UserProfile() {
     const [email, setEmail] = useState('');
     const [gender, setGender] = useState('');
     const [userId, setuserId] = useState(null);
-    const [teacherId, setteacherId ] =  useState(null);
     const [first_name, setFirstname] = useState('');
     const [last_name, setLastName] = useState('');
     const [role, setRole] = useState('');
@@ -37,8 +36,7 @@ function UserProfile() {
                 setLastName(result.data.last_name);
                 setGeneration(result.data.generation);
                 setRole(result.data.role_name);
-                setuserId(result.data.id);
-                setteacherId(result.data.teacher_id);
+                setuserId(result.data.teacher_id);
             })
             .catch(err => {
                 console.log("Server error:", err);
@@ -76,7 +74,6 @@ function UserProfile() {
                         <h4 class="mb-0">{name}</h4>
                         <span class="text-muted d-block mb-2">{role}</span>
                         <span class="text-muted d-block mb-2">{userId}</span>
-                        <span class="text-muted d-block mb-2">{teacherId}</span>
                         <span class="text-muted d-block mb-2">Firstname:{first_name} </span>
                         <span class="text-muted d-block mb-2">Last Name: {last_name} </span>
                         <span class="text-muted d-block mb-2">Gender:{gender} </span>

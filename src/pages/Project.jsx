@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
 import star from "../assets/star.png";
@@ -38,7 +38,7 @@ function Project() {
           const updatedProjects = await Promise.all(
             projects.map(async (project) => {
               const likeCount = await fetchLikeCount(project.project_id);
-              return { ...project, likeCount };
+              return { ...project, likeCount};
             })
           );
           // setPhoto(response.data[0].imagepath);
@@ -86,7 +86,7 @@ function Project() {
             <div className="card-project row ">
               <div className="col-lg-3 col-md-4 col-sm-12">
                 <img
-                  src={`http://localhost:3001/static/${photo}`}
+                  src={`http://localhost:3001/static/${item.imagePath}`}
                   className="img-project img-fluid"
                   alt="project"
                 ></img>
