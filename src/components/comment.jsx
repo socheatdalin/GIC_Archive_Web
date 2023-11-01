@@ -3,7 +3,7 @@ import axios from "axios";
 import { useUser } from "./UserContext";
 import { useParams } from "react-router-dom";
 
-import { HiOutlinePencilAlt,HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 
 function Comment({ text, theme, project_id, thesis_id }) {
   const [comments, setComments] = useState([]);
@@ -31,7 +31,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         {
           comment_text: commentText,
           project_id,
-          thesis_id, 
+          thesis_id,
           student_id: user ? user.id : null, // Include the user's ID in the request
           teacher_id: user ? user.teacher_id : null,
         }
@@ -61,7 +61,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         );
       }
     } catch (error) {
-      console.error('Axios Error:', error);
+      console.error("Axios Error:", error);
     }
   };
 
@@ -71,11 +71,11 @@ function Comment({ text, theme, project_id, thesis_id }) {
     setDisplayedCommentCount(displayedCommentCount + 3); // Increase the number of displayed comments
   };
 
-  const CommentComponent = ({ comment }) => (
+  const CommentComponent = ({ comment, index }) => (
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container">
         <img
-          src= {`http://localhost:3001/static/${photo}`}
+          src={`http://localhost:3001/static/${comment.imagepath}`}
           className="rounded-circle"
           width="60"
           alt="pic"
