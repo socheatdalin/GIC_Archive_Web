@@ -7,7 +7,6 @@ const UserContext = createContext();
 export function useUser() {
   return useContext(UserContext);
 }
-
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
@@ -31,11 +30,9 @@ export function UserProvider({ children }) {
         console.log('Server error:', err);
       });
   }, []);
-
   const updateUser = (userData) => {
     setUser(userData);
   };
-
   // Render the child components only if the user data is available
   return user ? (
     <UserContext.Provider value={{ user, updateUser }}>
