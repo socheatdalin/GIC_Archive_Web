@@ -31,7 +31,7 @@ function ProDetail() {
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
           <div className="card-work d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5  ">
             <img
-              src={pic}
+              src={`http://localhost:3001/static/${project.imagePath}`}
               style={{ width: "350px", height: "220px" }}
               alt="network"
             ></img>
