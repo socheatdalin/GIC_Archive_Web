@@ -27,23 +27,10 @@ import PropTypes from 'prop-types';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ModalEdit from '@mui/joy/Modal';
-import ModalDelete from '@mui/joy/Modal';
-import ModalView from '@mui/joy/Modal';
-import {
-  Box,
-  Button,
-  FormControl,
-  FormLabel,
-  Input,
-  Modal,
-  ModalClose,
-  Option,
-  Select,
-  Sheet,
-  Typography,
-} from '@mui/joy';
-
+import ModalEdit from '@mui/joy/Modal'
+import ModalDelete from '@mui/joy/Modal'
+import ModalView from '@mui/joy/Modal'
+import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
 function labelDisplayedRows({ from, to, count }) {
   return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
 }
@@ -351,7 +338,7 @@ export default function List() {
       },
     })
       .then((result) => {
-        console.log(result);
+        console.log(result.data);
         window.location.replace('/home/course/list');
       })
       .catch((error) => console.log(error));
@@ -791,6 +778,7 @@ export default function List() {
                   left: '910px',
                   position: 'absolute',
                   transition: 'width 3s',
+                  width: '200px', left: '900px', position: "absolute", transition: 'width 3s'
                 }}
                 placeholder="search by course ..."
                 variant="outlined"
@@ -803,7 +791,6 @@ export default function List() {
               style={{ backgroundColor: '#23395d' }}
               sx={{ position: 'absolute', right: '105px' }}
               variant="solid"
-              // onClick={() => history.push(`${parentUrl}/add`)}
             >
               <BiSearchAlt2 style={{ width: '20px', height: '20px' }} />
             </Button>

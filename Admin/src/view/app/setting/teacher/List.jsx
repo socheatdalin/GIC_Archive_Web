@@ -284,10 +284,10 @@ export default function List() {
   };
 
   const handleInputFirstname = async (e) => {
-    setFirstname(e.target.value);
+    setInputFirstname(e.target.value);
   };
   const handleInputLastname = async (e) => {
-    setLastname(e.target.value);
+    setInputLastname(e.target.value);
   };
 
   const handleInputPhoto = (e) => {
@@ -379,13 +379,11 @@ export default function List() {
     await axios
       .get('http://localhost:3001/admin/teacher/' + teacher_id)
       .then((result) => {
-        // setAddress(result.data[0].address);
         setEmail(result.data[0].email);
         setName(result.data[0].username);
         setID(result.data[0].id);
         set_oldID(result.data[0].id);
         setGender(result.data[0].gender);
-        // setPhone(result.data[0].phone_number);
         setInputPhoto(result.data[0].filepath);
       })
       .catch((error) => console.log(error));
@@ -418,13 +416,13 @@ export default function List() {
 
   const handleSubmitEdit = async (teacher_id) => {
     const formData = FormData();
-    formData.set('username', Name);
-    formData.set('email', Email);
-    formData.set('first_name', FirstName);
-    formData.set('last_name', LastName);
-    formData.append('gender', Gender.value);
-    formData.append('password', Password);
-    formData.append('image', Photo);
+    formData.set('username', inputName);
+    formData.set('email', inputEmail);
+    formData.set('first_name', inputFirstname);
+    formData.set('last_name', inputLastname);
+    formData.append('gender', inputGender.value);
+    formData.append('password', inputPassword);
+    formData.append('image', inputPhoto);
     console.log(formData.get('image'));
     axios
       .post(

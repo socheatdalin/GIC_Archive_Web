@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import pic from "../../assets/SNA.jpg";
 import Comment from "../../components/comment";
-import LikeButton from "../../components/LikeButton";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import Header from '../../components/GuestHeader'
@@ -64,7 +63,6 @@ function ProDetail() {
                 </div>
               )}
             </div>
-            <LikeButton />
           </div>
 
           <div className="contain">

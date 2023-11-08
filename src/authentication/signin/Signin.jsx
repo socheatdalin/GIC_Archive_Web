@@ -9,18 +9,20 @@ const Signin = () => {
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [role, setRole] = useState("");
+
      const handleSubmit = (e) => {
-          // Prevent the default submit and page reload
+
           e.preventDefault();
-          // Handle validations
+
           axios.post("http://localhost:3001/login", { email: email, password: password, role: role })
                .then((response) => {
+                    const token = response.data.token;
+
                     if (role === "student" || role === "teacher") {
-                         const token = response.data.token;
-                         console.log(response.data);  // Change this line
-                         console.log(token);
+                         console.log(response.data);
                          console.log("Login successful");
-                         sessionStorage.setItem('token', token);
+                         console.log(token);
+                         sessionStorage.setItem("access_token", token);
                          navigate('/home');
                     }
                     else {
@@ -30,7 +32,7 @@ const Signin = () => {
                .catch(err => {
                     console.log("Server error:", err);
                });
-     };
+     }
 
      return (
           <div className={styles.login_container}>

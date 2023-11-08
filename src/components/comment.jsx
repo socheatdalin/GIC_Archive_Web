@@ -1,38 +1,110 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import { useState, useEffect } from "react";
-import React from "react";
-import "../styles/comment.css";
-import axois from "axios";
-function comment ({ text, theme }) {
-  const [comments, setComments] = useState([]);
-  const [comment_text, setNewComment] = useState('');
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useUser } from "./UserContext";
+import { useParams } from "react-router-dom";
+import { BsTrashFill } from "react-icons/bs";
+import { BiEdit } from "react-icons/bi";
 
+function Comment({ text, theme, project_id, thesis_id }) {
+  const [comments, setComments] = useState([]);
+  const [commentText, setCommentText] = useState("");
+  const { user } = useUser();
+  const { id } = useParams();
 
   useEffect(() => {
-    fetchComments();
-  }, []);
+    axios
+      .get(`http://localhost:3001/comment/${id}`)
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
 
-
-  const fetchComments = async () => {
-    try {
-      const response = await axois.get('http://localhost:3001/comment/all');
-      setComments(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  useEffect(() => {
+    axios
+      .get(`http://localhost:3001/comment/thesis/${id}`)
+      .then((response) => {
+        setComments(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
 
   const addComment = async () => {
     try {
-      const response = await axois.post('http://localhost:3001/comment/create', {
-        text: comment_text,
-      });
-      setComments([...comments, response.data]);
-      setNewComment('');
+      const response = await axios.post(
+        "http://localhost:3001/comment/create",
+        {
+          comment_text: commentText,
+          project_id,
+          thesis_id,
+          student_id: user ? user.id : null, // Include the user's ID in the request
+        }
+      );
+      setComments([...comments, response.data]); // Add the new comment to the comments array
+      setCommentText("");
+      window.location.replace(window.location.href);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const deleteComment = async (id) => {
+    try {
+      const response = await axios.post(
+        `http://localhost:3001/comment/delete/${id}`
+      );
+
+      if (response.status === 200) {
+        console.log("Comment deleted successfully");
+      } else {
+        console.error(
+          "Error deleting comment:",
+          response.status,
+          response.data
+        );
+      }
+    } catch (error) {
+      console.error('Axios Error:', error);
+    }
+  };
+
+  const [displayedCommentCount, setDisplayedCommentCount] = useState(3);
+
+  const loadMoreComments = () => {
+    setDisplayedCommentCount(displayedCommentCount + 3); // Increase the number of displayed comments
+  };
+
+  const CommentComponent = ({ comment }) => (
+    <div className="comment-container d-flex justify-content-around">
+      <div className="icon-container">
+        <img
+          src="https://i.imgur.com/JgYD2nQ.jpg"
+          className="rounded-circle"
+          width="60"
+          alt=""
+        />
+      </div>
+      <div className="comment-content">
+        <div className="user-info">
+          <h6 className="user fw-bold">{comment.username}</h6>
+          <p className="comment-text">{comment.comment_text}</p>
+        </div>
+        <p className="timestamp ">{comment.timestamp}</p>
+      </div>
+      <div>
+        <BiEdit style={{ cursor: "pointer" }} />
+        <BsTrashFill
+          onClick={() => deleteComment(comment.comment_id)}
+          style={{ cursor: "pointer", color: "#ff0000" }}
+        />
+      </div>
+    </div>
+  );
+
   return (
     <>
       <div className="contain pt-1">
@@ -40,89 +112,48 @@ function comment ({ text, theme }) {
           <h5 className="fw-bold">Comments</h5>
         </div>
       </div>
-      <div className="contain mt-1 d-flex justify-content-evenly ">
-         <div className={`comment ${theme}-comment`}>
-        <div className="row">
-         
-          <div class="col-md-8 d-none d-lg-block mr-4">
-            <div class="input-group mb-3 ">
-              <input
-                type="text"
-                class="form-control "
-                placeholder="Add a comment"
-                aria-describedby="button-addon2"
-                value={comment_text}
-                name="comment_text"
-                onChange={(e) => setNewComment(e.target.value)}
-              ></input>
-              <button
-                class="btn btn-outline-secondary"
-                type="button"
-                id="button-addon2"
-                onClick={addComment}
-              >
-                Post
-              </button>
-            </div>
-            <div class="case">
-              <ul class="list-unstyled ">
-                <li class="media d-flex">
-                {comments.map((comment) => (
-                <div key={comment.id}>{comment.body}</div>
-              ))}
-                  {/* <span class="icons round pt-2">
-                    <img
-                      src="https://img.icons8.com/bubbles/100/000000/groups.png"
-                      class="align-self-start "
-                      alt="icons"
-                    ></img>
-                  </span> */}
-                  
-                  {/* <div class="media-body">
-                    <div class="row ">
-                      <h6 class="user pt-2">Michael Andrews</h6>
-                      <div class="ml-auto ">
-                        <p class="text d-flex">3m</p>
-                      </div>
-                    </div>
-                  </div> */}
-                </li>
-
-                {/* <li class="media my-5 d-flex">
-                  {" "}
-                  <span class="round">
-                    <img
-                      src="https://img.icons8.com/office/100/000000/user-group-man-man--v1.png"
-                      alt="icons"
-                      class="align-self-start mr-3"
-                    />
-                  </span>
-                  <div class="media-body">
-                    <div class="row">
-                      <h6 class="user">Giana Ekstrom Bothman</h6>
-                      <div class="ml-auto ">
-                        <p class="text d-flex">2h</p>
-                      </div>
-                    </div>
-                    <p class="text">Commented on your"Le Doux" Artwork</p>
-                    <div class="media mt-3 comment  d-flex">
-                      {" "}
-                      <img
-                        src="https://img.icons8.com/bubbles/100/000000/lock-male-user.png"
-                        alt="icons"
-                        class="icons align-self-center mr-1"
-                      />
-                      <div class="media-body pt-3">
-                        <p class="reply">
-                          "Love this art, what inspired you to make this "
-                        </p>
-                      </div>
-                    </div>
+      <div className="contain mt-1">
+        <div className={`comment ${theme}-comment`}>
+          <div className="row">
+            <div className="col-md-8 d-none d-lg-block mx-2">
+              <div className="input-group mb-3" style={{ width: "350px" }}>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Add a comment"
+                  aria-describedby="button-addon2"
+                  value={commentText}
+                  name="comment_text"
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+                <button
+                  className="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon2"
+                  onClick={addComment}
+                >
+                  Post
+                </button>
+              </div>
+              <div className="case">
+                <ul className="list-unstyled">
+                  <div className="comments-container">
+                    {comments
+                      .slice(0, displayedCommentCount)
+                      .map((comment, index) => (
+                        <CommentComponent key={index} comment={comment} />
+                      ))}
                   </div>
-                </li> */}
-              </ul>
+                  {displayedCommentCount < comments.length && (
+                    <div className="d-flex justify-content-center">
+                      <button className="btn  " onClick={loadMoreComments}>
+                        More{" "}
+                      </button>
+                    </div>
+                  )}
+                </ul>
+              </div>
             </div>
-          </div>
           </div>
         </div>
       </div>
@@ -130,4 +161,4 @@ function comment ({ text, theme }) {
   );
 }
 
-export default comment;
+export default Comment;

@@ -4,7 +4,10 @@ import Comment from "../components/comment";
 import Navbar from "../components/Header/Navbar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Loader from "../components/Loader";
 import LikeButton from "../components/LikeButton";
+import { UserProvider } from '../components/UserContext';
+
 
 function ThesisDetail() {
   const { id } = useParams();
@@ -53,7 +56,7 @@ function ThesisDetail() {
             ></img>
             <div className="information">
               {loading ? (
-                <p>Loading...</p>
+                <Loader />
               ) : (
                 <div>
                   <h4 className="fw-semibold">{thesis.title}</h4>
@@ -83,17 +86,29 @@ function ThesisDetail() {
                 </div>
               )}
             </div>
-            <LikeButton />
+            {loading ? (
+                <Loader />
+              ) : (
+                <div>
+                  < UserProvider> 
+                  <LikeButton thesis_id={thesis.thesis_id} />
+                  </UserProvider>
+                </div>
+              )}
           </div>
           <div className="contain">
+            {loading ? (
+                 <Loader />
+              ) : (
             <div class="row">
               <div class="col-sm-6">
-                <Comment text="Thesis comment" theme="thesis"/>
+                {/* <Comment text="Thesis comment" theme="thesis"/> */}
+                < UserProvider> 
+                    <Comment thesis_id= {thesis.thesis_id}  />
+                    </UserProvider>
               </div>
 
-              {loading ? (
-                <p>Loading...</p>
-              ) : (
+              
                 <div class="col-sm-6">
                   <h4>Fields</h4>
                   <div className="text-success">
@@ -129,8 +144,8 @@ function ThesisDetail() {
                     <p></p>
                   </div>
                 </div>
-              )}
-            </div>
+             
+            </div> )}
           </div>
         </div>
       </div>

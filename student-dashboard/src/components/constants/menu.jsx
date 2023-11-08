@@ -22,7 +22,13 @@ export const MenuConstants = [
         path: '/home/project/list',
         icon: <PiProjectorScreenChartLight />,
       },
+      // {
+      //   id: 'profile',
+      //   name: 'Profile',
+      //   path: '/home/profile/list',
+      //   icon: <PiProjectorScreenChartLight />,
+      // },
     ],
   },
- 
+
 ];
