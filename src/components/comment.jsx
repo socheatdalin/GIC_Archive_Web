@@ -10,7 +10,6 @@ function Comment({ text, theme, project_id, thesis_id }) {
   const [commentText, setCommentText] = useState("");
   const { user } = useUser();
   const { id } = useParams();
-  const [photo, setPhoto] = useState(null);
 
 
   useEffect(() => {
@@ -74,13 +73,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
   const CommentComponent = ({ comment, index }) => (
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container">
-        {/* <img
-          src={`http://localhost:3001/static/${comment.filepath}`}
-          className="rounded-circle"
-          width="60"
-          alt="pic"
-        /> */}
-        {comment.role_name === 'teacher' ? (
+        {comment.role_name === "teacher" ? (
           <img
             src={`http://localhost:3001/static/${comment.teacher_image}`}
             className="rounded-circle"

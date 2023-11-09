@@ -75,18 +75,6 @@ function Comment_project({ text, theme, project_id, thesis_id }) {
   const CommentComponent = ({ comment }) => (
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container" >
-        {/* <img
-          src={`http://localhost:3001/static/${comment.teacher_image}`}
-          className="rounded-circle"
-          width="60"
-          alt="teacher"
-        />
-        <img
-          src={`http://localhost:3001/static/${comment.student_image}`}
-          className="rounded-circle"
-          width="60"
-          alt="student"
-        /> */}
         {comment.role_name === 'teacher' ? (
           <img
             src={`http://localhost:3001/static/${comment.teacher_image}`}
