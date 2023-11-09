@@ -78,7 +78,7 @@ class Project extends Component {
               <div className="card-project row ">
                 <div className="col-lg-3 col-md-4 col-sm-12">
                   <img
-                    src={`http://localhost:3001/static/${item.imagePath}`}
+                    src={`http://localhost:3001/static/${item.imagepath}`}
                     className="img-project img-fluid"
                     alt="pic"
                   ></img>
