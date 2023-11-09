@@ -1,0 +1,68 @@
+{
+  "name": "admin",
+  "version": "0.1.0",
+  "proxy": "http://localhost:3001",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/core": "^0.8.0",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/base": "^5.0.0-alpha.127",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/joy": "^5.0.0-alpha.76",
+    "@mui/material": "^5.11.13",
+    "@mui/x-data-grid": "^6.0.3",
+    "@mui/x-date-pickers": "^6.2.1",
+    "@react-icons/all-files": "^4.1.0",
+    "@react-pdf-viewer/core": "^3.12.0",
+    "@react-pdf-viewer/default-layout": "^3.12.0",
+    "@react-pdf/renderer": "^3.1.12",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.4.0",
+    "dayjs": "^1.11.7",
+    "filereader": "^0.10.3",
+    "framer-motion": "^10.6.1",
+    "multiselect-react-dropdown": "^2.0.25",
+    "pdfjs-dist": "^3.10.111",
+    "react": "^18.2.0",
+    "react-alert": "^7.0.3",
+    "react-dom": "^18.2.0",
+    "react-file-viewer": "^1.2.1",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.2.0",
+    "react-query": "^3.39.3",
+    "react-router-dom": "^5.3.4",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.7.3",
+    "react-table": "^7.8.0",
+    "recharts": "^2.7.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

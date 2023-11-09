@@ -171,9 +171,6 @@ const UserProfile = () => {
   const navigateToGoogle = () => {
     window.location.href = 'http://localhost:3000/';
   };
-  const navigateToHome = () => {
-    window.location.href = 'http://localhost:3000/home';
-  };
   return (
     <ChakraProvider>
       <HStack spacing="4" px="2" flexShrink={0} borderTopWidth="1px" p="4">
@@ -185,9 +182,6 @@ const UserProfile = () => {
             color={mode('gray.600', 'gray.300')}
             px="2"
           >
-            <MenuItem rounded="md" onClick={navigateToHome}>
-              Home Page
-            </MenuItem>
             <MenuItem rounded="md" onClick={navigateToGoogle}>
               Logout
             </MenuItem>
@@ -237,7 +231,7 @@ const AccountSwitcherButton = () => {
               {
                 /* !collapse &&  */ <Box textAlign="start">
                   <Box isTruncated fontWeight="semibold">
-                    {/* {user.username} */}Admin
+                    {/* {user.username} */}Teacher
                   </Box>
                 </Box>
               }
