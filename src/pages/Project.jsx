@@ -55,18 +55,6 @@ function Project() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3001/admin/project/all`)
-  //     .then((response) => {
-  //       setPhoto(response.data[0].imagepath);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       setIsLoaded(true);
-  //     });
-  // }, [id]);
-
   if (!isLoaded) {
     return <Loader />;
   }

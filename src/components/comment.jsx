@@ -12,6 +12,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
   const { id } = useParams();
   const [photo, setPhoto] = useState(null);
 
+
   useEffect(() => {
     axios
       .get(`http://localhost:3001/comment/thesis/${id}`)
@@ -73,12 +74,27 @@ function Comment({ text, theme, project_id, thesis_id }) {
   const CommentComponent = ({ comment, index }) => (
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container">
-        <img
-          src={`http://localhost:3001/static/${comment.imagepath}`}
+        {/* <img
+          src={`http://localhost:3001/static/${comment.filepath}`}
           className="rounded-circle"
           width="60"
           alt="pic"
-        />
+        /> */}
+        {comment.role_name === 'teacher' ? (
+          <img
+            src={`http://localhost:3001/static/${comment.teacher_image}`}
+            className="rounded-circle"
+            width="60"
+            alt="Teacher"
+          />
+        ) : (
+          <img
+            src={`http://localhost:3001/static/${comment.student_image}`}
+            className="rounded-circle"
+            width="60"
+            alt="Student"
+          />
+        )}
       </div>
       <div className="comment-content">
         <div className="user-info">
