@@ -7,7 +7,6 @@ const UserContext = createContext();
 export function useUser() {
   return useContext(UserContext);
 }
-
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
 
@@ -16,7 +15,7 @@ export function UserProvider({ children }) {
     axios
       .get('http://localhost:3001/me', {
         headers: {
-          'Authorization': sessionStorage.getItem('token'),
+          'Authorization': sessionStorage.getItem('access_token'),
           'Content-Type': 'application/json',
         },
       })
@@ -24,17 +23,16 @@ export function UserProvider({ children }) {
         setUser({
           id: result.data.id,
           name: result.data.name,
+          teacher_id : result.data.teacher_id,
         });
       })
       .catch(err => {
         console.log('Server error:', err);
       });
   }, []);
-
   const updateUser = (userData) => {
     setUser(userData);
   };
-
   // Render the child components only if the user data is available
   return user ? (
     <UserContext.Provider value={{ user, updateUser }}>

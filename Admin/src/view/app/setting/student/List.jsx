@@ -144,7 +144,6 @@ function EnhancedTableHead(props) {
                   : undefined
               }
             >
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <Link
                 underline="none"
                 color="neutral"
@@ -349,7 +348,6 @@ export default function List() {
     await axios
       .get('http://localhost:3001/admin/student/' + student_id)
       .then((result) => {
-        // setAddress(result.data[0].address)
         setEmail(result.data[0].email);
         setName(result.data[0].username);
         setID(result.data[0].student_id);
@@ -362,7 +360,6 @@ export default function List() {
       .catch((error) => console.log(error));
     setOpenView(true);
   };
-
   // const handleEdit = async (student_id) => {
   //      await axios
   //           .get('http://localhost:3001/displayOne/student/' + student_id)

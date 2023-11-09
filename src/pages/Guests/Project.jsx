@@ -5,8 +5,8 @@ import "../../styles/project.css";
 import star from "../../assets/star.png";
 import Drop from "../../components/drop";
 import "reactjs-popup/dist/index.css";
-import { FaGithub } from 'react-icons/fa';
-import Header from '../../components/GuestHeader'
+import { FaGithub } from "react-icons/fa";
+import Header from "../../components/GuestHeader";
 
 class Project extends Component {
   constructor(props) {
@@ -27,14 +27,14 @@ class Project extends Component {
         return 0; // Handle error case
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return 0; // Handle error case
     }
   }
 
   async componentDidMount() {
     try {
-      const response = await fetch('http://localhost:3001/admin/project/all');
+      const response = await fetch("http://localhost:3001/admin/project/all");
       if (response.ok) {
         const projects = await response.json();
 
@@ -51,10 +51,10 @@ class Project extends Component {
           items: updatedProjects,
         });
       } else {
-        throw new Error('Failed to fetch projects');
+        throw new Error("Failed to fetch projects");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   }
 
@@ -78,10 +78,9 @@ class Project extends Component {
               <div className="card-project row ">
                 <div className="col-lg-3 col-md-4 col-sm-12">
                   <img
-                    src={pic}
+                    src={`http://localhost:3001/static/${item.imagePath}`}
                     className="img-project img-fluid"
                     alt="pic"
-      
                   ></img>
                 </div>
                 <div className="col-lg-9 col-md-8 col-sm-12">
@@ -91,7 +90,7 @@ class Project extends Component {
                         <h4 className="fw-semibold">{item.title} </h4>
                         <h6>Course: {item.course_name}</h6>
                         <h6 className="text-primary text-opacity-75">
-                        <FaGithub /> {item.github_url}
+                          <FaGithub /> {item.github_url}
                         </h6>
                         <p className="text-secondary">{item.descr}</p>
                         <Link to={`/projectguest/${item.project_id}`}>

@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "../components/Header/Navbar";
-import pic from "../assets/SNA.jpg";
-import Comment from "../components/comment";
+import Comment from "../components/comment_project";
 import LikeButton from "../components/LikeButton";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../components/Loader";
-import { UserProvider } from '../components/UserContext';
+import { UserProvider } from "../components/UserContext";
 
 function ProDetail() {
   const { id } = useParams();
   const [project, setProject] = useState(null);
   const [loading, setLoading] = useState(true);
   const [File, setfile] = useState(null);
-  
+  const [photo, setPhoto] = useState(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/admin/team_project/${id}`)
+      .get(`http://localhost:3001/admin/project/${id}`)
       .then((response) => {
         setProject(response.data[0]);
         setLoading(false);
         setfile(response.data[0].filepath);
+        setPhoto(response.data[0].imagepath);
       })
       .catch((error) => {
         console.error(error);
@@ -45,43 +45,44 @@ function ProDetail() {
       <Navbar />
       <div className="p-5 container">
         <div className="p-5 border border-1 rounded-2 shadow p-3 mb-5 my-5 bg-body-tertiary rounded  ">
-          <div className="card-work d-flex flex-row mb-3 justify-content-start grid gap-0 column-gap-5  ">
-            <img
-              src={pic}
-              style={{ width: "350px", height: "220px" }}
-              alt="network"
-            ></img>
-
+          <div className="card-work d-flex flex-row mb-3 ">
             <div className="information">
               {loading ? (
                 <Loader />
               ) : (
-                <div>
-                  <h4 className="fw-semibold">{project.title}</h4>
-                  <p></p>
-                  <h6>Class: {project.course_name}</h6>
-                  <h6>Taught by: {project.teacher_name}</h6>
-                  <h6>Posted by: {project.inputname}</h6>
-                  <p className="text-secondary">
-                    Description: {project.descr}{" "}
-                  </p>
-                  <div className="d-grid gap-2 d-md-flex justify-content-start">
-                    <button
-                      className="btn btn-primary me-md-2"
-                      type="button"
-                      onClick={handleButtonClick}
-                    >
-                      Code
-                    </button>
-                    <button
-                      className="btn btn-primary"
-                      type="button"
-                      onClick={() =>
-                        handleOpenFile(`http://localhost:3001/static/${File}`)
-                      }
-                    >
-                      Pdf
-                    </button>
+                <div className="d-flex justify-content-start grid gap-0 column-gap-5">
+                  <img
+                    src={`http://localhost:3001/static/${project.imagepath}`}
+                    style={{ width: "350px", height: "220px" }}
+                    alt="network"
+                  ></img>
+                  <div>
+                    <h4 className="fw-semibold">{project.title}</h4>
+                    <p></p>
+                    <h6>Class: {project.course_name}</h6>
+                    <h6>Taught by: {project.teacher_name}</h6>
+                    <h6>Member: {project.member}</h6>
+                    <p className="text-secondary">
+                      Description: {project.descr}
+                    </p>
+                    <div className="d-grid gap-2 d-md-flex justify-content-start">
+                      <button
+                        className="btn btn-primary me-md-2"
+                        type="button"
+                        onClick={handleButtonClick}
+                      >
+                        Code
+                      </button>
+                      <button
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={() =>
+                          handleOpenFile(`http://localhost:3001/static/${File}`)
+                        }
+                      >
+                        Pdf
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
@@ -91,8 +92,8 @@ function ProDetail() {
                 <Loader />
               ) : (
                 <div>
-                  < UserProvider> 
-                  <LikeButton project_id={project.project_id} />
+                  <UserProvider>
+                    <LikeButton project_id={project.project_id} />
                   </UserProvider>
                 </div>
               )}
@@ -100,15 +101,14 @@ function ProDetail() {
           </div>
 
           <div className="contain">
-          
-              {loading ? (
-                    <Loader />
-              ) : (
-                <div> 
-                   <div class="row ">
+            {loading ? (
+              <Loader />
+            ) : (
+              <div>
+                <div class="row ">
                   <div class="col-sm-6">
-                    < UserProvider> 
-                    <Comment project_id={project.project_id}   />
+                    <UserProvider>
+                      <Comment project_id={project.project_id} />
                     </UserProvider>
                   </div>
                   <div class="col-sm-6">
@@ -131,8 +131,7 @@ function ProDetail() {
                   </div>
                 </div>
               </div>
-              )}
-           
+            )}
           </div>
         </div>
       </div>

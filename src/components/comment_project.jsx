@@ -3,9 +3,9 @@ import axios from "axios";
 import { useUser } from "./UserContext";
 import { useParams } from "react-router-dom";
 
-import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePencilAlt,HiOutlineTrash } from "react-icons/hi";
 
-function Comment({ text, theme, project_id, thesis_id }) {
+function Comment_project({ text, theme, project_id, thesis_id }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
   const { user } = useUser();
@@ -14,9 +14,10 @@ function Comment({ text, theme, project_id, thesis_id }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3001/comment/thesis/${id}`)
+      .get(`http://localhost:3001/comment/project/${id}`)
       .then((response) => {
         setComments(response.data);
+        setPhoto(response.data[0].filepath);
       })
       .catch((error) => {
         console.error(error);
@@ -30,7 +31,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         {
           comment_text: commentText,
           project_id,
-          thesis_id,
+          thesis_id, 
           student_id: user ? user.id : null, // Include the user's ID in the request
           teacher_id: user ? user.teacher_id : null,
         }
@@ -60,7 +61,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         );
       }
     } catch (error) {
-      console.error("Axios Error:", error);
+      console.error('Axios Error:', error);
     }
   };
 
@@ -70,11 +71,11 @@ function Comment({ text, theme, project_id, thesis_id }) {
     setDisplayedCommentCount(displayedCommentCount + 3); // Increase the number of displayed comments
   };
 
-  const CommentComponent = ({ comment, index }) => (
+  const CommentComponent = ({ comment }) => (
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container">
         <img
-          src={`http://localhost:3001/static/${comment.imagepath}`}
+          src= {`http://localhost:3001/static/${photo}`}
           className="rounded-circle"
           width="60"
           alt="pic"
@@ -154,4 +155,4 @@ function Comment({ text, theme, project_id, thesis_id }) {
   );
 }
 
-export default Comment;
+export default Comment_project;

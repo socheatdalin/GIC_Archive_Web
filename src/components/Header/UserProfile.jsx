@@ -36,8 +36,7 @@ function UserProfile() {
                 setLastName(result.data.last_name);
                 setGeneration(result.data.generation);
                 setRole(result.data.role_name);
-                setuserId(result.data.id);
-                console.log(result.data)
+                setuserId(result.data.teacher_id);
             })
             .catch(err => {
                 console.log("Server error:", err);
@@ -80,18 +79,18 @@ function UserProfile() {
                         <span class="text-muted d-block mb-2">Gender:{gender} </span>
                         <span class="text-muted d-block mb-2">Email:{email} </span>
                         <span class="text-muted d-block mb-2">Generation:{generation} </span>
-                        
+
                     </div>
-                    <div className= 'd-flex justify-content-evenly'>
+                    <div className='d-flex justify-content-evenly'>
                         <div>
-                            <button className='btn' style={{ backgroundColor: 'white', color: 'black', border: '1px solid', transition: 'background-color 0.3s, color 0.3s'}} >Back</button>
+                            <a href="/home"><button className='btn' style={{ backgroundColor: 'white', color: 'black', border: '1px solid', transition: 'background-color 0.3s, color 0.3s' }} >Back</button></a>
                         </div>
                         <div>
                             <button className='btn' onClick={handleLogout}>Logout</button>
                         </div>
-                            
+
                     </div>
-                        
+
                 </div>
 
             </div>
