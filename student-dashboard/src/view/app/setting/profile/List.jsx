@@ -23,8 +23,8 @@ export default function List() {
         const [photo, setPhoto] = useState('');
 
         useEffect(() => {
-                console.log(req.cookies.access_token);
                 axios.get("http://localhost:3001/me", {
+                        withCredentials: true,
                         headers: {
                                 // 'Authorization': sessionStorage.getItem("access_token"),
                                 "Content-Type": "application/json"
@@ -40,21 +40,27 @@ export default function List() {
                                 setGeneration(result.data.generation);
                                 setRole(result.data.role_name);
                                 setPhoto(result.data.filepath)
-                                // console.log(result)
+                                console.log(result.data.name)
                         })
                         .catch(err => {
                                 console.log("Server error:", err);
                         });
 
         }, [])
+     
+        const handleLogout = async () => {
+                try {
+                        axios.post("http://localhost:3001/Logout", {
+                                headers: {
+                                        'Authorization': sessionStorage.removeItem("access_token"),
+                                        "Content-Type": "application/json"
+                                }
+                        });
 
-        const handleLogout = () => {
-                axios.get('http://localhost:3001/logout')
-                        .then(res => {
-                                sessionStorage.removeItem("token");
-                                // navigate('/');
-                        })
-                        .catch((err => console.log(err)))
+                        window.location.replace('http://localhost:3000');
+                } catch (err) {
+                        console.log("Server error:", err);
+                }
         }
         return (
 

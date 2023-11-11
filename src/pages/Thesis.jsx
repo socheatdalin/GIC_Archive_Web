@@ -47,6 +47,7 @@ const Thesis = () => {
         setSelectedCategory(category);
         setIsLoaded(true);
       } else {
+
         throw new Error("Failed to fetch thesis for category");
       }
     } catch (error) {
@@ -101,9 +102,8 @@ const Thesis = () => {
         </div>
         <div className="d-flex flex-row rounded-pill justify-content-start grid gap-0 column-gap-2 my-4">
           <div
-            className={`Tags d-flex align-items-center justify-content-center p-2 ${
-              selectedCategory === "web" ? "selected-category" : ""
-            }`}
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${selectedCategory === "web" ? "selected-category" : ""
+              }`}
             style={{ width: "160px", height: "50px" }}
             onClick={() => fetchDataForCategory("web")}
           >
@@ -111,9 +111,8 @@ const Thesis = () => {
             <span className="ms-2">Web</span>
           </div>
           <div
-            className={`Tags d-flex align-items-center justify-content-center p-2 ${
-              selectedCategory === "mobile" ? "selected-category" : ""
-            }`}
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${selectedCategory === "mobile" ? "selected-category" : ""
+              }`}
             style={{ width: "160px", height: "50px" }}
             onClick={() => fetchDataForCategory("mobile")}
           >
@@ -122,9 +121,8 @@ const Thesis = () => {
           </div>
 
           <div
-            className={`Tags d-flex align-items-center justify-content-center p-2 ${
-              selectedCategory === "network" ? "selected-category" : ""
-            }`}
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${selectedCategory === "network" ? "selected-category" : ""
+              }`}
             style={{ width: "160px", height: "50px" }}
             onClick={() => fetchDataForCategory("network")}
           >
@@ -137,9 +135,8 @@ const Thesis = () => {
           </div>
 
           <div
-            className={`Tags d-flex align-items-center justify-content-center p-2 ${
-              selectedCategory === "datascience" ? "selected-category" : ""
-            }`}
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${selectedCategory === "datascience" ? "selected-category" : ""
+              }`}
             style={{ width: "160px", height: "50px" }}
             onClick={() => fetchDataForCategory("datascience")}
           >

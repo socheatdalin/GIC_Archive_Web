@@ -24,15 +24,14 @@ function Navbar() {
         useEffect(() => {
 
                 axios.get("http://localhost:3001/me", {
+                        withCredentials: true,
                         headers: {
                                 // 'Authorization': sessionStorage.getItem("access_token"),
                                 "Content-Type": "application/json"
                         }
                 })
                         .then((result) => {
-                                const token = result.cookies.access_token;
                                 setAuth(true);
-                                console.log(token);
                         })
                         .catch(err => {
                                 console.log("Server error:", err);
@@ -42,8 +41,9 @@ function Navbar() {
         }, [])
         const handleLogin = () => {
                 axios.get("http://localhost:3001/me", {
+                        withCredentials: true,
                         headers: {
-                                'Authorization': sessionStorage.getItem("access_token"),
+                                // 'Authorization': sessionStorage.getItem("access_token"),
                                 "Content-Type": "application/json"
                         }
                 })
@@ -59,8 +59,8 @@ function Navbar() {
                                                         console.log("Login successful");
                                                         console.log(token);
                                                         console.log(response.data.email);
-                                                        sessionStorage.setItem("access_token", token);
-                                                        navigate('http://localhost:3002/home');
+                                                        // sessionStorage.setItem("access_token", token);
+                                                        // navigate('http://localhost:3002/home');
                                                 }
                                                 else {
                                                         window.location.href = "http://localhost:3002/home";
@@ -77,6 +77,22 @@ function Navbar() {
 
                 window.location.replace('http://localhost:3003/home');
         };
+
+        const Logout = async () => {
+                try {
+                        axios.post("http://localhost:3001/logout", {
+                                headers: {
+                                        // 'Authorization': sessionStorage.removeItem("access_token"),
+                                        "Content-Type": "application/json"
+                                }
+                        });
+
+                        window.location.replace('http://localhost:3000');
+                } catch (err) {
+                        console.log("Server error:", err);
+                }
+        }
+
         return (
 
                 <div className="Navbar">
@@ -133,11 +149,9 @@ function Navbar() {
                                                                 <Link to="/userpf">Profile</Link>
                                                         </li>
                                                         <li onClick={handleLogin}>Dashboard
-
-                                                                {/* <Link to="http://localhost:3003/home">Dashboard</Link> */}
                                                         </li>
-                                                        <li>
-                                                                <Link to="http://localhost:3000">Logout</Link>
+                                                        <li onClick={Logout}>
+                                                                Logout
                                                         </li>
                                                 </ul>
                                         </div>

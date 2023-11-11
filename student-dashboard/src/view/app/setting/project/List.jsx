@@ -295,20 +295,6 @@ export default function List() {
                 setDesc(e.target.value)
         }
         useEffect(() => {
-                const getCookie = (cookieName) => {
-                        const cookies = document.cookie.split('; ');
-                        for (const cookie of cookies) {
-                                const [name, value] = cookie.split('=');
-                                if (name === cookieName) {
-                                        return decodeURIComponent(value);
-                                }
-                        }
-                        return null;
-                };
-
-                // Usage: Get the value of a cookie named 'myCookie'
-                const myCookieValue = getCookie('access_token');
-                console.log('access_token', myCookieValue);
                 team_project();
 
         }, [])
@@ -395,15 +381,19 @@ export default function List() {
                 setOpenCreate(true);
         }
 
-        const team_project = async (id) => {
-                axios.get("http://localhost:3001/me")
+        const team_project = async () => {
+                axios.get("http://localhost:3001/me", {
+                        withCredentials: true,
+                        headers: {
+                                "Content-Type": "application/json"
+                        }
+                })
                         .then((result) => {
-                                console.log(result);
-                                console.log(result.data[0]);
-                                axios.get("http://localhost:3001/student/project/" + id)
+
+                                console.log(result.data.name);
+                                axios.get("http://localhost:3001/student/project/" + result.data.name)
                                         .then((results) => {
-                                                setproject(results)
-                                                console.log(results);
+                                                setproject(results.data)
                                         })
                                         .catch(error => console.log(error));
                         })
