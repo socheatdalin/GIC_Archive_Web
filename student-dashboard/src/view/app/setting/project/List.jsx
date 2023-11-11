@@ -295,6 +295,20 @@ export default function List() {
                 setDesc(e.target.value)
         }
         useEffect(() => {
+                const getCookie = (cookieName) => {
+                        const cookies = document.cookie.split('; ');
+                        for (const cookie of cookies) {
+                                const [name, value] = cookie.split('=');
+                                if (name === cookieName) {
+                                        return decodeURIComponent(value);
+                                }
+                        }
+                        return null;
+                };
+
+                // Usage: Get the value of a cookie named 'myCookie'
+                const myCookieValue = getCookie('access_token');
+                console.log('access_token', myCookieValue);
                 team_project();
 
         }, [])
@@ -381,40 +395,30 @@ export default function List() {
                 setOpenCreate(true);
         }
 
-        const team_project = async (name) => {
-                const cookie = new Cookies();
-                const access_token = cookie.get('access_token');
-                console.log(access_token);
-                axios.get("http://localhost:3001/me", {
-                        headers: {
-                                Authorization: `Bearer ${Cookies.get("access_token")}`,
-                                "Content-Type": "application/json"
-                        }
-                })
+        const team_project = async (id) => {
+                axios.get("http://localhost:3001/me")
                         .then((result) => {
-
-                                console.log(result.data);
-                                console.log(result.data.name);
-
-                                axios.get("http://localhost:3001/student/project/" + result.data.name)
+                                console.log(result);
+                                console.log(result.data[0]);
+                                axios.get("http://localhost:3001/student/project/" + id)
                                         .then((results) => {
-                                                setproject(results.data)
-                                                console.log(results.data);
+                                                setproject(results)
+                                                console.log(results);
                                         })
                                         .catch(error => console.log(error));
                         })
                         .catch(err => {
                                 console.log("Server error:", err);
                         });
-
         };
-   
+
 
         const handleDelete = async () => {
                 axios.post("http://localhost:3001/project/delete/" + deleteID)
                         .then((result) => {
                                 console.log("delete success");
-                                window.location.replace('/home/project/list')
+                                // window.location.replace('/home/project/list')
+                                window.location.reload();
                         })
                         .catch(error => console.log(error));
         }

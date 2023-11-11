@@ -25,13 +25,14 @@ function Navbar() {
 
                 axios.get("http://localhost:3001/me", {
                         headers: {
-                                'Authorization': sessionStorage.getItem("access_token"),
+                                // 'Authorization': sessionStorage.getItem("access_token"),
                                 "Content-Type": "application/json"
                         }
                 })
                         .then((result) => {
+                                const token = result.cookies.access_token;
                                 setAuth(true);
-                                // console.log(result.data);
+                                console.log(token);
                         })
                         .catch(err => {
                                 console.log("Server error:", err);

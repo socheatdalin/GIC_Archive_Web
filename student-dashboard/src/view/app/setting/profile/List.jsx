@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import axios from "axios";
 import PropTypes from 'prop-types';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import { Box } from '@mui/joy';
+// import Cookies from 'js-cookie';
 // import { useNavigate } from 'react-router-dom';
 
 export default function List() {
@@ -20,12 +20,13 @@ export default function List() {
         const [last_name, setLastName] = useState('');
         const [role, setRole] = useState('');
         const [generation, setGeneration] = React.useState('');
+        const [photo, setPhoto] = useState('');
 
         useEffect(() => {
-
+                console.log(req.cookies.access_token);
                 axios.get("http://localhost:3001/me", {
                         headers: {
-                                'Authorization': sessionStorage.getItem("token"),
+                                // 'Authorization': sessionStorage.getItem("access_token"),
                                 "Content-Type": "application/json"
                         }
                 })
@@ -38,7 +39,8 @@ export default function List() {
                                 setLastName(result.data.last_name);
                                 setGeneration(result.data.generation);
                                 setRole(result.data.role_name);
-                                console.log(result.data)
+                                setPhoto(result.data.filepath)
+                                // console.log(result)
                         })
                         .catch(err => {
                                 console.log("Server error:", err);
@@ -69,7 +71,7 @@ export default function List() {
 
                                                 <div class="profile">
 
-                                                        <img src="https://i.imgur.com/JgYD2nQ.jpg" class="rounded-circle" width="80" alt='' />
+                                                        <img src={`http://localhost:3001/static/${photo}`} class="rounded-circle" width="80" alt='' />
                                                 </div>
                                         </div>
                                         <div class="mt-5 text-center">
