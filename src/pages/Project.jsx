@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import star from "../assets/star.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import "reactjs-popup/dist/index.css";
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub } from "react-icons/fa";
 import Loader from "../components/Loader";
 
 function Project() {
@@ -21,13 +21,15 @@ function Project() {
         return 0; // Handle error case
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return 0; // Handle error case
     }
   }
   const fetchDataForCategory = async (eventKey) => {
     try {
-      const response = await fetch(`http://localhost:3001/admin/project/all/${eventKey}`);
+      const response = await fetch(
+        `http://localhost:3001/admin/project/all/${eventKey}`
+      );
       if (response.ok) {
         const data = await response.json();
         const updatedData = await Promise.all(
@@ -45,7 +47,7 @@ function Project() {
       console.error("Error:", error);
     }
   };
-  
+
   const handleSelect = async (eventKey) => {
     setSelectedCategory(eventKey);
     await fetchDataForCategory(eventKey);
@@ -54,7 +56,7 @@ function Project() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3001/admin/project/all');
+        const response = await fetch("http://localhost:3001/admin/project/all");
         if (response.ok) {
           const projects = await response.json();
 
@@ -62,17 +64,17 @@ function Project() {
           const updatedProjects = await Promise.all(
             projects.map(async (project) => {
               const likeCount = await fetchLikeCount(project.project_id);
-              return { ...project, likeCount};
+              return { ...project, likeCount };
             })
           );
           // setPhoto(response.data[0].imagepath);
           setItems(updatedProjects);
           setIsLoaded(true);
         } else {
-          throw new Error('Failed to fetch projects');
+          throw new Error("Failed to fetch projects");
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
 
@@ -92,22 +94,31 @@ function Project() {
             <h2 className="fw-semibold">Trending Projects</h2>
           </div>
           <div>
-          <Dropdown onSelect={handleSelect}>
-      <Dropdown.Toggle variant="primary" id="dropdown-basic">
-        {selectedCategory ? selectedCategory : "Filter"}
-      </Dropdown.Toggle>
+            <Dropdown onSelect={handleSelect}>
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                {selectedCategory ? selectedCategory : "Filter"}
+              </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-        <Dropdown.Item eventKey="OperatingSystem">Operating System</Dropdown.Item>
-        <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
-        <Dropdown.Item eventKey="SoftwareEngineering">Software Engineering</Dropdown.Item>
-        <Dropdown.Item eventKey="InternetProgramming">Internet Programming</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey="OperatingSystem">
+                  Operating System
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
+                <Dropdown.Item eventKey="SoftwareEngineering">
+                  Software Engineering
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="InternetProgramming">
+                  Internet Programming
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
         {items.map((item) => (
-          <div className="shadow  p-2 mb-5 bg-body-tertiary rounded d-lg-block " key={item.id}>
+          <div
+            className="shadow  p-2 mb-5 bg-body-tertiary rounded d-lg-block "
+            key={item.id}
+          >
             <div className="card-project row ">
               <div className="col-lg-3 col-md-4 col-sm-12">
                 <img

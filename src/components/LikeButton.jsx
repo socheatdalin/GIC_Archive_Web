@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { BsFillStarFill, BsStar } from 'react-icons/bs';
 import axios from 'axios';
@@ -9,7 +8,6 @@ function LikeButton({ project_id, thesis_id }) {
 
   const [likes, setLikes] = useState(0);
   const [liked, setLiked] = useState(false);
-
   useEffect(() => {
     // Fetch like data when the component mounts
     const fetchLikeData = async () => {
