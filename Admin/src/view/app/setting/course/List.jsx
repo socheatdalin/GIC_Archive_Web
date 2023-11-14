@@ -27,10 +27,22 @@ import PropTypes from 'prop-types';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
-import ModalEdit from '@mui/joy/Modal'
-import ModalDelete from '@mui/joy/Modal'
-import ModalView from '@mui/joy/Modal'
-import { Box, Button, FormControl, FormLabel, Input, Modal, ModalClose, Option, Select, Sheet, Typography } from '@mui/joy';
+import ModalEdit from '@mui/joy/Modal';
+import ModalDelete from '@mui/joy/Modal';
+import ModalView from '@mui/joy/Modal';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalClose,
+  Option,
+  Select,
+  Sheet,
+  Typography,
+} from '@mui/joy';
 function labelDisplayedRows({ from, to, count }) {
   return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
 }
@@ -295,7 +307,7 @@ export default function List() {
     } else if (type == 'view') {
       setOpenView(true);
     }
-  }
+  };
   // const handleSearch = (e) => {
   //   // console.log(search)
   //   axios.post("http://localhost:3001/search/course", { course_name: inputName })
@@ -332,14 +344,16 @@ export default function List() {
     formData.append('course_name', inputName);
     formData.append('username', inputTeacher_name);
     formData.append('image', inputPhoto);
-    axios.post("http://localhost:3001/course/create", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    axios
+      .post('http://localhost:3001/course/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((result) => {
         console.log(result.data);
         window.location.replace('/home/course/list');
+        course();
       })
       .catch((error) => console.log(error));
   };
@@ -364,7 +378,7 @@ export default function List() {
       .get('http://localhost:3001/course/all')
       .then((result) => {
         setCourse(result.data);
-        // console.log(course)
+        course();
       })
       .catch((error) => console.log(error));
   };
@@ -778,7 +792,10 @@ export default function List() {
                   left: '910px',
                   position: 'absolute',
                   transition: 'width 3s',
-                  width: '200px', left: '900px', position: "absolute", transition: 'width 3s'
+                  width: '200px',
+                  left: '900px',
+                  position: 'absolute',
+                  transition: 'width 3s',
                 }}
                 placeholder="search by course ..."
                 variant="outlined"

@@ -370,6 +370,7 @@ export default function List() {
       .get('http://localhost:3001/admin/teacher/all')
       .then((result) => {
         setTeacher(result.data);
+        teacher();
       })
       .catch((error) => console.log(error));
   };
@@ -391,7 +392,6 @@ export default function List() {
   };
 
   const handleSubmit = async () => {
-    // handleInputPhoto();
     const formData = new FormData();
     formData.append('username', inputName);
     formData.append('first_name', inputFirstname);
@@ -747,7 +747,7 @@ export default function List() {
                     defaultValue=""
                     variant="outlined"
                     color="neutral"
-                    value={FirstName}
+                    value={inputFirstname}
                     onChange={handleInputFirstname}
                   />
                   <FormLabel required>Last-Name</FormLabel>
@@ -756,7 +756,7 @@ export default function List() {
                     defaultValue=""
                     variant="outlined"
                     color="neutral"
-                    value={LastName}
+                    value={inputLastname}
                     onChange={handleInputLastname}
                   />
                   <FormLabel required>Email</FormLabel>

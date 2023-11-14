@@ -339,7 +339,9 @@ export default function List() {
       })
       .then((result) => {
         console.log(result.data);
-        window.location.replace('/home/student/list');
+        // window.location.replace('/home/student/list');
+        setOpen(false);
+        students();
       })
       .catch((error) => console.log(error));
   };
@@ -400,7 +402,6 @@ export default function List() {
       )
       .then((result) => {
         console.log(result.data);
-        window.location.replace('/home/student/list');
       })
       .catch((error) => console.log(error));
     setOpenEdit(true);
