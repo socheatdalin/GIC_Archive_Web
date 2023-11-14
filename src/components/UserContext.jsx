@@ -14,8 +14,9 @@ export function UserProvider({ children }) {
     // Fetch user information and set it in the state
     axios
       .get('http://localhost:3001/me', {
+        withCredentials: true,
         headers: {
-          'Authorization': sessionStorage.getItem('access_token'),
+          // 'Authorization': sessionStorage.getItem('access_token'),
           'Content-Type': 'application/json',
         },
       })
@@ -23,7 +24,7 @@ export function UserProvider({ children }) {
         setUser({
           id: result.data.id,
           name: result.data.name,
-          teacher_id : result.data.teacher_id,
+          teacher_id: result.data.teacher_id,
         });
       })
       .catch(err => {
