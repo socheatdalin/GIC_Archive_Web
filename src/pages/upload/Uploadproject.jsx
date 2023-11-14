@@ -3,6 +3,7 @@ import axios from "axios";
 
 const FileUploadForm = () => {
   const [inputFile, setInputFile] = React.useState(null);
+  const [inputPhoto, setInputPhoto] = React.useState(null);
   const [inputTitle, setinputTitle] = useState("");
   const [inputDescr, setinputDescr] = useState("");
   const [github_url, setUrl] = useState("");
@@ -11,6 +12,9 @@ const FileUploadForm = () => {
   const handleFileChange = (event) => {
     setInputFile(event.target.files[0]);
   };
+  const handlePhotoChange = (event) => {
+    setInputPhoto(event.target.files[0]);
+  };
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -18,6 +22,7 @@ const FileUploadForm = () => {
     formData.append("descr", inputDescr);
     formData.append('course_name', inputCourse);
     formData.append("github_url", github_url);
+    formData.append("image", inputPhoto);
     formData.append("file", inputFile);
     console.log(formData.get("file"));
 
@@ -50,6 +55,7 @@ const FileUploadForm = () => {
                 borderRadius: "10px", // Rounded corners
               }}
             >
+
               <h4 className="text-info">Create Project</h4>
               <div className="mb-3">
                 <label htmlFor="title" className="form-label">
@@ -67,25 +73,24 @@ const FileUploadForm = () => {
                 />
               </div>
               <div class="mb-3 ">
-                  <label for="" class="form-label">Course</label>
-                  <input type="course" name='course' class="form-control" placeholder="Please enter your course's name" onChange={(e) => setInputCourse(e.target.value)} value={inputCourse} required></input>
-                </div>
+                <label for="" class="form-label">Course</label>
+                <input type="course" name='course' class="form-control" placeholder="Please enter your course's name" onChange={(e) => setInputCourse(e.target.value)} value={inputCourse} required></input>
+              </div>
               <div class="mb-3 ">
-                  <label for="" class="form-label">Git Url</label>
-                  <input type="url" name='url' class="form-control" placeholder="Link of your github" onChange={(e) => setUrl(e.target.value)} value={github_url} required></input>
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">Description</label>
-                  <textarea class="form-control" id="" rows="5" type="desc" name='desc' placeholder="Write some introduction ..." onChange={(e) => setinputDescr(e.target.value)} value={inputDescr} required></textarea>
-                </div>
+                <label for="" class="form-label">Git Url</label>
+                <input type="url" name='url' class="form-control" placeholder="Link of your github" onChange={(e) => setUrl(e.target.value)} value={github_url} required></input>
+              </div>
+              <div class="mb-3">
+                <label for="" class="form-label">Description</label>
+                <textarea class="form-control" id="" rows="5" type="desc" name='desc' placeholder="Write some introduction ..." onChange={(e) => setinputDescr(e.target.value)} value={inputDescr} required></textarea>
+              </div>
               <div className="mb-3">
-                <input
-                  className="form-control"
-                  type="file"
-                  id="file"
-                  name="file"
-                  onChange={handleFileChange}
-                />
+                <p>Image</p>
+                <input className="form-control" type="file" id="file" name="image" onChange={handlePhotoChange} />
+              </div>
+              <div className="mb-3">
+                <p>Document</p>
+                <input className="form-control" type="file" id="file" name="file" onChange={handleFileChange} />
               </div>
               <div className="text-center">
                 <button className="btn btn-primary" type="submit">

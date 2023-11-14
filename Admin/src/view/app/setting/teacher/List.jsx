@@ -412,9 +412,14 @@ export default function List() {
         )
             .then((result) => {
                 console.log(result.data);
-                window.location.replace('/home/teacher/list')
+                // window.location.replace('/home/teacher/list')
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => {
+                // Redirect regardless of success or failure
+                window.location.replace('/home/teacher/list');
+            });
+
     }
 
     const handleSubmitEdit = async (teacher_id) => {
@@ -436,9 +441,14 @@ export default function List() {
         )
             .then((result) => {
                 console.log(result);
-                window.location.replace('/home/teacher/list')
+                // window.location.replace('/home/teacher/list')
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => {
+                // Redirect regardless of success or failure
+                window.location.replace('/home/teacher/list');
+            });
+
     }
 
 

@@ -420,10 +420,13 @@ export default function List() {
       })
       .then((result) => {
         console.log(result);
-        // console.log("hello");
-        window.location.replace('/home/thesis/list');
+
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+      .finally(() => {
+        // Redirect regardless of success or failure
+        window.location.replace('/home/thesis/list');
+      });
   };
 
   const onDeleteModalOpen = async (id) => {

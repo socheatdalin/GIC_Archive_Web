@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const FileUploadForm = () => {
   const [inputFile, setInputFile] = React.useState(null);
+  const [inputPhoto, setInputPhoto] = React.useState(null);
   const [inputname, setInputName] = useState('');
   const [inputTitle, setinputTitle] = useState('');
   const [inputField, setinputField] = useState('');
@@ -16,6 +17,9 @@ const FileUploadForm = () => {
   const handleFileChange = (event) => {
     setInputFile(event.target.files[0]);
   };
+  const handlePhotoChange = (event) => {
+    setInputPhoto(event.target.files[0]);
+  };
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -26,6 +30,7 @@ const FileUploadForm = () => {
     formData.append('company', inputCompany);
     formData.append('descr', inputDescr);
     formData.append('github_url', github_url);
+    formData.append('image', inputPhoto);
     formData.append('file', inputFile);
     formData.append('tags', inputTag);
     console.log(formData.get('file'));
@@ -46,8 +51,8 @@ const FileUploadForm = () => {
 
   return (
     <>
-    <div className='contain'>
-    <div className='p-5  '>
+      <div className='contain'>
+        <div className='p-5  '>
           <form className='p-5 border border-info border-1 rounded-2  ' action="/upload" enctype="multipart/form-data" id="" method="post" onSubmit={handleSubmit} style={{
             backgroundColor: "#f8f9fa", // Light gray background
             borderRadius: "10px", // Rounded corners
@@ -97,7 +102,11 @@ const FileUploadForm = () => {
                   <textarea class="form-control" id="" rows="5" type="desc" name='desc' placeholder="Write some introduction ..." onChange={(e) => setinputDescr(e.target.value)} value={inputDescr} required></textarea>
                 </div>
                 <div class="mb-3">
-                  <label for="formFile" class="form-label"></label>
+                  <label for="formFile" class="form-label">Image</label>
+                  <input class="form-control" type="file" id="formFile" name='image' onChange={handlePhotoChange} ></input>
+                </div>
+                <div class="mb-3">
+                  <label for="formFile" class="form-label">Document</label>
                   <input class="form-control" type="file" id="formFile" name='file' onChange={handleFileChange} ></input>
                 </div>
               </div>
@@ -109,7 +118,7 @@ const FileUploadForm = () => {
 
 
         </div>
-    </div>
+      </div>
 
     </>
   );

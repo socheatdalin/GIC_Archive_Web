@@ -45,7 +45,7 @@ function Project() {
       console.error("Error:", error);
     }
   };
-  
+
   const handleSelect = async (eventKey) => {
     setSelectedCategory(eventKey);
     await fetchDataForCategory(eventKey);
@@ -62,7 +62,7 @@ function Project() {
           const updatedProjects = await Promise.all(
             projects.map(async (project) => {
               const likeCount = await fetchLikeCount(project.project_id);
-              return { ...project, likeCount};
+              return { ...project, likeCount };
             })
           );
           // setPhoto(response.data[0].imagepath);
@@ -92,18 +92,18 @@ function Project() {
             <h2 className="fw-semibold">Trending Projects</h2>
           </div>
           <div>
-          <Dropdown onSelect={handleSelect}>
-      <Dropdown.Toggle variant="primary" id="dropdown-basic">
-        {selectedCategory ? selectedCategory : "Filter"}
-      </Dropdown.Toggle>
+            <Dropdown onSelect={handleSelect}>
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                {selectedCategory ? selectedCategory : "Filter"}
+              </Dropdown.Toggle>
 
-      <Dropdown.Menu>
-        <Dropdown.Item eventKey="OperatingSystem">Operating System</Dropdown.Item>
-        <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
-        <Dropdown.Item eventKey="SoftwareEngineering">Software Engineering</Dropdown.Item>
-        <Dropdown.Item eventKey="InternetProgramming">Internet Programming</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey="OperatingSystem">Operating System</Dropdown.Item>
+                <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
+                <Dropdown.Item eventKey="SoftwareEngineering">Software Engineering</Dropdown.Item>
+                <Dropdown.Item eventKey="InternetProgramming">Internet Programming</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
         {items.map((item) => (

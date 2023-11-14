@@ -17,12 +17,11 @@ const Signin = () => {
           axios.post("http://localhost:3001/login", { email: email, password: password, role: role })
                .then((response) => {
                     const token = response.data.token;
-
                     if (role === "student" || role === "teacher") {
                          console.log(response.data);
+                         document.cookie = `session=${response.data.token}; path=/`;
                          console.log("Login successful");
-                         console.log(token);
-                         sessionStorage.setItem("access_token", token);
+                         // sessionStorage.setItem('access_token', token);
                          navigate('/home');
                     }
                     else {
