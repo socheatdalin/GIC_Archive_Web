@@ -367,7 +367,6 @@ export default function List() {
         }
 
         const handleSubmitEdit = async () => {
-
                 setOpenEdit(false);
                 window.location.replace('/project/list')
         }

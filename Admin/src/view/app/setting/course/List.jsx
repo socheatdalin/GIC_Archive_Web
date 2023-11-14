@@ -252,10 +252,10 @@ export default function List() {
 
     const handleDisplay = async (course_id) => {
         const response =
-        await axios.get("http://localhost:3001/course/" + course_id)
-            .then((result) => {
-                setName(result.data[0].course_name);
-            }).catch((error) => console.log(error));
+            await axios.get("http://localhost:3001/course/" + course_id)
+                .then((result) => {
+                    setName(result.data[0].course_name);
+                }).catch((error) => console.log(error));
 
         // setID(response.data[0].id);
         // setTeacher(response.data[0].teacher_name);
@@ -336,9 +336,13 @@ export default function List() {
         })
             .then((result) => {
                 console.log(result.data);
-                window.location.replace('/home/course/list');
+                // window.location.replace('/home/course/list');
             })
-            .catch(error => console.log(error));
+            .catch(error => console.log(error))
+            .finally(() => {
+                // Redirect regardless of success or failure
+                window.location.replace('/home/course/list');
+            });
 
     }
 
