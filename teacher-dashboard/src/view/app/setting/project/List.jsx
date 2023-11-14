@@ -411,11 +411,24 @@ export default function List() {
     };
 
     const team_project = async () => {
-        axios.get("http://localhost:3001/admin/project/all")
+        axios.get("http://localhost:3001/me", {
+            withCredentials: true,
+            headers: {
+                    "Content-Type": "application/json"
+            }
+    })
             .then((result) => {
-                setproject(result.data)
+
+                    console.log(result.data.name);
+                    axios.get("http://localhost:3001/project/" + result.data.name)
+                            .then((results) => {
+                                    setproject(results.data)
+                            })
+                            .catch(error => console.log(error));
             })
-            .catch(error => console.log(error));
+            .catch(err => {
+                    console.log("Server error:", err);
+            });
     };
 
     const handleDelete = async () => {

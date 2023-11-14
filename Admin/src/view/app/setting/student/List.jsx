@@ -424,6 +424,18 @@ export default function List() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
+
+     const students = async () => {
+          axios
+               .get('http://localhost:3001/admin/student/all')
+               .then((result) => {
+                    setStudent(result.data);
+                    student();
+               })
+               .catch((error) => console.log(error));
+     };
+     const rows = student;
+
   const [, setFilter] = useState({ searchText: '' });
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -432,7 +444,7 @@ export default function List() {
       return;
     }
     setSelected([]);
-  };
+
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);

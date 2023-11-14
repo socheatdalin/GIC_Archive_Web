@@ -420,7 +420,8 @@ export default function List() {
     const team_project = async () => {
         axios.get("http://localhost:3001/admin/project/all")
             .then((result) => {
-                setproject(result.data)
+                setproject(result.data);
+                project();
             })
             .catch(error => console.log(error));
     };
@@ -534,7 +535,7 @@ export default function List() {
                                     color="neutral"
                                     onChange={handleInputCourse}
                                 />
-                                <FormLabel required>Student name </FormLabel>
+                                {/* <FormLabel required>Student name </FormLabel>
                                 <Input
                                     placeholder="Please enter your student name"
                                     variant="outlined"
@@ -542,7 +543,7 @@ export default function List() {
                                     type='text'
                                     color="neutral"
                                     onChange={handleInputName}
-                                />
+                                /> */}
                                 <FormLabel required>Git </FormLabel>
                                 <Input
                                     placeholder="Please enter your course"

@@ -21,7 +21,7 @@ const Signin = () => {
                          console.log(response.data);
                          document.cookie = `session=${response.data.token}; path=/`;
                          console.log("Login successful");
-                         // sessionStorage.setItem('access_token', token);
+                         sessionStorage.setItem('access_token', token);
                          navigate('/home');
                     }
                     else {
