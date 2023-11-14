@@ -180,7 +180,7 @@ export default function List() {
 
     const [searchOpen, setSearchOpen] = useState(false)
     // const { onOpen: onDeleteModalOpen } = useDisclosure();
-    const [course, setCourse] = React.useState([]);
+    const [course, setCourse] = useState([]);
     const [inputID, setInputID] = React.useState('');
     const [openEdit, setOpenEdit] = React.useState(false);
     const [openDelete, setOpenDelete] = React.useState(false);
@@ -196,6 +196,7 @@ export default function List() {
     const [deleteID, setDeleteID] = React.useState('');
     const [inputPhoto, setInputPhoto] = React.useState(null);
     const [Teacher, setTeacher] = React.useState('');
+    const [courseName, setCourseName] = useState('');
 
     const handleInputPhoto = async (e) => {
         setInputPhoto(e.target.files[0])
@@ -217,7 +218,9 @@ export default function List() {
         setInputTeacher_name(e.target.value)
     }
 
-
+    const handleNewName = async (e) => {
+        setCourseName(e.target.value);
+    }
     const handleName = async (e) => {
         setName(e.target.value)
     }
@@ -282,37 +285,14 @@ export default function List() {
             .catch(error => console.log(error));
         setOpenView(true);
     }
-
-    // const handleSubmitEdit = async (course_id) => {
-    //   const formData = new FormData();
-    //   formData.append('course_name', Name);
-    //   // formData.append('username', inputTeacher_name);
-    //   // formData.append('image', inputPhoto);
-    //   axios.post(`http://localhost:3001/course/update/${course_id}` , formData, {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data',
-    //     },
-    //   })
-    //     .then((result) => {
-    //       console.log(result.data);
-    //       window.location.replace('/home/course/list');
-    //     })
-    //     .catch(error => console.log(error));
-    // }
     const handleSubmitEdit = async (course_id) => {
         try {
-            const formData = new FormData();
-            formData.append('course_name', Name);
-            await axios.post(`http://localhost:3001/course/update/${course_id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
-            }).then((result) => {
+
+            await axios.post(`http://localhost:3001/course/update/${course_id}`, { course_name: courseName }).then((result) => {
                 console.log(result.data);
                 window.location.replace('/home/course/list');
             })
                 .catch(error => console.log(error));
-            // window.location.replace('/home/course/list');
             setOpenEdit(true);
         } catch (error) {
             console.log(error);
@@ -336,26 +316,21 @@ export default function List() {
         })
             .then((result) => {
                 console.log(result.data);
-                // window.location.replace('/home/course/list');
+
             })
             .catch(error => console.log(error))
-            .finally(() => {
-                // Redirect regardless of success or failure
-                window.location.replace('/home/course/list');
-            });
-
+        window.location.replace('/home/course/list');
     }
 
     const handleCreate = async () => {
 
-
-        // setOpenCreate(true);
     }
 
     const courses = async () => {
         axios.get("http://localhost:3001/course/all")
             .then((result) => {
-                setCourse(result.data)
+                setCourse(result.data);
+                // course();
             })
             .catch(error => console.log(error));
     };
@@ -550,14 +525,14 @@ export default function List() {
                                     value={Name}
                                     onChange={handleName}
                                 />
-                                <FormLabel required>Teacher Name</FormLabel>
+                                {/* <FormLabel required>Teacher Name</FormLabel>
                                 <Input
                                     placeholder="Please enter teacher ID"
                                     variant="outlined"
                                     color="neutral"
                                     value={teacher_name}
                                 // onChange={handleTeach}
-                                />
+                                /> */}
                                 {/* <div style={{marginTop: '20px' }}>
                  <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handlePhoto} />
               </div> */}

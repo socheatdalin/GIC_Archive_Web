@@ -411,7 +411,7 @@ export default function List() {
                .get('http://localhost:3001/admin/student/all')
                .then((result) => {
                     setStudent(result.data);
-                    // console.log(result.data.results)
+                    student();
                })
                .catch((error) => console.log(error));
      };

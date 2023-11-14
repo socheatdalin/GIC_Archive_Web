@@ -369,7 +369,8 @@ export default function List() {
     const teachers = async () => {
         axios.get("http://localhost:3001/admin/teacher/all")
             .then((result) => {
-                setTeacher(result.data)
+                setTeacher(result.data);
+                teacher();
             })
             .catch(error => console.log(error));
     };
