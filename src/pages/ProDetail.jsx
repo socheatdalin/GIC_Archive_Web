@@ -60,8 +60,8 @@ function ProDetail() {
                     <h4 className="fw-semibold">{project.title}</h4>
                     <p></p>
                     <h6>Class: {project.course_name}</h6>
-                    <h6>Taught by: {project.teacher_name}</h6>
-                    <h6>Member: {project.member}</h6>
+                    <h6>Taught by: {project.fullname}</h6>
+                    <h6>Member: {project.student_names}</h6>
                     <p className="text-secondary">
                       Description: {project.descr}
                     </p>

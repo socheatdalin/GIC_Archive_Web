@@ -169,7 +169,7 @@ export default function Sidebar() {
 
 const UserProfile = () => {
   const navigateToGoogle = () => {
-    window.location.href = 'http://localhost:3000/';
+    window.location.href = 'http://localhost:3000/home';
   };
   return (
     <ChakraProvider>

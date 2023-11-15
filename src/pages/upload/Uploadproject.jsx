@@ -56,7 +56,7 @@ const FileUploadForm = () => {
               }}
             >
 
-              <h4 className="text-info">Create Project</h4>
+              <h4 className="text-info fw-bold">Create Project</h4>
               <div className="mb-3">
                 <label htmlFor="title" className="form-label">
                   Title
