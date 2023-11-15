@@ -22,32 +22,46 @@ const FileUploadForm = () => {
   };
 
   const handleSubmit = async () => {
+
     const formData = new FormData();
-    formData.append('username', inputname);
-    formData.append('teacher_name', InputTeacherName);
+    // formData.append('username', inputName);
     formData.append('title', inputTitle);
-    formData.append('field', inputField);
+    formData.append('field', inputField.value);
     formData.append('company', inputCompany);
+    formData.append('teacher_name', InputTeacherName)
     formData.append('descr', inputDescr);
     formData.append('github_url', github_url);
+    formData.append('tags', inputTag);
     formData.append('image', inputPhoto);
     formData.append('file', inputFile);
-    formData.append('tags', inputTag);
     console.log(formData.get('file'));
-
-    axios.post("http://localhost:3001/admin/thesis/create", formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+    console.log(formData.get('image'));
+    
+    axios.get("http://localhost:3001/me", {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then((result) => {
-        console.log(result);
-        window.location.replace('http://localhost:3003/home/thesis/list')
+        console.log(result.data.id);
+        axios.post("http://localhost:3001/student/thesis/create/" + result.data.id, formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then((result) => {
+            console.log(result);
+            // console.log("hello");
+            window.location.replace('/home/thesis/list')
+          })
+          .catch(error => console.log(error));
       })
-      .catch(error => console.log(error));
-
-  };
+      .catch(err => {
+        console.log("Server error:", err);
+      });
+  }
 
   return (
     <>

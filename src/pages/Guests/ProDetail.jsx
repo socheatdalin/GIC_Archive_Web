@@ -7,7 +7,7 @@ import axios from "axios";
 import Loader from "../../components/Loader";
 import { Link } from "react-router-dom";
 import { UserProvider, useUser } from "../../components/UserContext"; // Assuming useUser is exported from UserContext
-import {  BsStar } from 'react-icons/bs';
+import { BsStar } from 'react-icons/bs';
 
 
 function ProDetail() {
@@ -51,27 +51,27 @@ function ProDetail() {
                     <h4 className="fw-semibold">{project.title}</h4>
                     <p></p>
                     <h6>Class: {project.course_name}</h6>
-                    <h6>Taught by: {project.teacher_name}</h6>
-                    <h6>Member: {project.member}</h6>
+                    <h6>Taught by: {project.fullname}</h6>
+                    <h6>Member: {project.student_names}</h6>
                     <p className="text-secondary">
                       Description: {project.descr}
                     </p>
                     <div className="d-grid gap-2 d-md-flex justify-content-start">
-                    <Link to="/login">
-                      <button
-                        className="btn btn-primary me-md-2"
-                        type="button"
-                      >
-                        Code
-                      </button>
+                      <Link to="/login">
+                        <button
+                          className="btn btn-primary me-md-2"
+                          type="button"
+                        >
+                          Code
+                        </button>
                       </Link>
                       <Link to="/login">
-                      <button
-                        className="btn btn-primary "
-                        type="button"
-                      >
-                        Pdf
-                      </button>
+                        <button
+                          className="btn btn-primary "
+                          type="button"
+                        >
+                          Pdf
+                        </button>
                       </Link>
                     </div>
                   </div>
@@ -89,13 +89,13 @@ function ProDetail() {
                     </UserProvider>
                   ) : (
                     <div className="like-button-container">
-                <Link to={`/login`}>
-                <button
-                  className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
-                >
-                  { <BsStar style={{ color: 'grey' }}/>}
-                </button></Link>
-                </div>
+                      <Link to={`/login`}>
+                        <button
+                          className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2"
+                        >
+                          {<BsStar style={{ color: 'grey' }} />}
+                        </button></Link>
+                    </div>
                   )}
                 </div>
               )}
@@ -129,17 +129,17 @@ function ProDetail() {
                             name="comment_text"
                           />
                           <Link to="/login">
-                          <button
-                            className="btn btn-outline-secondary"
-                            type="button"
-                            id="button-addon2"
-                          >
-                            Post
-                          </button>
-                          </Link>  
+                            <button
+                              className="btn btn-outline-secondary"
+                              type="button"
+                              id="button-addon2"
+                            >
+                              Post
+                            </button>
+                          </Link>
                         </div>
                       </div>
-                      
+
                     )}
                   </div>
                   <div class="col-sm-6">

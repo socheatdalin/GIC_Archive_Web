@@ -436,13 +436,25 @@ export default function List() {
   };
 
   const Thesis = async () => {
-    axios
-      .get('http://localhost:3001/admin/thesis/all')
+    axios.get("http://localhost:3001/me", {
+      withCredentials: true,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
       .then((result) => {
-        setthesis(result.data);
-        // console.log(result.data);
+
+        console.log(result.data.teacher_id);
+        axios.get("http://localhost:3001/teacher/thesis/display/" + result.data.teacher_id)
+          .then((results) => {
+            setthesis(results.data)
+            thesis();
+          })
+          .catch(error => console.log(error));
       })
-      .catch((error) => console.log(error));
+      .catch(err => {
+        console.log("Server error:", err);
+      });
   };
 
   const handleDelete = async () => {
