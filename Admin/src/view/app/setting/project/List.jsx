@@ -50,6 +50,12 @@ function stableSort(array, comparator) {
     });
     return stabilizedThis.map((el) => el[0]);
 }
+const Student_Name = [
+    { value: 'Khema', label: 'Khema' },
+    { value: 'Vy', label: 'Vy' },
+    { value: 'Dalin', label: 'Dalin' },
+    { value: 'Phaek', label: 'Phaek' },
+  ];
 
 const headCells = [
     {
@@ -535,7 +541,7 @@ export default function List() {
                                     color="neutral"
                                     onChange={handleInputCourse}
                                 />
-                                <FormLabel required>Student name </FormLabel>
+                                {/* <FormLabel required>Student name </FormLabel>
                                 <Input
                                     placeholder="Please enter your student name"
                                     variant="outlined"
@@ -543,7 +549,16 @@ export default function List() {
                                     type='text'
                                     color="neutral"
                                     onChange={handleInputName}
-                                />
+                                /> */}
+                                <FormLabel required>Student name</FormLabel>
+                                    <SELECT_OPTIONS
+                                    variant="outlined"
+                                    color="neutral"
+                                    placeholder="Please select student's name"
+                                    onChange={handleSelectType}
+                                    defaultValue={[Student_Name[4], Student_Name[5]]}
+                                    options={Student_Name}
+                                    />
                                 <FormLabel required>Git </FormLabel>
                                 <Input
                                     placeholder="Please enter your course"
@@ -572,12 +587,12 @@ export default function List() {
                             </FormControl>
                             <Grid sx={{ mt: 10, }}>
                                 <div>
-                                    <h5 >Image</h5>
-                                    <input style={{ marginTop: '10px', marginBottom: '15px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} placeholder='image' />
+                                    <FormLabel required >Image</FormLabel>
+                                    <input required style={{ marginTop: '10px', marginBottom: '15px', marginLeft: '3px' }} type="file" name='image' onChange={handleInputPhoto} placeholder='image' />
                                 </div>
                                 <div>
-                                    <h5>Document</h5>
-                                    <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
+                                    <FormLabel required >Document</FormLabel>
+                                    <input required style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" name='file' onChange={handleInputFile} />
                                 </div>
                             </Grid>
                         </VStack>

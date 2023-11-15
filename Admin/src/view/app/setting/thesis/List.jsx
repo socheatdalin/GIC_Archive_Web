@@ -126,6 +126,17 @@ const Fields = [
   { value: 'Network', label: 'Network' },
   { value: 'Data Science', label: 'Data Science' },
 ];
+const Student_Name = [
+  { value: 'Khema', label: 'Khema' },
+  { value: 'Vy', label: 'Vy' },
+  { value: 'Dalin', label: 'Dalin' },
+  { value: 'Phaek', label: 'Phaek' },
+];
+const Teacher_Name = [
+  { value: 'Tin', label: 'Hok Tin' },
+  { value: 'Pisey', label: 'RathPisey' },
+  { value: 'Channa', label: 'Channa' },
+];
 function getComparator(order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
@@ -420,9 +431,8 @@ export default function List() {
       })
       .then((result) => {
         console.log(result);
-
       })
-      .catch((error) => console.log(error))
+      .catch((error) => console.log(error));
     window.location.replace('/home/thesis/list');
   };
 
@@ -446,14 +456,15 @@ export default function List() {
   };
 
   const handleDelete = async () => {
-    axios.post("http://localhost:3001/admin/thesis/delete/" + deleteID)
+    axios
+      .post('http://localhost:3001/admin/thesis/delete/' + deleteID)
       .then((result) => {
-        console.log("delete success");
+        console.log('delete success');
         // history.push('/home/thesis/list');
-        window.location.replace('/home/thesis/list')
+        window.location.replace('/home/thesis/list');
       })
-      .catch(error => console.log(error));
-  }
+      .catch((error) => console.log(error));
+  };
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -551,24 +562,22 @@ export default function List() {
                   onChange={handleInputTitle}
                 />
                 <FormLabel required>Student Name</FormLabel>
-                <Input
-                  placeholder="Please enter student's name "
-                  type="text"
-                  id="username"
-                  defaultValue=""
+                <SELECT_OPTIONS
                   variant="outlined"
                   color="neutral"
-                  onChange={handleInputName}
+                  placeholder="Please enter student's name"
+                  onChange={handleSelectType}
+                  defaultValue={[Student_Name[4], Student_Name[5]]}
+                  options={Student_Name}
                 />
                 <FormLabel required>Supervisor Name</FormLabel>
-                <Input
-                  placeholder="Please enter supervisor's name "
-                  type="text"
-                  id="teacher_name"
-                  defaultValue=""
+                <SELECT_OPTIONS
                   variant="outlined"
                   color="neutral"
-                  onChange={handleTeacherName}
+                  placeholder="Select a supervisor's name"
+                  onChange={handleSelectType}
+                  defaultValue={[Teacher_Name[4], Teacher_Name[5]]}
+                  options={Teacher_Name}
                 />
                 <FormLabel required>Company </FormLabel>
                 <Input
@@ -625,7 +634,7 @@ export default function List() {
               </FormControl>
               <Grid sx={{ mt: 5 }}>
                 <div>
-                  <h5>Image</h5>
+                  <FormLabel required>Image</FormLabel>
                   <input
                     style={{
                       marginTop: '10px',
@@ -636,15 +645,17 @@ export default function List() {
                     name="image"
                     onChange={handleInputPhoto}
                     placeholder="image"
+                    required
                   />
                 </div>
                 <div>
-                  <h5>Document</h5>
+                  <FormLabel required>Document</FormLabel>
                   <input
                     style={{ marginBottom: '20px', marginLeft: '3px' }}
                     type="file"
                     name="file"
                     onChange={handleInputFile}
+                    required
                   />
                 </div>
               </Grid>
@@ -808,7 +819,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   value={Type}
-                // onChange={handleTeach}
+                  // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>
