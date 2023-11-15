@@ -100,16 +100,10 @@ function Project() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="OperatingSystem">
-                  Operating System
-                </Dropdown.Item>
+                <Dropdown.Item eventKey="OperatingSystem">Operating System</Dropdown.Item>
                 <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
-                <Dropdown.Item eventKey="SoftwareEngineering">
-                  Software Engineering
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="InternetProgramming">
-                  Internet Programming
-                </Dropdown.Item>
+                <Dropdown.Item eventKey="SoftwareEngineering">Software Engineering</Dropdown.Item>
+                <Dropdown.Item eventKey="InternetProgramming">Internet Programming</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>

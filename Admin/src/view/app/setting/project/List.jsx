@@ -264,11 +264,13 @@ export default function List() {
     const handleInputName = async (e) => {
         setInputName(e.target.value)
     }
+
     const handleInputMember = async (e) => {
         const newNameString = e.target.value;
         const namesArray = newNameString.split(',');
         setinputMember(e.target.value)
     }
+
     const handleInputID = async (e) => {
         setInputID(e.target.value)
     }
@@ -299,6 +301,7 @@ export default function List() {
     const handleID = async (e) => {
         setID(e.target.value)
     }
+
     const handleOpenFile = url => {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
@@ -384,9 +387,13 @@ export default function List() {
             })
             .then((result) => {
                 console.log(result);
-                window.location.replace('/home/project/list')
+                // window.location.reload();
+                // window.location.replace('/home/project/list');
+                // window.location.href = '/home/project/list';
+
             })
             .catch(error => console.log(error));
+        window.location.href = '/home/project/list';
     }
 
     const onDeleteModalOpen = async (id) => {
