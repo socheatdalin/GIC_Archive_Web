@@ -12,7 +12,7 @@ function LikeButton({ project_id, thesis_id }) {
     // Fetch like data when the component mounts
     const fetchLikeData = async () => {
       try {
-        const response = await axios.get(`/like/${project_id}`);
+        const response = await axios.get(`http://localhost:3001/like/${project_id}`);
         setLikes(response.data.likes);
         setLiked(response.data.liked);
       } catch (error) {
@@ -25,7 +25,7 @@ function LikeButton({ project_id, thesis_id }) {
 
   const handleLikeClick = async () => {
     try {
-      const response = await axios.post(`/like`, {
+      const response = await axios.post(`http://localhost:3001/like`, {
         liked: !liked,
         project_id,
         thesis_id,

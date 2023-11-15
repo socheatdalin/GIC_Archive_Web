@@ -423,10 +423,7 @@ export default function List() {
 
       })
       .catch((error) => console.log(error))
-      .finally(() => {
-        // Redirect regardless of success or failure
-        window.location.replace('/home/thesis/list');
-      });
+    window.location.replace('/home/thesis/list');
   };
 
   const onDeleteModalOpen = async (id) => {
@@ -443,7 +440,7 @@ export default function List() {
       .get('http://localhost:3001/admin/thesis/all')
       .then((result) => {
         setthesis(result.data);
-        // console.log(result.data);
+        thesis();
       })
       .catch((error) => console.log(error));
   };

@@ -449,10 +449,10 @@ export default function List() {
     }
     setSelected([]);
   };
-
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
+
 
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);

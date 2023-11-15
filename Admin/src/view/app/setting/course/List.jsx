@@ -197,96 +197,31 @@ EnhancedTableHead.propTypes = {
 var countSearch = 1;
 var countClick = 1;
 export default function List() {
-  const [openMaterial, setOpenMaterial] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  // const { onOpen: onDeleteModalOpen } = useDisclosure();
-  const [course, setCourse] = React.useState([]);
-  const [inputID, setInputID] = React.useState('');
-  const [openEdit, setOpenEdit] = React.useState(false);
-  const [openDelete, setOpenDelete] = React.useState(false);
-  const [openView, setOpenView] = React.useState(false);
-  const [openCreate, setOpenCreate] = React.useState(false);
-  const [inputName, setInputName] = React.useState('');
-  const [inputTeacher_name, setInputTeacher_name] = React.useState('');
-  const [teacher_name, setteacher_name] = React.useState('');
-  const [ID, setID] = React.useState('');
-  const [Name, setName] = React.useState('');
-  const [Desc, setDesc] = React.useState('');
-  const [Photo, setPhoto] = React.useState('');
-  const [deleteID, setDeleteID] = React.useState('');
-  const [inputPhoto, setInputPhoto] = React.useState(null);
-  const [Teacher, setTeacher] = React.useState('');
 
-  const handleInputPhoto = async (e) => {
-    setInputPhoto(e.target.files[0]);
-  };
 
-  const handlePhoto = async (e) => {
-    setPhoto(e.target.value);
-  };
-  const [length, setLength] = useState([]);
-  const [index, setIndex] = useState('');
+    const [searchOpen, setSearchOpen] = useState(false)
+    // const { onOpen: onDeleteModalOpen } = useDisclosure();
+    const [course, setCourse] = useState([]);
+    const [inputID, setInputID] = React.useState('');
+    const [openEdit, setOpenEdit] = React.useState(false);
+    const [openDelete, setOpenDelete] = React.useState(false);
+    const [openView, setOpenView] = React.useState(false);
+    const [openCreate, setOpenCreate] = React.useState(false);
+    const [inputName, setInputName] = React.useState('');
+    const [inputTeacher_name, setInputTeacher_name] = React.useState('');
+    const [teacher_name, setteacher_name] = React.useState('');
+    const [ID, setID] = React.useState('');
+    const [Name, setName] = React.useState('');
+    const [Desc, setDesc] = React.useState('');
+    const [Photo, setPhoto] = React.useState('');
+    const [deleteID, setDeleteID] = React.useState('');
+    const [inputPhoto, setInputPhoto] = React.useState(null);
+    const [Teacher, setTeacher] = React.useState('');
+    const [courseName, setCourseName] = useState('');
 
-  const [search1, setSearch1] = useState('');
-  const searchValue = (e) => {
-    setSearch1(e.target.value);
-  };
-  const handleSearch = (e) => {
-    // console.log(search)
-    axios
-      .post(
-        'http://localhost:3000/admin/search/course',
-        { search: e.target.value },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        setCourse(result.data.results);
-      })
-      .catch((error) => console.log(error));
-  };
+    const handleInputPhoto = async (e) => {
+        setInputPhoto(e.target.files[0])
 
-  const handleSort = (fromYear, toYear, Year) => {
-    axios
-      .post(
-        'http://localhost:3000/admin/sort/course',
-        { fromYear: fromYear, toYear: toYear, Year: Year },
-        { withCredentials: true }
-      )
-      .then((result) => {
-        setCourse(result.data.results);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const handleInputName = async (e) => {
-    setInputName(e.target.value);
-  };
-
-  const handleInputTeacher_name = async (e) => {
-    setInputTeacher_name(e.target.value);
-  };
-
-  const handleName = async (e) => {
-    setName(e.target.value);
-  };
-  useEffect(() => {
-    courses();
-  }, []);
-
-  const [open, setOpen] = React.useState(false);
-  const rows = course;
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const [, setFilter] = useState({ searchText: '' });
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelected = rows.map((n) => n.name);
-      setSelected(newSelected);
-      return;
     }
     setSelected([]);
   };
@@ -412,67 +347,184 @@ export default function List() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (newPage) => {
-    setPage(newPage);
-  };
 
-  const handleDoc = (id) => {
-    window.location.replace(`/course/${id}/materials`);
-  };
-  const handleChangeRowsPerPage = (event, newValue) => {
-    setRowsPerPage(parseInt(newValue.toString(), 10));
-    setPage(0);
-  };
-
-  const getLabelDisplayedRowsTo = () => {
-    if (rows.length === -1) {
-      return (page + 1) * rowsPerPage;
+    const handleNewName = async (e) => {
+        setCourseName(e.target.value);
     }
-    return rowsPerPage === -1
-      ? rows.length
-      : Math.min(rows.length, (page + 1) * rowsPerPage);
-  };
-  const handleCloseDelete = () => {
-    setOpenDelete(false);
-  };
+    const handleName = async (e) => {
+        setName(e.target.value)
+    }
+    useEffect(() => {
 
-  const isSelected = (name) => selected.indexOf(name) !== -1;
-  return (
-    <Flex flexDir="column" mt="10px" bg="white" borderRadius="10px" h="full">
-      {/* Popup */}
-      <Modal
-        aria-labelledby="modal-title"
-        aria-describedby="modal-desc"
-        open={open}
-        onClose={() => setOpen(false)}
-        sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
-      >
-        <Sheet
-          variant="outlined"
-          sx={{
-            width: 400,
-            height: 350,
-            borderRadius: 'md',
-            p: 3,
-            boxShadow: 'lg',
-            marginTop: '-100',
-          }}
-        >
-          <ModalClose
-            variant="outlined"
-            sx={{
-              boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
-              borderRadius: '50%',
-              bgcolor: 'background.body',
-              bgcolor: 'white',
-            }}
-          />
-          <Flex mb="10px" justifyContent="space-between" alignItems="center">
-            <Typography level="h4">Create Course</Typography>
-            <Button
-              onClick={handleSubmit}
-              sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d' }}
-              variant="solid"
+        courses();
+    }, [])
+
+
+    const [open, setOpen] = React.useState(false);
+    const rows = course;
+    const [order, setOrder] = React.useState('asc');
+    const [orderBy, setOrderBy] = React.useState('calories');
+    const [selected, setSelected] = React.useState([]);
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const [, setFilter] = useState({ searchText: '' });
+    const handleSelectAllClick = (event) => {
+        if (event.target.checked) {
+            const newSelected = rows.map((n) => n.name);
+            setSelected(newSelected);
+            return;
+        }
+        setSelected([]);
+    };
+    const handleRequestSort = (event, property) => {
+        const isAsc = orderBy === property && order === 'asc';
+        setOrder(isAsc ? 'desc' : 'asc');
+        setOrderBy(property);
+    };
+
+    const handleDisplay = async (course_id) => {
+        const response =
+            await axios.get("http://localhost:3001/course/" + course_id)
+                .then((result) => {
+                    setName(result.data[0].course_name);
+                }).catch((error) => console.log(error));
+
+        // setID(response.data[0].id);
+        // setTeacher(response.data[0].teacher_name);
+        // setPhoto(response.data[0].photo);
+        setOpenEdit(true);
+    }
+    const handleSearch = (e) => {
+        // console.log(search)
+        axios.post("http://localhost:3001/search/course", { course_name: inputName })
+            .then((result) => {
+                setCourse(result.data)
+            })
+            .catch(error => console.log(error));
+    }
+    const handleView = async (course_id) => {
+        await axios.get("http://localhost:3001/course/" + course_id)
+            .then((result) => {
+                console.log(result);
+                setName(result.data[0].course_name);
+                setID(result.data[0].course_id);
+                setTeacher(result.data[0].username);
+                setInputPhoto(result.data[0].filepath);
+            })
+            .catch(error => console.log(error));
+        setOpenView(true);
+    }
+    const handleSubmitEdit = async (course_id) => {
+        try {
+
+            await axios.post(`http://localhost:3001/course/update/${course_id}`, { course_name: courseName }).then((result) => {
+                console.log(result.data);
+                window.location.replace('/home/course/list');
+            })
+                .catch(error => console.log(error));
+            setOpenEdit(true);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onDeleteModalOpen = async (id) => {
+        setDeleteID(id)
+        setOpenDelete(true)
+    }
+    const handleSubmit = async () => {
+
+        const formData = new FormData();
+        formData.append('course_name', inputName);
+        formData.append('username', inputTeacher_name);
+        formData.append('image', inputPhoto);
+        axios.post("http://localhost:3001/course/create", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        })
+            .then((result) => {
+                console.log(result.data);
+
+            })
+            .catch(error => console.log(error))
+        window.location.replace('/home/course/list');
+    }
+
+    const handleCreate = async () => {
+
+    }
+
+    const courses = async () => {
+        axios.get("http://localhost:3001/course/all")
+            .then((result) => {
+                setCourse(result.data);
+                // course();
+            })
+            .catch(error => console.log(error));
+    };
+
+    const handleDelete = async () => {
+        axios.post("http://localhost:3001/course/remove/" + deleteID)
+            .then((result) => {
+                window.location.replace('/home/course/list')
+            })
+            .catch(error => console.log(error));
+    }
+
+    const handleClick = (event, name) => {
+        const selectedIndex = selected.indexOf(name);
+        let newSelected = [];
+
+        if (selectedIndex === -1) {
+            newSelected = newSelected.concat(selected, name);
+        } else if (selectedIndex === 0) {
+            newSelected = newSelected.concat(selected.slice(1));
+        } else if (selectedIndex === selected.length - 1) {
+            newSelected = newSelected.concat(selected.slice(0, -1));
+        } else if (selectedIndex > 0) {
+            newSelected = newSelected.concat(
+                selected.slice(0, selectedIndex),
+                selected.slice(selectedIndex + 1)
+            );
+        }
+
+        setSelected(newSelected);
+    };
+
+    const handleChangePage = (newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event, newValue) => {
+        setRowsPerPage(parseInt(newValue.toString(), 10));
+        setPage(0);
+    };
+
+    const getLabelDisplayedRowsTo = () => {
+        if (rows.length === -1) {
+            return (page + 1) * rowsPerPage;
+        }
+        return rowsPerPage === -1
+            ? rows.length
+            : Math.min(rows.length, (page + 1) * rowsPerPage);
+    };
+    const handleCloseDelete = () => {
+        setOpenDelete(false)
+    }
+
+    const isSelected = (name) => selected.indexOf(name) !== -1;
+    return (
+        <Flex flexDir="column" mt='10px' bg="white" borderRadius="10px" h="full">
+            {/* Popup */}
+            <Modal
+                aria-labelledby="modal-title"
+                aria-describedby="modal-desc"
+                open={open}
+                onClose={() => setOpen(false)}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+
             >
               Create
             </Button>
@@ -571,6 +623,68 @@ export default function List() {
               onClick={handleCloseDelete}
               variant="solid"
             >
+
+                <Sheet
+                    variant="outlined"
+                    sx={{
+                        width: 400,
+                        height: 400,
+                        borderRadius: 'md',
+                        p: 3,
+                        boxShadow: 'lg',
+                        marginTop: '-100',
+                        overflowX: 'auto'
+                    }}
+                >
+                    <ModalClose
+                        variant="outlined"
+                        sx={{
+                            boxShadow: '0 2px 12px 0 rgba(0 0 0 / 0.2)',
+                            borderRadius: '50%',
+                            bgcolor: 'background.body',
+                            bgcolor: 'white',
+                        }}
+                    />
+                    <Flex mb="10px" justifyContent="space-between" alignItems="center">
+                        <Typography level="h4">Update Course</Typography>
+                        <Button sx={{ mr: '10px', mt: '20px', backgroundColor: '#23395d', color: 'white' }} onClick={handleSubmitEdit} variant="solid">
+                            Update
+                        </Button>
+                    </Flex>
+                    <Grid >
+                        <VStack>
+                            <FormControl sx={{ width: '150px', marginLeft: '-50px' }}>
+                                <FormLabel required>Name</FormLabel>
+                                <Input
+                                    placeholder="Please enter course name"
+                                    variant="outlined"
+                                    color="neutral"
+                                    value={Name}
+                                    onChange={handleName}
+                                />
+                                {/* <FormLabel required>Teacher Name</FormLabel>
+                                <Input
+                                    placeholder="Please enter teacher ID"
+                                    variant="outlined"
+                                    color="neutral"
+                                    value={teacher_name}
+                                // onChange={handleTeach}
+                                /> */}
+                                {/* <div style={{marginTop: '20px' }}>
+                 <input style={{ marginBottom: '20px', marginLeft: '3px' }} type="file" onChange={handlePhoto} />
+              </div> */}
+                            </FormControl>
+                        </VStack>
+                    </Grid>
+                </Sheet>
+            </ModalEdit>
+            <ModalView
+                aria-labelledby="modal-title"
+                aria-describedby="modal-desc"
+                open={openView}
+                onClose={() => setOpenView(false)}
+                sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+
               Cancel
             </Button>
           </div>
@@ -615,6 +729,7 @@ export default function List() {
               }}
               onClick={handleSubmitEdit}
               variant="solid"
+
             >
               Update
             </Button>
