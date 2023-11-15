@@ -351,7 +351,7 @@ export default function List() {
                 setInputDesc(result.data[0].descr);
                 setInputCourse(result.data[0].course_name);
                 setinputMember(result.data[0].student_names);
-                setTeacherName(result.data[0].teacher_name);
+                setTeacherName(result.data[0].fullname);
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
                 setInputPhoto(result.data[0].imagePath)
@@ -535,7 +535,7 @@ export default function List() {
                                     color="neutral"
                                     onChange={handleInputCourse}
                                 />
-                                {/* <FormLabel required>Student name </FormLabel>
+                                <FormLabel required>Student name </FormLabel>
                                 <Input
                                     placeholder="Please enter your student name"
                                     variant="outlined"
@@ -543,7 +543,7 @@ export default function List() {
                                     type='text'
                                     color="neutral"
                                     onChange={handleInputName}
-                                /> */}
+                                />
                                 <FormLabel required>Git </FormLabel>
                                 <Input
                                     placeholder="Please enter your course"
