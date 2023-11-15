@@ -307,7 +307,7 @@ export default function List() {
           })
                .then((result) => {
                     console.log(result.data.teacher_id);
-                    axios.post("http://localhost:3001/course/create/" + result.data.teacher_id, formData, {
+                    axios.post("http://localhost:3001/teacher/course/create/" + result.data.teacher_id, formData, {
                          headers: {
                               'Content-Type': 'multipart/form-data',
                          }
@@ -337,7 +337,7 @@ export default function List() {
           })
                .then((result) => {
                     console.log(result.data.teacher_id);
-                    axios.get("http://localhost:3001/course/" + result.data.teacher_id)
+                    axios.get("http://localhost:3001/teacher/course/" + result.data.teacher_id)
                          .then((results) => {
                               setCourse(results.data)
                               console.log(results);

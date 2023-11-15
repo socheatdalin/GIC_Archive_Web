@@ -55,7 +55,7 @@ const Student_Name = [
     { value: 'Vy', label: 'Vy' },
     { value: 'Dalin', label: 'Dalin' },
     { value: 'Phaek', label: 'Phaek' },
-  ];
+];
 
 const headCells = [
     {
@@ -551,14 +551,14 @@ export default function List() {
                                     onChange={handleInputName}
                                 /> */}
                                 <FormLabel required>Student name</FormLabel>
-                                    <SELECT_OPTIONS
+                                <SELECT_OPTIONS
                                     variant="outlined"
                                     color="neutral"
                                     placeholder="Please select student's name"
                                     onChange={handleSelectType}
                                     defaultValue={[Student_Name[4], Student_Name[5]]}
                                     options={Student_Name}
-                                    />
+                                />
                                 <FormLabel required>Git </FormLabel>
                                 <Input
                                     placeholder="Please enter your course"
@@ -777,7 +777,7 @@ export default function List() {
                             <FormControl sx={{ width: '250px', marginTop: '10px' }}>
                                 <FormLabel required>Members</FormLabel>
                                 <Input
-                                    placeholder="Please enter your number of member"
+                                    placeholder="Please enter your name of member"
                                     variant="outlined"
                                     color="neutral"
                                     value={inputmember}
