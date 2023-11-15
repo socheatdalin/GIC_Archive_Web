@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const FileUploadForm = () => {
@@ -13,6 +13,7 @@ const FileUploadForm = () => {
   const [github_url, setUrl] = useState('');
   const [InputTeacherName, setInputTeacher_name] = React.useState('');
 
+  const [teachers, setTeacher] = React.useState([]);
 
   const handleFileChange = (event) => {
     setInputFile(event.target.files[0]);
@@ -21,7 +22,9 @@ const FileUploadForm = () => {
     setInputPhoto(event.target.files[0]);
   };
 
-  const handleSubmit = async () => {
+
+
+  const handleSubmit = async (id) => {
 
     const formData = new FormData();
     // formData.append('username', inputName);
@@ -36,32 +39,62 @@ const FileUploadForm = () => {
     formData.append('file', inputFile);
     console.log(formData.get('file'));
     console.log(formData.get('image'));
-    
-    axios.get("http://localhost:3001/me", {
-      withCredentials: true,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then((result) => {
-        console.log(result.data.id);
-        axios.post("http://localhost:3001/student/thesis/create/" + result.data.id, formData,
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          })
-          .then((result) => {
-            console.log(result);
-            // console.log("hello");
-            window.location.replace('/home/thesis/list')
-          })
-          .catch(error => console.log(error));
+
+
+    axios.post("http://localhost:3001/student/thesis/create/" + id, formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       })
-      .catch(err => {
-        console.log("Server error:", err);
-      });
+      .then((result) => {
+        console.log(result);
+        // console.log("hello");
+        window.location.replace('/home/thesis/list')
+      })
+      .catch(error => console.log(error));
   }
+  const handleTeacher = async () => {
+    try {
+
+
+      axios.get('http://localhost:3001/student/getTeacher')
+        .then((result) => {
+          setTeacher(result.data);
+          // console.log(teachers);
+        })
+        .catch(error => console.log(error));
+    }
+    catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  // console.log(teachers)
+  useEffect(() => {
+    handleTeacher();
+    console.log(teachers);
+    // axios.get("http://localhost:3001/me", {
+    //   withCredentials: true,
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   }
+    // })
+    //   .then((result) => {
+    //     console.log(result.data.id);
+    //   })
+    //   .catch(err => {
+    //     console.log("Server error:", err);
+    //   });
+
+    // axios.get('http://localhost:3001/student/getTeacher')
+    //   .then(result => {
+    //     console.log(result.data);
+    //     setTeacher(result.data);
+    //     // console.log(result.data);
+    //     console.log(teacher);
+    //   })
+    //   .catch(error => console.log(error));
+  }, []);
 
   return (
     <>
@@ -83,15 +116,37 @@ const FileUploadForm = () => {
                   <input type="name" name="name" class="form-control" id="" placeholder="Please enter your name" onChange={(e) => setInputName(e.target.value)}
                     value={inputname} required></input>
                 </div> */}
-                <div class="mb-3  ">
-                  <label for="" class="form-label">Teacher's name </label>
-                  <select type="teacher" name='teacher' class="form-select form-select-md" placeholder="Please enter your teacher's name" onChange={(e) => setInputTeacher_name(e.target.value)} value={InputTeacherName} required >
-                  <option></option>
-                    <option>Khema</option>
-                    <option>Dalin</option>
-                    <option>Vy</option>
+                <div className="mb-3">
+                  <label htmlFor="teacher" className="form-label">
+                    Teacher's name
+                  </label>
+                  <select
+                    id="teacher"
+                    name="teacher"
+                  
+                    className="form-select form-select-md"
+                    placeholder="Please enter your teacher's name"
+                    required
+                  >
+                     {teachers.map((teacher, index) => (
+                  
+                      <option key={index}>{teacher.fullname}</option>
+                    ))}
+                    {/* <option value="">{teacher[0].fullname}</option> */}
+
+
+                    {/* {teacher.map((teacher, index) => (
+                      <option key={index}>{teacher.fullname}</option>
+                    ))} */}
+                    {/* <option value="">{teacher[0].fullname}</option> */}
+                    {/* <ul>
+                      {teacher.map((teachers, index) => (
+                        <li key={index}>{teachers.fullname}</li>
+                      ))}
+                    </ul> */}
                   </select>
                 </div>
+
                 <div class="mb-3  ">
                   <label for="" class="form-label">Field</label>
                   <select class="form-select form-select-md" name='field' onChange={(e) => setinputField(e.target.value)} value={inputField} required >
@@ -112,7 +167,7 @@ const FileUploadForm = () => {
                 </div>
               </div>
               <div className='left-hand col'>
-                
+
                 <div class="mb-3 ">
                   <label for="" class="form-label">Git Url</label>
                   <input type="url" name='url' class="form-control" placeholder="Link of your github" onChange={(e) => setUrl(e.target.value)} value={github_url} required></input>
@@ -137,8 +192,8 @@ const FileUploadForm = () => {
           </form>
 
 
-        </div>
-      </div>
+        </div >
+      </div >
 
     </>
   );
