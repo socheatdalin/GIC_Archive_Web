@@ -391,7 +391,7 @@ export default function List() {
     formData.append('image', inputPhoto);
     console.log(formData.get('image'));
     axios
-      .post(
+      .put(
         'http://localhost:3001/admin/student/update/' + student_id,
         formData,
         {

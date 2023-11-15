@@ -412,6 +412,7 @@ export default function List() {
     formData.append('file', inputFile);
     console.log(formData.get('file'));
     console.log(formData.get('image'));
+    
     axios
       .post('http://localhost:3001/admin/thesis/create', formData, {
         headers: {
@@ -424,7 +425,6 @@ export default function List() {
       })
       .catch((error) => console.log(error))
       .finally(() => {
-        // Redirect regardless of success or failure
         window.location.replace('/home/thesis/list');
       });
   };
