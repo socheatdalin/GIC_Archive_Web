@@ -67,25 +67,30 @@ const FileUploadForm = () => {
     <>
       <div className='contain'>
         <div className='p-5  '>
-          <form className='p-5 border border-info border-1 rounded-2  ' action="/upload" enctype="multipart/form-data" id="" method="post" onSubmit={handleSubmit} style={{
+          <form className='p-4 border border-info border-1 rounded-2  ' action="/upload" enctype="multipart/form-data" id="" method="post" onSubmit={handleSubmit} style={{
             backgroundColor: "#f8f9fa", // Light gray background
             borderRadius: "10px", // Rounded corners
           }}>
-            <h4 className='text-info '>Create Thesis</h4>
+            <h4 className='text-info fw-bold'>Create Thesis</h4>
             <div className=' row'>
               <div className='right-hand col'>
                 <div class="mb-3  ">
                   <label for="" class="form-label">Title</label>
-                  <input type="title" name='title' class="form-control" id="" placeholder="Please enter your Title" onChange={(e) => setinputTitle(e.target.value)} value={inputTitle} required></input>
+                  <input type="title" name='title' class="form-control" placeholder="Please enter your Title" onChange={(e) => setinputTitle(e.target.value)} value={inputTitle} required></input>
                 </div>
-                <div class="mb-3 ">
+                {/* <div class="mb-3 ">
                   <label for="" class="form-label">Name</label>
                   <input type="name" name="name" class="form-control" id="" placeholder="Please enter your name" onChange={(e) => setInputName(e.target.value)}
                     value={inputname} required></input>
-                </div>
+                </div> */}
                 <div class="mb-3  ">
                   <label for="" class="form-label">Teacher's name </label>
-                  <input type="teacher" name='teacher' class="form-control" id="" placeholder="Please enter your teacher's name" onChange={(e) => setInputTeacher_name(e.target.value)} value={InputTeacherName} required ></input>
+                  <select type="teacher" name='teacher' class="form-select form-select-md" placeholder="Please enter your teacher's name" onChange={(e) => setInputTeacher_name(e.target.value)} value={InputTeacherName} required >
+                  <option></option>
+                    <option>Khema</option>
+                    <option>Dalin</option>
+                    <option>Vy</option>
+                  </select>
                 </div>
                 <div class="mb-3  ">
                   <label for="" class="form-label">Field</label>
@@ -101,12 +106,13 @@ const FileUploadForm = () => {
                   <label for="" class="form-label">Company</label>
                   <input type="company" name='company' class="form-control" id="" placeholder="Please enter your company" onChange={(e) => setInputCompany(e.target.value)} value={inputCompany} required></input>
                 </div>
-              </div>
-              <div className='left-hand col'>
                 <div class="mb-3 ">
                   <label for="" class="form-label">Tags</label>
                   <input type="tags" name='tags' class="form-control" placeholder="Please enter your tags" onChange={(e) => setInputTags(e.target.value)} value={inputTag} required></input>
                 </div>
+              </div>
+              <div className='left-hand col'>
+                
                 <div class="mb-3 ">
                   <label for="" class="form-label">Git Url</label>
                   <input type="url" name='url' class="form-control" placeholder="Link of your github" onChange={(e) => setUrl(e.target.value)} value={github_url} required></input>
