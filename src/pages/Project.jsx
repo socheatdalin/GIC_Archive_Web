@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import Navbar from "../components/Header/Navbar";
 import { Link } from "react-router-dom";
 import star from "../assets/star.png";
-import Drop from "../components/drop";
+import Dropdown from "react-bootstrap/Dropdown";
 import "reactjs-popup/dist/index.css";
 import { FaGithub } from 'react-icons/fa';
 import Loader from "../components/Loader";
-import axios from 'axios';
+
 function Project() {
   const [items, setItems] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [photo, setPhoto] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(null);
   async function fetchLikeCount(Id) {
     try {
       const response = await fetch(`http://localhost:3001/countlike/${Id}`);
@@ -26,6 +25,31 @@ function Project() {
       return 0; // Handle error case
     }
   }
+  const fetchDataForCategory = async (eventKey) => {
+    try {
+      const response = await fetch(`http://localhost:3001/admin/project/all/${eventKey}`);
+      if (response.ok) {
+        const data = await response.json();
+        const updatedData = await Promise.all(
+          data.map(async (project) => {
+            const likeCount = await fetchLikeCount(project.project_id);
+            return { ...project, likeCount };
+          })
+        );
+        setItems(updatedData);
+        setIsLoaded(true);
+      } else {
+        console.error(`Failed to fetch projects for category: ${eventKey}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const handleSelect = async (eventKey) => {
+    setSelectedCategory(eventKey);
+    await fetchDataForCategory(eventKey);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -38,7 +62,7 @@ function Project() {
           const updatedProjects = await Promise.all(
             projects.map(async (project) => {
               const likeCount = await fetchLikeCount(project.project_id);
-              return { ...project, likeCount};
+              return { ...project, likeCount };
             })
           );
           // setPhoto(response.data[0].imagepath);
@@ -55,18 +79,6 @@ function Project() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`http://localhost:3001/admin/project/all`)
-  //     .then((response) => {
-  //       setPhoto(response.data[0].imagepath);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //       setIsLoaded(true);
-  //     });
-  // }, [id]);
-
   if (!isLoaded) {
     return <Loader />;
   }
@@ -79,14 +91,27 @@ function Project() {
           <div>
             <h2 className="fw-semibold">Trending Projects</h2>
           </div>
-          <Drop />
+          <div>
+            <Dropdown onSelect={handleSelect}>
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                {selectedCategory ? selectedCategory : "Filter"}
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item eventKey="Operating System">Operating System</Dropdown.Item>
+                <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
+                <Dropdown.Item eventKey="Software Engineering">Software Engineering</Dropdown.Item>
+                <Dropdown.Item eventKey="Internet Programming">Internet Programming</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
         {items.map((item) => (
           <div className="shadow  p-2 mb-5 bg-body-tertiary rounded d-lg-block " key={item.id}>
             <div className="card-project row ">
               <div className="col-lg-3 col-md-4 col-sm-12">
                 <img
-                  src={`http://localhost:3001/static/${item.imagePath}`}
+                  src={`http://localhost:3001/static/${item.imagepath}`}
                   className="img-project img-fluid"
                   alt="project"
                 ></img>

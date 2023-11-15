@@ -385,6 +385,17 @@ export default function List() {
 
   const handleSubmitEdit = async () => {
     setOpenEdit(false);
+    const formData = new FormData();
+    formData.append('username', inputName);
+    formData.append('title', inputTitle);
+    formData.append('field', inputType.value);
+    formData.append('company', inputCompany);
+    formData.append('teacher_name', InputTeacherName);
+    formData.append('descr', inputDesc);
+    formData.append('github_url', inputGit);
+    formData.append('tags', inputTag);
+    formData.append('image', inputPhoto);
+    formData.append('file', inputFile);
     window.location.replace('/home/thesis/list');
   };
   const handleSubmit = async () => {
@@ -409,10 +420,10 @@ export default function List() {
       })
       .then((result) => {
         console.log(result);
-        // console.log("hello");
-        window.location.replace('/home/thesis/list');
+
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
+    window.location.replace('/home/thesis/list');
   };
 
   const onDeleteModalOpen = async (id) => {
@@ -429,20 +440,20 @@ export default function List() {
       .get('http://localhost:3001/admin/thesis/all')
       .then((result) => {
         setthesis(result.data);
-        // console.log(result.data);
+        thesis();
       })
       .catch((error) => console.log(error));
   };
 
-    const handleDelete = async () => {
-        axios.post("http://localhost:3001/admin/thesis/delete/" + deleteID)
-            .then((result) => {
-                console.log("delete success");
-                // history.push('/home/thesis/list');
-                window.location.replace('/home/thesis/list')
-            })
-            .catch(error => console.log(error));
-    }
+  const handleDelete = async () => {
+    axios.post("http://localhost:3001/admin/thesis/delete/" + deleteID)
+      .then((result) => {
+        console.log("delete success");
+        // history.push('/home/thesis/list');
+        window.location.replace('/home/thesis/list')
+      })
+      .catch(error => console.log(error));
+  }
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -797,7 +808,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   value={Type}
-                  // onChange={handleTeach}
+                // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>

@@ -396,13 +396,13 @@ export default function List() {
 
   const Thesis = async () => {
     axios.get("http://localhost:3001/me", {
+      withCredentials: true,
       headers: {
-        'Authorization': sessionStorage.getItem("access_token"),
         "Content-Type": "application/json"
       }
     })
       .then((result) => {
-        // console.log(result.data);
+
         console.log(result.data.name);
         axios.get("http://localhost:3001/student/thesis/" + result.data.name)
           .then((results) => {

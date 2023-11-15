@@ -74,10 +74,19 @@ export default function Sidebar() {
           overflowY="auto"
           px="0"
         >
-          <Box h="3rem" pos="relative" w="full" style={{ backgroundColor: '#23395d', height: '700px' }}>
+          <Box
+            h="3rem"
+            pos="relative"
+            w="full"
+            style={{ backgroundColor: '#23395d', height: '700px' }}
+          >
             <Fade in={!collapse}>
               <Center mt="5px" h="4rem">
-                <Image style={{ borderRadius: '2px' }} w="60px" src={image.logo} />
+                <Image
+                  style={{ borderRadius: '2px' }}
+                  w="60px"
+                  src={image.logo}
+                />
               </Center>
             </Fade>
             <IconButton
@@ -159,9 +168,11 @@ export default function Sidebar() {
 }
 
 const UserProfile = () => {
-
   const navigateToGoogle = () => {
     window.location.href = 'http://localhost:3000/';
+  };
+  const navigateToHome = () => {
+    window.location.href = 'http://localhost:3000/home';
   };
   return (
     <ChakraProvider>
@@ -174,7 +185,12 @@ const UserProfile = () => {
             color={mode('gray.600', 'gray.300')}
             px="2"
           >
-            <MenuItem rounded="md" onClick={navigateToGoogle}>Logout</MenuItem>
+            <MenuItem rounded="md" onClick={navigateToHome}>
+              Home Page
+            </MenuItem>
+            <MenuItem rounded="md" onClick={navigateToGoogle}>
+              Logout
+            </MenuItem>
           </MenuList>
         </Menu>
       </HStack>
@@ -208,15 +224,13 @@ const AccountSwitcherButton = () => {
       <HStack flex="1" spacing="3">
         <>
           {
-             <>
+            <>
               <Image
                 h="8"
                 w="8"
                 borderRadius="md"
                 objectFit="cover"
-                fallback={
-                  <BiUserCircle size="1.8rem" />
-                }
+                fallback={<BiUserCircle size="1.8rem" />}
                 alt=""
               />
 
@@ -227,7 +241,7 @@ const AccountSwitcherButton = () => {
                   </Box>
                 </Box>
               }
-            </> 
+            </>
           }
         </>
       </HStack>
@@ -263,12 +277,12 @@ const NavLink = (props) => {
       _hover={{
         bg: 'white',
         color: '#23395d',
-        border: '1px solid #23395d'
+        border: '1px solid #23395d',
       }}
       _activeLink={{
         bg: 'white',
         color: '#23395d',
-        border: '1px solid #23395d'
+        border: '1px solid #23395d',
       }}
       {...rest}
     >

@@ -367,7 +367,6 @@ export default function List() {
         }
 
         const handleSubmitEdit = async () => {
-
                 setOpenEdit(false);
                 window.location.replace('/project/list')
         }
@@ -381,40 +380,34 @@ export default function List() {
                 setOpenCreate(true);
         }
 
-        const team_project = async (name) => {
-                const cookie = new Cookies();
-                const access_token = cookie.get('access_token');
-                console.log(access_token);
+        const team_project = async () => {
                 axios.get("http://localhost:3001/me", {
+                        withCredentials: true,
                         headers: {
-                                Authorization: `Bearer ${Cookies.get("access_token")}`,
                                 "Content-Type": "application/json"
                         }
                 })
                         .then((result) => {
 
-                                console.log(result.data);
                                 console.log(result.data.name);
-
                                 axios.get("http://localhost:3001/student/project/" + result.data.name)
                                         .then((results) => {
                                                 setproject(results.data)
-                                                console.log(results.data);
                                         })
                                         .catch(error => console.log(error));
                         })
                         .catch(err => {
                                 console.log("Server error:", err);
                         });
-
         };
-   
+
 
         const handleDelete = async () => {
                 axios.post("http://localhost:3001/project/delete/" + deleteID)
                         .then((result) => {
                                 console.log("delete success");
-                                window.location.replace('/home/project/list')
+                                // window.location.replace('/home/project/list')
+                                window.location.reload();
                         })
                         .catch(error => console.log(error));
         }

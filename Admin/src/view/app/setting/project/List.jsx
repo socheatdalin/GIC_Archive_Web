@@ -264,11 +264,13 @@ export default function List() {
     const handleInputName = async (e) => {
         setInputName(e.target.value)
     }
+
     const handleInputMember = async (e) => {
         const newNameString = e.target.value;
         const namesArray = newNameString.split(',');
         setinputMember(e.target.value)
     }
+
     const handleInputID = async (e) => {
         setInputID(e.target.value)
     }
@@ -299,6 +301,7 @@ export default function List() {
     const handleID = async (e) => {
         setID(e.target.value)
     }
+
     const handleOpenFile = url => {
         window.open(url, '_blank', 'noopener,noreferrer');
     };
@@ -348,7 +351,7 @@ export default function List() {
                 setInputDesc(result.data[0].descr);
                 setInputCourse(result.data[0].course_name);
                 setinputMember(result.data[0].student_names);
-                setTeacherName(result.data[0].teacher_name);
+                setTeacherName(result.data[0].fullname);
                 setInputGit(result.data[0].github_url);
                 setFileName(result.data[0].fileName);
                 setInputPhoto(result.data[0].imagePath)
@@ -384,9 +387,13 @@ export default function List() {
             })
             .then((result) => {
                 console.log(result);
-                window.location.replace('/home/project/list')
+                // window.location.reload();
+                // window.location.replace('/home/project/list');
+                // window.location.href = '/home/project/list';
+
             })
             .catch(error => console.log(error));
+        window.location.href = '/home/project/list';
     }
 
     const onDeleteModalOpen = async (id) => {
@@ -413,7 +420,8 @@ export default function List() {
     const team_project = async () => {
         axios.get("http://localhost:3001/admin/project/all")
             .then((result) => {
-                setproject(result.data)
+                setproject(result.data);
+                project();
             })
             .catch(error => console.log(error));
     };

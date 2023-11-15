@@ -52,7 +52,7 @@ function ProDetail() {
               ) : (
                 <div className="d-flex justify-content-start grid gap-0 column-gap-5">
                   <img
-                    src={`http://localhost:3001/static/${photo}`}
+                    src={`http://localhost:3001/static/${project.imagepath}`}
                     style={{ width: "350px", height: "220px" }}
                     alt="network"
                   ></img>

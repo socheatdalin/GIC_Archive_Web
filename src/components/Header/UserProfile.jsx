@@ -20,8 +20,9 @@ function UserProfile() {
     useEffect(() => {
 
         axios.get("http://localhost:3001/me", {
+            withCredentials: true,
             headers: {
-                'Authorization': sessionStorage.getItem("access_token"),
+                // 'Authorization': sessionStorage.getItem("access_token"),
                 "Content-Type": "application/json"
             }
         })
@@ -36,7 +37,8 @@ function UserProfile() {
                 setLastName(result.data.last_name);
                 setGeneration(result.data.generation);
                 setRole(result.data.role_name);
-                // setuserId(result.data.id);
+                setuserId(result.data.teacher_id);
+                console.log("name:", result.data.name);
             })
             .catch(err => {
                 console.log("Server error:", err);

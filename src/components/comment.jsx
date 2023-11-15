@@ -3,21 +3,20 @@ import axios from "axios";
 import { useUser } from "./UserContext";
 import { useParams } from "react-router-dom";
 
-import { HiOutlinePencilAlt,HiOutlineTrash } from "react-icons/hi";
+import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 
 function Comment({ text, theme, project_id, thesis_id }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
   const { user } = useUser();
   const { id } = useParams();
-  const [photo, setPhoto] = useState(null);
+
 
   useEffect(() => {
     axios
       .get(`http://localhost:3001/comment/thesis/${id}`)
       .then((response) => {
         setComments(response.data);
-        setPhoto(response.data[0].filepath);
       })
       .catch((error) => {
         console.error(error);
@@ -31,7 +30,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         {
           comment_text: commentText,
           project_id,
-          thesis_id, 
+          thesis_id,
           student_id: user ? user.id : null, // Include the user's ID in the request
           teacher_id: user ? user.teacher_id : null,
         }
@@ -61,7 +60,7 @@ function Comment({ text, theme, project_id, thesis_id }) {
         );
       }
     } catch (error) {
-      console.error('Axios Error:', error);
+      console.error("Axios Error:", error);
     }
   };
 
@@ -71,15 +70,24 @@ function Comment({ text, theme, project_id, thesis_id }) {
     setDisplayedCommentCount(displayedCommentCount + 3); // Increase the number of displayed comments
   };
 
-  const CommentComponent = ({ comment }) => (
+  const CommentComponent = ({ comment, index }) => (
     <div className="comment-container d-flex justify-content-around">
       <div className="icon-container">
-        <img
-          src= {`http://localhost:3001/static/${photo}`}
-          className="rounded-circle"
-          width="60"
-          alt="pic"
-        />
+        {comment.role_name === "teacher" ? (
+          <img
+            src={`http://localhost:3001/static/${comment.teacher_image}`}
+            className="rounded-circle"
+            width="60"
+            alt="Teacher"
+          />
+        ) : (
+          <img
+            src={`http://localhost:3001/static/${comment.student_image}`}
+            className="rounded-circle"
+            width="60"
+            alt="Student"
+          />
+        )}
       </div>
       <div className="comment-content">
         <div className="user-info">

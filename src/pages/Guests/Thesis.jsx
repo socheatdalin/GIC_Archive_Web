@@ -1,164 +1,194 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Web from "../../assets/ux.png";
 import Mobile from "../../assets/user-interface.png";
 import Network from "../../assets/local-area-network.png";
 import Data from "../../assets/data-science.png";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../../styles/Thesis.css";
 import star from "../../assets/star.png";
-import { FaGithub } from 'react-icons/fa';
-import Header from '../../components/GuestHeader'
-class Thesis extends Component {
-    constructor(props){
-    super(props);
-    this.state = {
-        items: [],
-        isLoaded:false,
-    }
-}
+import { FaGithub } from "react-icons/fa";
+import GuestHeader from "../../components/GuestHeader";
 
-async fetchLikeCount(Id) {
-  try {
-    const response = await fetch(`http://localhost:3001/thesisliked/${Id}`);
-    if (response.ok) {
-      const data = await response.json();
-      return data[0].countlike; // Assuming the API response is an array with a single object
-    } else {
+function Thesis() {
+  const [items, setItems] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const fetchLikeCount = async (Id) => {
+    try {
+      const response = await fetch(`http://localhost:3001/thesisliked/${Id}`);
+      if (response.ok) {
+        const data = await response.json();
+        return data[0].countlike; // Assuming the API response is an array with a single object
+      } else {
+        return 0; // Handle error case
+      }
+    } catch (error) {
+      console.error("Error:", error);
       return 0; // Handle error case
     }
-  } catch (error) {
-    console.error('Error:', error);
-    return 0; // Handle error case
-  }
-}
+  };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/admin/thesis/all");
+        if (response.ok) {
+          const thesis = await response.json();
 
-async componentDidMount() {
-  try {
-    const response = await fetch('http://localhost:3001/admin/thesis/all');
-    if (response.ok) {
-      const thesis = await response.json();
+          // Fetch like count for each thesis
+          const updatedThesis = await Promise.all(
+            thesis.map(async (thesis) => {
+              const likeCount = await fetchLikeCount(thesis.thesis_id);
+              return { ...thesis, likeCount };
+            })
+          );
 
-      // Fetch like count for each project
-      const updatedProjects = await Promise.all(
-        thesis.map(async (thesis) => {
-          const likeCount = await this.fetchLikeCount(thesis.thesis_id);
-          return { ...thesis, likeCount };
-        })
+          setItems(updatedThesis);
+          setIsLoaded(true);
+        } else {
+          throw new Error("Failed to fetch thesis");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Run only once when the component mounts
+  const fetchDataForCategory = async (category) => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/admin/thesis/${category}`
       );
-
-      this.setState({
-        isLoaded: true,
-        items: updatedProjects,
-      });
-    } else {
-      throw new Error('Failed to fetch thesis');
+      if (response.ok) {
+        const data = await response.json();
+        const updatedData = await Promise.all(
+          data.map(async (thesis) => {
+            const likeCount = await fetchLikeCount(thesis.thesis_id);
+            return { ...thesis, likeCount };
+          })
+        );
+        setItems(updatedData);
+        setSelectedCategory(category);
+        setIsLoaded(true);
+      } else {
+        throw new Error("Failed to fetch thesis for category");
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-  } catch (error) {
-    console.error('Error:', error);
+  };
+  if (!isLoaded) {
+    return <div>Loading...</div>;
   }
-}
 
-render(){
-    var {isLoaded, items } = this.state;
-    if(!isLoaded) {
-        return <div>Loading...</div>;
-    }
-      return (
-            <>
-              <Header />
-              <div className="p-5 container">
-                <div className=" first-part">
-                  <div className="d-flex flex-row justify-content-between">
-                    <div>
-                      <h2 className="fw-semibold">Thesis</h2>
-                    </div>
-                    {/* <Dropdown /> */}
-                  </div>
-        
-                  <h6 >Everything you need to find in theis statement</h6>
-                </div>
-                <div className="d-flex flex-row rounded-pill justify-content-start grid gap-0 column-gap-2 my-4">
-                  <div
-                    className="Tags d-flex align-items-center justify-content-center p-2"
-                    style={{ width: "160px", height: "50px" }}
-                  >
-                    <img src={Web} alt="webpage" className="img-fluid img-smaller" />
-                    <span className="ms-2">Web</span>
-                  </div>
-                 
-                  <div
-                    className="Tags d-flex align-items-center justify-content-center p-2"
-                    style={{ width: "160px", height: "50px" }}
-                  >
-                    <img src={Mobile} alt="webpage" className="img-fluid img-smaller" />
-                    <span className="ms-2">Mobile</span>
-                  </div>
-        
-                  <div
-                    className="Tags d-flex align-items-center justify-content-center p-2"
-                    style={{ width: "160px", height: "50px" }}
-                  >
-                    <img
-                      src={Network}
-                      alt="webpage"
-                      className="img-fluid img-smaller"
-                    />
-                    <span className="ms-2">Network</span>
-                  </div>
-        
-                  <div
-                    className="Tags d-flex align-items-center justify-content-center p-2"
-                    style={{ width: "160px", height: "50px" }}
-                  >
-                    <img src={Data} alt="webpage" className="img-fluid img-smaller" />
-                    <span className="ms-2">Data Science</span>
-                  </div>
-                </div>
-                <div className="trending my-5">
-                  <h3 className="fw-semibold">Trending Thesis</h3>
-                </div>
-                {items.map((item) => (
-            <div className="shadow p-2 mb-5 bg-body-tertiary rounded d-lg-block ">
-              <div className="card-body row ">
-                <div className="col-lg-3 col-md-4 col-sm-12">
-                  <img
-                    src="data:image/jpeg;base64,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"
-                    alt="pic"
-                    className="img-fluid img-thesis"
-                  ></img>
-                </div>
-                <div className="col-lg-9 col-md-8 col-sm-12">
-                  <div className="row">
-                    <div className="information col-lg-9">
+  return (
+    <>
+      <GuestHeader />
+      <div className="p-5 container">
+        <div className="first-part">
+          <div className="d-flex flex-row justify-content-between">
+            <div>
+              <h2 className="fw-semibold">Thesis</h2>
+            </div>
+          </div>
+
+          <h6>Everything you need to find in theis statement</h6>
+        </div>
+        <div className="d-flex flex-row rounded-pill justify-content-start grid gap-0 column-gap-2 my-4">
+          <div
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${
+              selectedCategory === "web" ? "selected-category" : ""
+            }`}
+            style={{ width: "160px", height: "50px" }}
+            onClick={() => fetchDataForCategory("web")}
+          >
+            <img src={Web} alt="webpage" className="img-fluid img-smaller" />
+            <span className="ms-2">Web</span>
+          </div>
+          <div
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${
+              selectedCategory === "mobile" ? "selected-category" : ""
+            }`}
+            style={{ width: "160px", height: "50px" }}
+            onClick={() => fetchDataForCategory("mobile")}
+          >
+            <img src={Mobile} alt="webpage" className="img-fluid img-smaller" />
+            <span className="ms-2">Mobile</span>
+          </div>
+
+          <div
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${
+              selectedCategory === "network" ? "selected-category" : ""
+            }`}
+            style={{ width: "160px", height: "50px" }}
+            onClick={() => fetchDataForCategory("network")}
+          >
+            <img
+              src={Network}
+              alt="webpage"
+              className="img-fluid img-smaller"
+            />
+            <span className="ms-2">Network</span>
+          </div>
+
+          <div
+            className={`Tags d-flex align-items-center justify-content-center p-2 ${
+              selectedCategory === "datascience" ? "selected-category" : ""
+            }`}
+            style={{ width: "160px", height: "50px" }}
+            onClick={() => fetchDataForCategory("datascience")}
+          >
+            <img src={Data} alt="webpage" className="img-fluid img-smaller" />
+            <span className="ms-2">Data Science</span>
+          </div>
+        </div>
+        <div className="trending my-5">
+          <h3 className="fw-semibold">Trending Thesis</h3>
+        </div>
+        {items.map((item) => (
+          <div
+            className="shadow p-2 mb-5 bg-body-tertiary rounded d-lg-block "
+            key={item.id}
+          >
+            <div className="card-body row ">
+              <div className="col-lg-3 col-md-4 col-sm-12">
+                <img
+                  src={`http://localhost:3001/static/${item.imagePath}`}
+                  alt="pic"
+                  className="img-fluid img-thesis"
+                ></img>
+              </div>
+              <div className="col-lg-9 col-md-8 col-sm-12">
+                <div className="row">
+                  <div className="information col-lg-9">
                     <div key={item.id}>
-                        <h4 className="fw-semibold">{item.title} </h4>
-                        <h6 className="text-primary text-opacity-75">
+                      <h4 className="fw-semibold">{item.title} </h4>
+                      <h6 className="text-primary text-opacity-75">
                         <FaGithub /> {item.github_url}
-                        </h6>
-                        <p className="text-secondary">{item.descr}</p>
-                        <Link to={`/thesisguest/${item.thesis_id}`}>
-                          <button className="btn btn-outline-primary fw-bolder">
-                            View
-                          </button>
-                        </Link>
-                      </div>
+                      </h6>
+                      <p className="text-secondary">{item.descr}</p>
+                      <Link to={`/thesisguest/${item.thesis_id}`}>
+                        <button className="btn btn-outline-primary fw-bolder">
+                          View
+                        </button>
+                      </Link>
                     </div>
-                    <div className="col-lg-3">
-                      <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
-                        <img src={star} className=" img-star" alt="pic"></img>
-                        {item.likeCount}
-                      </button>
-                    </div>
+                  </div>
+                  <div className="col-lg-3">
+                    <button className="d-inline-flex focus-ring py-1 px-2 text-decoration-none border rounded-2">
+                      <img src={star} className=" img-star" alt="pic"></img>
+                      {item.likeCount}
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-                ))} 
-              </div>
-            </>
-          );
-        }
-    }
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
 
 export default Thesis;
