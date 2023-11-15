@@ -257,12 +257,8 @@ export default function List() {
         const response =
             await axios.get("http://localhost:3001/course/" + course_id)
                 .then((result) => {
-                    setName(result.data[0].course_name);
+                    setCourseName(result.data[0].course_name);
                 }).catch((error) => console.log(error));
-
-        // setID(response.data[0].id);
-        // setTeacher(response.data[0].teacher_name);
-        // setPhoto(response.data[0].photo);
         setOpenEdit(true);
     }
     const handleSearch = (e) => {
@@ -279,25 +275,36 @@ export default function List() {
                 console.log(result);
                 setName(result.data[0].course_name);
                 setID(result.data[0].course_id);
-                setTeacher(result.data[0].username);
+                setTeacher(result.data[0].fullname);
                 setInputPhoto(result.data[0].filepath);
             })
             .catch(error => console.log(error));
         setOpenView(true);
     }
     const handleSubmitEdit = async (course_id) => {
+        console.log(course_id);
         try {
+            const headers = {
+                'Content-Type': 'application/json',
+                // Add any other headers as needed
+            };
 
-            await axios.post(`http://localhost:3001/course/update/${course_id}`, { course_name: courseName }).then((result) => {
-                console.log(result.data);
-                window.location.replace('/home/course/list');
-            })
-                .catch(error => console.log(error));
+            await axios.post('http://localhost:3001/course/update/' + course_id,
+                { course_name: courseName },
+                { headers: headers }
+            )
+                .then((result) => {
+                    console.log(result.data);
+                    window.location.replace('/home/course/list');
+                })
+                .catch((error) => console.log(error));
+
             setOpenEdit(true);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
+
 
     const onDeleteModalOpen = async (id) => {
         setDeleteID(id)
@@ -522,8 +529,8 @@ export default function List() {
                                     placeholder="Please enter course name"
                                     variant="outlined"
                                     color="neutral"
-                                    value={Name}
-                                    onChange={handleName}
+                                    value={courseName}
+                                    onChange={handleNewName}
                                 />
                                 {/* <FormLabel required>Teacher Name</FormLabel>
                                 <Input
@@ -707,7 +714,7 @@ export default function List() {
                                         >
                                             <td>{row.course_id}</td>
                                             <td >{row.course_name}</td>
-                                            <td >{row.username}</td>
+                                            <td >{row.fullname}</td>
 
                                             <td>
                                                 <Center spacing={2} gap="8">
