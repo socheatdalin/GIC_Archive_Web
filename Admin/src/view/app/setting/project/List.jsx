@@ -394,12 +394,12 @@ export default function List() {
             .then((result) => {
                 console.log(result);
                 // window.location.reload();
-                // window.location.replace('/home/project/list');
+                window.location.replace('/home/project/list');
                 // window.location.href = '/home/project/list';
 
             })
             .catch(error => console.log(error));
-        window.location.href = '/home/project/list';
+        // window.location.href = '/home/project/list';
     }
 
     const onDeleteModalOpen = async (id) => {
@@ -427,7 +427,7 @@ export default function List() {
         axios.get("http://localhost:3001/admin/project/all")
             .then((result) => {
                 setproject(result.data);
-                project();
+                // project();
             })
             .catch(error => console.log(error));
     };
@@ -526,7 +526,7 @@ export default function List() {
                                 <Input
                                     placeholder="Please enter title"
                                     type='text'
-                                    id='username'
+                                    id='title'
                                     defaultValue=''
                                     variant="outlined"
                                     color="neutral"
@@ -550,7 +550,7 @@ export default function List() {
                                     color="neutral"
                                     onChange={handleInputName}
                                 /> */}
-                                <FormLabel required>Student name</FormLabel>
+                                {/* <FormLabel required>Student name</FormLabel>
                                 <SELECT_OPTIONS
                                     variant="outlined"
                                     color="neutral"
@@ -558,7 +558,7 @@ export default function List() {
                                     onChange={handleSelectType}
                                     defaultValue={[Student_Name[4], Student_Name[5]]}
                                     options={Student_Name}
-                                />
+                                /> */}
                                 <FormLabel required>Git </FormLabel>
                                 <Input
                                     placeholder="Please enter your course"

@@ -352,7 +352,7 @@ export default function List() {
       .then((result) => {
         // setAddress(result.data[0].address)
         setEmail(result.data[0].email);
-        setName(result.data[0].username);
+        setName(result.data[0].fullname);
         setID(result.data[0].student_id);
         setGender(result.data[0].gender);
         setInputFirstName(result.data[0].first_name);
@@ -1029,7 +1029,7 @@ export default function List() {
                       key={row.name}
                     >
                       <td>{row.student_id}</td>
-                      <td>{row.username}</td>
+                      <td>{row.fullname}</td>
                       <td>{row.gender}</td>
                       <td>{row.email}</td>
                       <td>{row.generation}</td>

@@ -7,36 +7,59 @@ import Footer from './Footer';
 import About from './aboutus';
 import { Link } from 'react-router-dom';
 import Navbar from '../Header/Navbar';
+import { useUser } from "../../components/UserContext";
+import { useState } from "react";
 function Home() {
+
+  const [loading, setLoading] = useState(true);
+  const user = useUser();
   return (
     <>
-    <Navbar />
-   
-    <div>
-      <div className="container">
-      <div className="row">
-        <div className="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
-          <h1 className = "fw-semibold MuiTypography-root MuiTypography-h1 css-1l41qki-MuiTypography-root ">Discover a place where you will love to looking for</h1>
-          <h5>All of the project and thesis will be hosting in here</h5>
-          <p>Be the first to get the best knowledge before they hit the mass market! Hot Foreclosure deals with one simple search</p>
-          <div className=" justify-content-start">
-                        <Link to='/login'><button className="btn me-md-2" type="button">Sign in</button></Link>
-                    </div>
-        </div>
-        <div class="col-lg-6 order-1 order-lg-2 hero-img pt-3" data-aos="zoom-in" data-aos-delay="200">
-          <img src={ hero } class="img-fluid" alt="" />
-        </div>
-        
-      </div>
-      
-    </div>
-    <Service/>
-    <About />
-    <Footer />
+      <Navbar />
 
-    </div>
+      <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+              <h1 className="fw-semibold MuiTypography-root MuiTypography-h1 css-1l41qki-MuiTypography-root ">Discover a place where you will love to looking for</h1>
+              <h5>All of the project and thesis will be hosting in here</h5>
+              <p>Be the first to get the best knowledge before they hit the mass market! Hot Foreclosure deals with one simple search</p>
+              <div className=" justify-content-start">
+                {loading ? (
+                  <div></div>
+                ) : (
+                  <div>
+                    {user ? (
+                      // Content to be displayed when the user is logged in
+                      <div>
+                        <p>Welcome, {user.username}!</p>
+                      </div>
+                    ) : (
+                      // Content to be displayed when the user is not logged in
+                      <div>
+                        <Link to='/login'>
+                          <button className="btn me-md-2" type="button">Sign in</button>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div class="col-lg-6 order-1 order-lg-2 hero-img pt-3" data-aos="zoom-in" data-aos-delay="200">
+              <img src={hero} class="img-fluid" alt="" />
+            </div>
+
+          </div>
+
+        </div>
+        <Service />
+        <About />
+        <Footer />
+
+      </div>
     </>
-    
+
   );
 }
 export default Home;

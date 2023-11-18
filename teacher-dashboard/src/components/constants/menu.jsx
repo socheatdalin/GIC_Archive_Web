@@ -1,4 +1,5 @@
 import { BiMedal, BiDoorOpen, BiBookBookmark, BiDetail } from 'react-icons/bi';
+import { PiProjectorScreenChartLight } from 'react-icons/pi';
 export const MenuConstants = [
   {
     // name: 'LIST',
@@ -26,6 +27,12 @@ export const MenuConstants = [
         name: 'Class project',
         path: '/home/project/list',
         icon: <BiBookBookmark />,
+      },
+      {
+        id: 'profile',
+        name: 'Profile',
+        path: '/home/profile/list',
+        icon: <PiProjectorScreenChartLight />,
       },
     ],
   },
