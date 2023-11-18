@@ -36,8 +36,6 @@ function Navbar() {
                         .catch(err => {
                                 console.log("Server error:", err);
                         });
-
-
         }, [])
         const handleLogin = () => {
                 axios.get("http://localhost:3001/me", {
@@ -49,38 +47,12 @@ function Navbar() {
                         .then((result) => {
                                 setAuth(true);
                                 console.log(result.data.role_name);
-                                // axios.post("http://localhost:3001/login", { email: result.data.email, password: password, role: role })
-                                //         .then((response) => {
-                                //                 const token = response.data.token;
-
-                                //                 if (role === "student" || role === "teacher") {
-                                //                         console.log(response.data);
-                                //                         console.log("Login successful");
-                                //                         console.log(token);
-                                //                         console.log(response.data.email);
-                                //                         // sessionStorage.setItem("access_token", token);
-                                //                 }
-
-                                //                 else {
-                                //                         window.location.href = "http://localhost:3002/home";
-                                //                 }
-                                //         })
-                                //         .catch(err => {
-                                //                 console.log("Server error:", err);
-                                //         });
                                 if (result.data.role_name === 'student') {
-                                        // const token = response.data.token;
-                                        // console.log(response.data);
                                         console.log("Login successful");
-                                        // console.log(token);
-                                        // console.log(response.data.email);
                                         window.location.replace('http://localhost:3003/home');
                                 }
                                 else if (result.data.role_name === 'teacher') {
-                                        // console.log(response.data);
                                         console.log("Login successful");
-                                        // console.log(token);
-                                        // console.log(response.data.email);
                                         window.location.replace('http://localhost:3004/home');
                                 }
 

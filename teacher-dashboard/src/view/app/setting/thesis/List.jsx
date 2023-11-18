@@ -348,6 +348,7 @@ export default function List() {
       })
       .then((result) => {
         setthesis(result.data);
+
       })
       .catch((error) => console.log(error));
   };
@@ -404,7 +405,7 @@ export default function List() {
     formData.append('title', inputTitle);
     formData.append('field', inputType.value);
     formData.append('company', inputCompany);
-    formData.append('teacher_name', InputTeacherName);
+    // formData.append('teacher_name', InputTeacherName);
     formData.append('descr', inputDesc);
     formData.append('github_url', inputGit);
     formData.append('tags', inputTag);
@@ -412,18 +413,26 @@ export default function List() {
     formData.append('file', inputFile);
     console.log(formData.get('file'));
     console.log(formData.get('image'));
-    axios
-      .post('http://localhost:3001/admin/thesis/create', formData, {
+    try {
+      const result = await axios.get("http://localhost:3001/me", {
+        withCredentials: true,
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "application/json",
         },
-      })
-      .then((result) => {
-        console.log(result);
-        // console.log("hello");
-        window.location.replace('/home/thesis/list');
-      })
-      .catch((error) => console.log(error));
+      });
+
+      console.log(result.data.teacher_id);
+      const results = await axios.post(
+        "http://localhost:3001/teacher/thesis/create/" + result.data.teacher_id,
+        formData
+      );
+      console.log(results);
+      window.location.replace("/home/thesis/list");
+
+    } catch (error) {
+      console.log("Error:", error);
+    }
+    window.location.replace("/home/thesis/list");
   };
 
   const onDeleteModalOpen = async (id) => {
@@ -447,7 +456,7 @@ export default function List() {
         console.log(result.data.teacher_id);
         axios.get("http://localhost:3001/teacher/thesis/display/" + result.data.teacher_id)
           .then((results) => {
-            setthesis(results.data)
+            setthesis(results.data);
             thesis();
           })
           .catch(error => console.log(error));
@@ -462,7 +471,9 @@ export default function List() {
       .then((result) => {
         console.log("delete success");
         // history.push('/home/thesis/list');
-        window.location.replace('/home/thesis/list')
+        
+        window.location.replace('/home/thesis/list');
+
       })
       .catch(error => console.log(error));
   }
@@ -572,7 +583,7 @@ export default function List() {
                   color="neutral"
                   onChange={handleInputName}
                 />
-                <FormLabel required>Supervisor Name</FormLabel>
+                {/* <FormLabel required>Supervisor Name</FormLabel>
                 <Input
                   placeholder="Please enter supervisor's name "
                   type="text"
@@ -581,7 +592,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   onChange={handleTeacherName}
-                />
+                /> */}
                 <FormLabel required>Company </FormLabel>
                 <Input
                   placeholder="Please enter your company"
