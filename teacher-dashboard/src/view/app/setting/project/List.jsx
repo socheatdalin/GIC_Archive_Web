@@ -368,7 +368,7 @@ export default function List() {
 
         const formData = new FormData();
         formData.append('title', inputTitle);
-        formData.append('course_name', inputCourse);
+        // formData.append('course_name', inputCourse);
         formData.append('descr', inputDesc);
         formData.append('github_url', inputGit);
         formData.append('image', inputPhoto);
@@ -376,17 +376,26 @@ export default function List() {
         console.log(formData.get('image'));
         console.log(formData.get('file'));
 
-        axios.post("http://localhost:3001/admin/project/create", formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
+        axios.get("http://localhost:3001/me", {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
             .then((result) => {
-                console.log(result);
-                window.location.replace('/home/project/list')
+
+                console.log(result.data.teacher_id);
+                axios.post("http://localhost:3001/teacher/project/create/" + result.data.teacher_id, formData)
+                    .then((results) => {
+                        // setproject(results.data)
+                        console.log(results)
+                        window.location.replace('/home/project/list')
+                    })
+                    .catch(error => console.log(error));
             })
-            .catch(error => console.log(error));
+            .catch(err => {
+                console.log("Server error:", err);
+            });
     }
 
     const onDeleteModalOpen = async (id) => {
@@ -411,11 +420,24 @@ export default function List() {
     };
 
     const team_project = async () => {
-        axios.get("http://localhost:3001/admin/project/all")
+        axios.get("http://localhost:3001/me", {
+            withCredentials: true,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
             .then((result) => {
-                setproject(result.data)
+
+                console.log(result.data.teacher_id);
+                axios.get("http://localhost:3001/teacher/project/" + result.data.teacher_id)
+                    .then((results) => {
+                        setproject(results.data)
+                    })
+                    .catch(error => console.log(error));
             })
-            .catch(error => console.log(error));
+            .catch(err => {
+                console.log("Server error:", err);
+            });
     };
 
     const handleDelete = async () => {

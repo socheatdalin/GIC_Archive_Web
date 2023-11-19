@@ -323,7 +323,7 @@ export default function List() {
         console.log(result);
         setName(result.data[0].course_name);
         setID(result.data[0].course_id);
-        setTeacher(result.data[0].username);
+        setTeacher(result.data[0].fullname);
         setInputPhoto(result.data[0].filepath);
       })
       .catch((error) => console.log(error));
@@ -646,7 +646,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   value={teacher_name}
-                  // onChange={handleTeach}
+                // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>
@@ -870,7 +870,7 @@ export default function List() {
                     >
                       <td>{row.course_id}</td>
                       <td>{row.course_name}</td>
-                      <td>{row.username}</td>
+                      <td>{row.fullname}</td>
 
                       <td>
                         <Center spacing={2} gap="8">

@@ -144,6 +144,7 @@ function EnhancedTableHead(props) {
                   : undefined
               }
             >
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <Link
                 underline="none"
                 color="neutral"
@@ -238,6 +239,7 @@ export default function List() {
     setDeleteID(teacher_id);
     setOpenDelete(true);
   };
+
 
   useEffect(() => {
     students();
@@ -339,9 +341,7 @@ export default function List() {
       })
       .then((result) => {
         console.log(result.data);
-        // window.location.replace('/home/student/list');
-        setOpen(false);
-        students();
+        window.location.href = '/home/student/list';
       })
       .catch((error) => console.log(error));
   };
@@ -350,6 +350,7 @@ export default function List() {
     await axios
       .get('http://localhost:3001/admin/student/' + student_id)
       .then((result) => {
+        // setAddress(result.data[0].address)
         setEmail(result.data[0].email);
         setName(result.data[0].username);
         setID(result.data[0].student_id);
@@ -362,6 +363,7 @@ export default function List() {
       .catch((error) => console.log(error));
     setOpenView(true);
   };
+
   // const handleEdit = async (student_id) => {
   //      await axios
   //           .get('http://localhost:3001/displayOne/student/' + student_id)
@@ -391,17 +393,14 @@ export default function List() {
     formData.append('image', inputPhoto);
     console.log(formData.get('image'));
     axios
-      .put(
-        'http://localhost:3001/admin/student/update/' + student_id,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      )
+      .post('http://localhost:3001/admin/student/update/' + student_id, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then((result) => {
         console.log(result.data);
+        window.location.replace('/home/student/list');
       })
       .catch((error) => console.log(error));
     setOpenEdit(true);
@@ -456,10 +455,7 @@ export default function List() {
 
   const handleSearch = (e) => {
     // console.log(search)
-    axios
-      .post('http://localhost:3001/admin/student/all/generation', {
-        generation: inputGeneration.value,
-      })
+    axios.post('http://localhost:3001/admin/student/all/generation', { generation: inputGeneration.value })
       .then((result) => {
         setStudent(result.data);
       })
@@ -720,6 +716,7 @@ export default function List() {
               </VStack>
               <VStack spacing="3" ml="40px">
                 <FormControl sx={{ width: '300px' }}>
+
                   <FormLabel required>Password</FormLabel>
                   <Input
                     startDecorator={<KeyRoundedIcon />}
@@ -751,6 +748,7 @@ export default function List() {
                   />
                 </FormControl>
               </VStack>
+
             </Grid>
           </Sheet>
         </ModalEdit>
@@ -924,6 +922,7 @@ export default function List() {
         </Sheet>
       </ModalDelete>
 
+
       <Grid
         as="form"
         templateColumns="auto max-content"
@@ -955,9 +954,7 @@ export default function List() {
             templateColumns="15vw max-content"
             gap="4"
           >
-            <FormControl
-              sx={{ width: '200px', left: '910px', position: 'absolute' }}
-            >
+            <FormControl sx={{ width: '200px', left: '910px', position: 'absolute' }}>
               <SELECT_OPTIONS
                 onChange={handleSelectGeneration}
                 placeholder="Select Generation"
@@ -1157,4 +1154,6 @@ export default function List() {
       </Box>
     </Flex>
   );
+
 }
+

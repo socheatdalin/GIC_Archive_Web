@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import star from "../assets/star.png";
 import Dropdown from "react-bootstrap/Dropdown";
 import "reactjs-popup/dist/index.css";
-import { FaGithub } from 'react-icons/fa';
+import { FaGithub } from "react-icons/fa";
 import Loader from "../components/Loader";
 
 function Project() {
@@ -21,13 +21,15 @@ function Project() {
         return 0; // Handle error case
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
       return 0; // Handle error case
     }
   }
   const fetchDataForCategory = async (eventKey) => {
     try {
-      const response = await fetch(`http://localhost:3001/admin/project/all/${eventKey}`);
+      const response = await fetch(
+        `http://localhost:3001/admin/project/all/${eventKey}`
+      );
       if (response.ok) {
         const data = await response.json();
         const updatedData = await Promise.all(
@@ -54,7 +56,7 @@ function Project() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3001/admin/project/all');
+        const response = await fetch("http://localhost:3001/admin/project/all");
         if (response.ok) {
           const projects = await response.json();
 
@@ -69,10 +71,10 @@ function Project() {
           setItems(updatedProjects);
           setIsLoaded(true);
         } else {
-          throw new Error('Failed to fetch projects');
+          throw new Error("Failed to fetch projects");
         }
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     }
 
@@ -98,16 +100,19 @@ function Project() {
               </Dropdown.Toggle>
 
               <Dropdown.Menu>
-                <Dropdown.Item eventKey="OperatingSystem">Operating System</Dropdown.Item>
+                <Dropdown.Item eventKey="Operating System">Operating System</Dropdown.Item>
                 <Dropdown.Item eventKey="Network">Network</Dropdown.Item>
-                <Dropdown.Item eventKey="SoftwareEngineering">Software Engineering</Dropdown.Item>
-                <Dropdown.Item eventKey="InternetProgramming">Internet Programming</Dropdown.Item>
+                <Dropdown.Item eventKey="Software Engineering">Software Engineering</Dropdown.Item>
+                <Dropdown.Item eventKey="Internet Programming">Internet Programming</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </div>
         </div>
         {items.map((item) => (
-          <div className="shadow  p-2 mb-5 bg-body-tertiary rounded d-lg-block " key={item.id}>
+          <div
+            className="shadow  p-2 mb-5 bg-body-tertiary rounded d-lg-block "
+            key={item.id}
+          >
             <div className="card-project row ">
               <div className="col-lg-3 col-md-4 col-sm-12">
                 <img
