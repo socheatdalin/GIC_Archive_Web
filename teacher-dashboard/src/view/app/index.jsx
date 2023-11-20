@@ -18,7 +18,7 @@ const DelayImport = (path) => {
 const Courses = DelayImport(import('./setting/course'));
 const Dashboard = DelayImport(import('./setting/dashboard'));
 const Project = DelayImport(import('./setting/project'));
-
+const Profile= DelayImport(import('./setting/profile'));
 const Thesis = DelayImport(import('./setting/thesis'));
 
 
@@ -39,6 +39,10 @@ const routeItem = [
   {
     path: '/home/project',
     element: <Project />,
+  },
+  {
+    path: '/home/profile',
+    element: <Profile />,
   },
 
 ];

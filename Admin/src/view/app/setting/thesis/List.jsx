@@ -269,7 +269,8 @@ export default function List() {
   const [open, setOpen] = React.useState(false);
   const [length, setLength] = useState([]);
   const [index, setIndex] = useState('');
-
+  const [teachers, setTeachers] = React.useState([]);
+  const [students, setStudents] = React.useState([]);
   const rows = thesis;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -288,6 +289,21 @@ export default function List() {
   };
   useEffect(() => {
     Thesis();
+    const fetchData = async () => {
+      try {
+        // Fetch student data
+        const studentsData = await handleStudent();
+        setStudents(studentsData);
+
+        // Fetch teacher data
+        const teachersData = await handleTeacher();
+        setTeachers(teachersData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+    fetchData();
+
   }, []);
 
   const [search1, setSearch1] = useState('');
@@ -371,7 +387,32 @@ export default function List() {
     setID(response.data[0].id);
     setDesc(response.data[0].descr);
   };
-
+  const handleTeacher = async () => {
+    try {
+      axios.get('http://localhost:3001/student/getTeacher')
+        .then((result) => {
+          setTeachers(result.data);
+          // console.log(teachers);
+        })
+        .catch(error => console.log(error));
+    }
+    catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  const handleStudent = async () => {
+    try {
+      axios.get('http://localhost:3001/teacher/getstudent')
+        .then((result) => {
+          setStudents(result.data);
+          // console.log(students);
+        })
+        .catch(error => console.log(error));
+    }
+    catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
   const handleView = async (thesis_id) => {
     await axios
       .get('http://localhost:3001/admin/thesis/all/' + thesis_id)
@@ -432,6 +473,8 @@ export default function List() {
       })
       .then((result) => {
         console.log(result);
+
+        window.location.replace('/home/thesis/list');
       })
       .catch((error) => console.log(error));
     window.location.replace('/home/thesis/list');
@@ -563,22 +606,24 @@ export default function List() {
                   onChange={handleInputTitle}
                 />
                 <FormLabel required>Student Name</FormLabel>
-                <SELECT_OPTIONS
+                <Input
+                  placeholder="Please enter student name"
+                  type="text"
+                  id="title"
+                  defaultValue=""
                   variant="outlined"
                   color="neutral"
-                  placeholder="Please enter student's name"
-                  onChange={handleSelectType}
-                  defaultValue={[Student_Name[4], Student_Name[5]]}
-                  options={Student_Name}
+                  onChange={handleInputName}
                 />
                 <FormLabel required>Supervisor Name</FormLabel>
-                <SELECT_OPTIONS
+                <Input
+                  placeholder="Please enter supervisor name"
+                  type="text"
+                  id="title"
+                  defaultValue=""
                   variant="outlined"
                   color="neutral"
-                  placeholder="Select a supervisor's name"
-                  onChange={handleSelectType}
-                  defaultValue={[Teacher_Name[4], Teacher_Name[5]]}
-                  options={Teacher_Name}
+                  onChange={handleTeacherName}
                 />
                 <FormLabel required>Company </FormLabel>
                 <Input
@@ -820,7 +865,7 @@ export default function List() {
                   variant="outlined"
                   color="neutral"
                   value={Type}
-                  // onChange={handleTeach}
+                // onChange={handleTeach}
                 />
               </FormControl>
             </VStack>

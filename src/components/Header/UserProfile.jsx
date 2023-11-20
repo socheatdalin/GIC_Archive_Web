@@ -22,7 +22,7 @@ function UserProfile() {
         axios.get("http://localhost:3001/me", {
             withCredentials: true,
             headers: {
-                // 'Authorization': sessionStorage.getItem("access_token"),
+                'Authorization': sessionStorage.getItem("access_token"),
                 "Content-Type": "application/json"
             }
         })

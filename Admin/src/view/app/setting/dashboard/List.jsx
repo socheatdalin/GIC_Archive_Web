@@ -344,7 +344,7 @@ export default function List() {
                 </Card>
 
             </Box>
-            <Box ml="10px" mt="30px" flex="5" overflow="auto" display="flex" justifyContent="space-around">
+            <Box ml="10px" mt="30px" flex="5" overflow="auto" display="flex" justifyContent="space-evenly">
                 <Box>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateCalendar />
@@ -428,27 +428,6 @@ export default function List() {
                         </Box>
                     </Box>
                 </Box>
-                {/* <Box>
-                    <div>
-                        <LineChart
-                            width={500} height={300}
-                            data={value}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}>
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" />
-                            <YAxis />
-                            <Tooltip />
-                            <Legend />
-                            <Line type="monotone" dataKey="c1" stroke="red" activeDot={{ r: 12 }} />
-                            <Line type="monotone" dataKey="c2" stroke="green" />
-                        </LineChart>
-                    </div>
-                </Box> */}
             </Box>
         </Flex>
     );

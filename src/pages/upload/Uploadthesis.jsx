@@ -117,21 +117,12 @@ const FileUploadForm = () => {
         "Content-Type": "application/json"
       }
     })
-    //   .then((result) => {
-    //     console.log(result.data.id);
-    //   })
-    //   .catch(err => {
-    //     console.log("Server error:", err);
-    //   });
-
-    // axios.get('http://localhost:3001/student/getTeacher')
-    //   .then(result => {
-    //     console.log(result.data);
-    //     setTeacher(result.data);
-    //     // console.log(result.data);
-    //     console.log(teacher);
-    //   })
-    //   .catch(error => console.log(error));
+      .then((result) => {
+        console.log(result.data.id);
+      })
+      .catch(err => {
+        console.log("Server error:", err);
+      });
   }, []);
 
   return (
@@ -149,40 +140,24 @@ const FileUploadForm = () => {
                   <label for="" class="form-label">Title</label>
                   <input type="title" name='title' class="form-control" placeholder="Please enter your Title" onChange={(e) => setinputTitle(e.target.value)} value={inputTitle} required></input>
                 </div>
-                {/* <div class="mb-3 ">
-                  <label for="" class="form-label">Name</label>
-                  <input type="name" name="name" class="form-control" id="" placeholder="Please enter your name" onChange={(e) => setInputName(e.target.value)}
-                    value={inputname} required></input>
-                </div> */}
                 <div className="mb-3">
                   <label htmlFor="teacher" className="form-label">
                     Teacher's name
                   </label>
-                  <select
+                  {/* <select
                     id="teacher"
                     name="teacher"
-                  
+                    defaultValue={"choose teacher"}
                     className="form-select form-select-md"
                     placeholder="Please enter your teacher's name"
                     required
                   >
-                     {teachers.map((teacher, index) => (
-                  
+                    <option key="default">choose teacher</option>
+                    {teachers.map((teacher, index) => (
                       <option key={index}>{teacher.fullname}</option>
                     ))}
-                    {/* <option value="">{teacher[0].fullname}</option> */}
-
-
-                    {/* {teacher.map((teacher, index) => (
-                      <option key={index}>{teacher.fullname}</option>
-                    ))} */}
-                    {/* <option value="">{teacher[0].fullname}</option> */}
-                    {/* <ul>
-                      {teacher.map((teachers, index) => (
-                        <li key={index}>{teachers.fullname}</li>
-                      ))}
-                    </ul> */}
-                  </select>
+                  </select> */}
+                  <input type="title" name='title' class="form-control" placeholder="Please enter your supervisor" onChange={(e) => setInputName(e.target.value)} value={inputname} required></input>
                 </div>
 
                 <div class="mb-3  ">

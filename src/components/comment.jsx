@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useUser } from "./UserContext";
 import { useParams } from "react-router-dom";
-
+import moment from 'moment'
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 
 function Comment({ text, theme, project_id, thesis_id }) {
@@ -69,43 +69,82 @@ function Comment({ text, theme, project_id, thesis_id }) {
   const loadMoreComments = () => {
     setDisplayedCommentCount(displayedCommentCount + 3); // Increase the number of displayed comments
   };
+  const CommentComponent = ({ comment, index }) => {
+    const formattedTimestamp = moment(comment.timestamp).format('MMMM Do YYYY, h:mm:ss a');
 
-  const CommentComponent = ({ comment, index }) => (
-    <div className="comment-container d-flex justify-content-around">
-      <div className="icon-container">
-        {comment.role_name === "teacher" ? (
-          <img
-            src={`http://localhost:3001/static/${comment.teacher_image}`}
-            className="rounded-circle"
-            width="60"
-            alt="Teacher"
-          />
-        ) : (
-          <img
-            src={`http://localhost:3001/static/${comment.student_image}`}
-            className="rounded-circle"
-            width="60"
-            alt="Student"
-          />
-        )}
-      </div>
-      <div className="comment-content">
-        <div className="user-info">
-          <h6 className="user fw-bold">{comment.student_username}</h6>
-          <h6 className="user fw-bold">{comment.teacher_username}</h6>
-          <p className="comment-text">{comment.comment_text}</p>
+    return (
+      <div className="comment-container d-flex justify-content-around">
+        <div className="icon-container">
+          {comment.role_name === "teacher" ? (
+            <img
+              src={`http://localhost:3001/static/${comment.teacher_image}`}
+              className="rounded-circle"
+              width="60"
+              alt="Teacher"
+            />
+          ) : (
+            <img
+              src={`http://localhost:3001/static/${comment.student_image}`}
+              className="rounded-circle"
+              width="60"
+              alt="Student"
+            />
+          )}
         </div>
-        <p className="timestamp ">{comment.timestamp}</p>
+        <div className="comment-content">
+          <div className="user-info">
+            <h6 className="user fw-bold">{comment.student_username}</h6>
+            <h6 className="user fw-bold">{comment.teacher_username}</h6>
+            <p className="comment-text">{comment.comment_text}</p>
+          </div>
+          <p className="timestamp ">{formattedTimestamp}</p>
+        </div>
+        <div>
+          <HiOutlineTrash
+            onClick={() => deleteComment(comment.comment_id)}
+            style={{ cursor: "pointer", color: "#ff0000" }}
+          />
+        </div>
       </div>
-      <div>
-        {/* <HiOutlinePencilAlt style={{ cursor: "pointer"}} /> */}
-        <HiOutlineTrash
-          onClick={() => deleteComment(comment.comment_id)}
-          style={{ cursor: "pointer", color: "#ff0000" }}
-        />
-      </div>
-    </div>
-  );
+    );
+  };
+
+  // const CommentComponent = ({ comment, index }) => (
+  //   <div className="comment-container d-flex justify-content-around">
+  // <div className="icon-container">
+  //   {comment.role_name === "teacher" ? (
+  //     <img
+  //       src={`http://localhost:3001/static/${comment.teacher_image}`}
+  //       className="rounded-circle"
+  //       width="60"
+  //       alt="Teacher"
+  //     />
+  //   ) : (
+  //     <img
+  //       src={`http://localhost:3001/static/${comment.student_image}`}
+  //       className="rounded-circle"
+  //       width="60"
+  //       alt="Student"
+  //     />
+  //   )}
+  // </div>
+  //     <div className="comment-content">
+  //       <div className="user-info">
+  //         <h6 className="user fw-bold">{comment.student_username}</h6>
+  //         <h6 className="user fw-bold">{comment.teacher_username}</h6>
+  //         <p className="comment-text">{comment.comment_text}</p>
+  //       </div>
+  //       <p className="timestamp ">{comment.timestamp}</p>
+  //     </div>
+  //     <div>
+  //       {/* <HiOutlinePencilAlt style={{ cursor: "pointer"}} /> */}
+  //       <HiOutlineTrash
+  //         onClick={() => deleteComment(comment.comment_id)}
+  //         style={{ cursor: "pointer", color: "#ff0000" }}
+  //       />
+  //     </div>
+  //   </div>
+  // );
 
   return (
     <>
