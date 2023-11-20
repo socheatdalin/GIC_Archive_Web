@@ -353,7 +353,7 @@ export default function List() {
       .then((result) => {
         console.log(result.data);
         window.location.replace('/home/course/list');
-        course();
+        window.location.reload();
       })
       .catch((error) => console.log(error));
   };
